@@ -5,12 +5,18 @@ import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
-public abstract class Subscription implements Observer {
+public abstract class Subscription {
     protected String user_name;
     public String password;
     protected String name;
     public Permissions permissions;
     protected HashSet<String> alerts = new HashSet<>();
+
+    public Subscription(String arg_user_name, String arg_password){
+        user_name=arg_user_name;
+        password=arg_password;
+        permissions = new Permissions();
+    }
 
 
     public String getPassword() {
@@ -23,6 +29,18 @@ public abstract class Subscription implements Observer {
 
     public String getUser_name() {
         return user_name;
+    }
+    public String get_name() {
+        return name;
+    }
+
+    /**
+     * This function prints the subscription alerts
+     */
+    public void printAlerts(){
+        for (String alert : alerts){
+            System.out.println(alert);
+        }
     }
 
     @Override
@@ -45,23 +63,4 @@ public abstract class Subscription implements Observer {
     public void setUser_name(String user_name) {
         this.user_name = user_name;
     }
-
-
-    // use case 2
-    public Subscription(String arg_user_name, String arg_password){
-        permissions = new Permissions();
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-
-    }
-
-
-
-
-
-
-
-
 }

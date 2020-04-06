@@ -6,12 +6,24 @@ import java.util.Scanner;
 
 public class ComplaintController extends LogicManagement{
     Complaint complaints;
-    public void add_complaint(String description){
-        Scanner scanner = new Scanner (System.in);
+
+    /**
+     * The controller constructor
+     * @param c is a complaint
+     */
+    public ComplaintController(Complaint c){
+        complaints=c;
+    };
+
+    /**
+     * This function adds a complaint to the complaints list
+     *
+     */
+    public void add_complaint(){
+        Scanner complaint_scan = new Scanner (System.in);
         System.out.println("Enter tour complaint:");
         String complaint_description="";
-        complaint_description+=scanner.nextLine();
-        scanner.close();
+        complaint_description+=complaint_scan.nextLine();
         complaints.updateComplaint(complaint_description);
     }
 

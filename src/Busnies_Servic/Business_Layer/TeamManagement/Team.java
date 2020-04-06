@@ -22,6 +22,7 @@ public class Team extends Observable {
     public Team(String arg_name, String arg_field ){
         this.Name =arg_name;
         this.Field = arg_field;
+        list_Player = new HashSet<>();
     }
 
     public void set_Player(Player Player) {
@@ -112,6 +113,15 @@ public class Team extends Observable {
             return "The Coach is already in the team.";
         }
         return "The action is invalid.";
+    }
+
+    public Player return_player(String player_name){
+        for (Player p : list_Player){
+            if (p.getUser_name().equals(player_name)){
+                return p;
+            }
+        }
+        return null;
     }
 
     public boolean Edit_TeamOwner(TeamOwner TeamOwner, int add_or_remove){

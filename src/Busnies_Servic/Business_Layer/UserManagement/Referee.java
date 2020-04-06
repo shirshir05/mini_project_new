@@ -21,8 +21,4 @@ public class Referee extends Subscription{
         permissions.edit_permissions(Action.update_event,1);
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        //do something
-    }
 }

@@ -5,9 +5,11 @@ import java.util.Observable;
 
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Referee;
+import Busnies_Servic.EventType;
 import javafx.util.Pair;
 
 import java.util.Date;
+import java.util.Scanner;
 
 public class Game extends Observable{
     static int game_id=0;
@@ -44,10 +46,39 @@ public class Game extends Observable{
         return true;
     }
 
-    public boolean update_new_event(){
-        System.out.println("Describe the event");
-        return true;
+    public int get_game_id(){
+        return game_id;
     }
+
+    /**
+     * This function let the user ass an event to the game
+     * @return true - if the event was update, false otherwise.
+     */
+    public boolean update_new_event(){
+        Event new_event=null;
+        Scanner event_scan = new Scanner (System.in);
+        System.out.println("Enter team_name:");
+        String team_name=event_scan.next();
+        if (host.getName().equals(team_name)){
+            new_event=new Event(host);
+            eventList.add(new_event);
+        }
+        else if (guest.getName().equals(team_name)){
+            new_event=new Event(guest);
+            eventList.add(new_event);
+        }
+        else{
+            System.out.println("This team is not a part of the game!");
+            return false;
+        }
+        setChanged();
+        notifyObservers(new_event.event_to_string());
+        return true;
+
+    }
+
+
+
 
 
 

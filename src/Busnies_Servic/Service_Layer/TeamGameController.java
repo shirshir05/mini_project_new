@@ -8,6 +8,7 @@ import Busnies_Servic.Business_Layer.UserManagement.*;
 import java.time.Year;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Scanner;
 
 public class TeamGameController extends LogicManagement{
 
@@ -24,11 +25,23 @@ public class TeamGameController extends LogicManagement{
     }
 
     /**
+     *
+     */
+    public void fan_register_to_game_alerts(){
+        Scanner scanner = new Scanner (System.in);
+        System.out.println("Enter game id:");
+        int game_number=scanner.nextInt();
+        scanner.close();
+        Game chosen_game = find_game(game_number);
+        chosen_game.addObserver((Fan)this.Current);
+    }
+
+    /**
      * This function register the current user to the page he asked to be registered to.
      * @param arg_user_to_register is the name of the page the user wants to register to
      * @return true if the registeration succeeded
      */
-    public boolean FanRegister(String arg_user_to_register){
+    public boolean fan_register_to_page(String arg_user_to_register){
         Subscription current_user = this.contain_subscription(arg_user_to_register);
         if (current_user instanceof Coach) {
             ((Coach) current_user).getPersonalPage().addObserver((Fan)this.Current);
@@ -49,27 +62,6 @@ public class TeamGameController extends LogicManagement{
         return false;
     }
 
-
-    public boolean Register(String arg_user_to_register){
-        Subscription current_user = this.contain_subscription(arg_user_to_register);
-        if (current_user instanceof Coach) {
-            ((Coach) current_user).getPersonalPage().addObserver(this.Current);
-            return true;
-        }
-        else if (current_user instanceof Player) {
-            ((Player) current_user).getPersonalPage().addObserver(this.Current);
-            return true;
-        }
-        else{
-            Team t = findTeam(arg_user_to_register);
-            if (t!=null){
-                t.getPersonalPage().addObserver(this.Current);
-                return true;
-            }
-        }
-        return false;
-    }
-
     /**
      * @param arg_user_to_register
      * @return
@@ -78,6 +70,14 @@ public class TeamGameController extends LogicManagement{
         for (Team t : list_team){
             if (t.getName().equals(arg_user_to_register))
                 return t;
+        }
+        return null;
+    }
+
+    private Game find_game(int game_id){
+        for ( Game g: list_game ){
+            if (g.get_game_id()==game_id)
+                return g;
         }
         return null;
     }
