@@ -17,7 +17,7 @@ public class Main {
             SystemAdministrator s = new SystemAdministrator("Raz","Raz");
             c.addObserver(s);
             ComplaintController cont = new ComplaintController(c);
-            cont.add_complaint();
+            //cont.add_complaint();
             s.printAlerts();
 
 
@@ -29,7 +29,7 @@ public class Main {
             guest.add_or_remove_player(p,1);
             Game g = new Game("Teddi", null, host, guest);
             g.addObserver(me);
-            g.update_new_event();
+            //g.update_new_event;
             me.printAlerts();
         }
 }

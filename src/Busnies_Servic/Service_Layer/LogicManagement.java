@@ -107,6 +107,17 @@ public class LogicManagement {
         return null;
     }
 
+    protected League findLeauge(String leaugeName) {
+        for (League l : list_league) {
+            if (l.getName().equals(leaugeName)) {
+                return l;
+            }
+        }
+        return null;
+    }
+
+
+
 
 
 
