@@ -14,7 +14,6 @@ public class SystemAdministrator extends Subscription implements Observer{
         permissions.edit_permissions(Action.Removing_Subscriptions,1);
         permissions.edit_permissions(Action.watch_log,1);
         permissions.edit_permissions(Action.Recommendation_system,1);
-
     }
 
     public boolean approve_create_team(){
