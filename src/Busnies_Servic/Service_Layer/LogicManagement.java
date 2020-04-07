@@ -1,5 +1,8 @@
 package Busnies_Servic.Service_Layer;
 // all Subscription in system
+import Busnies_Servic.Business_Layer.Game.Game;
+import Busnies_Servic.Business_Layer.Game.League;
+import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
 import Busnies_Servic.Role;
@@ -14,6 +17,13 @@ public class LogicManagement {
 
     // Saves the current subscription that is currently being registered to the system
     Subscription Current;
+
+    HashSet<Team> list_team = new HashSet<>();
+
+    HashSet<Game> list_game = new HashSet<>();
+
+    HashSet<League> list_league = new HashSet<>();
+
 
     /**
      * Constructor to initialize the parameters
@@ -70,6 +80,33 @@ public class LogicManagement {
                 return null;
         }
     }
+
+
+    /**
+     * @param arg_user_to_register
+     * @return
+     */
+    protected Team findTeam(String arg_user_to_register) {
+        for (Team t : list_team){
+            if (t.getName().equals(arg_user_to_register))
+                return t;
+        }
+        return null;
+    }
+
+    /**
+     * This function get game_id and return Game
+     * @param game_id
+     * @return
+     */
+    protected Game find_game(int game_id){
+        for ( Game g: list_game ){
+            if (g.get_game_id()==game_id)
+                return g;
+        }
+        return null;
+    }
+
 
 
 

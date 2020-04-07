@@ -42,7 +42,7 @@ public class CoachTest {
     @Test
     public void getPersonalPage() {
         assertNotNull(coach.getPersonalPage());
-        assertEquals(coach.getPersonalPage().equals());
+        //assertEquals(coach.getPersonalPage().equals());
     }
 
     @Test

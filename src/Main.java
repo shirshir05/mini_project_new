@@ -31,7 +31,5 @@ public class Main {
             g.addObserver(me);
             g.update_new_event();
             me.getAlerts();
-
-
         }
 }
