@@ -32,7 +32,7 @@ public class LogicManagement {
      */
     public Subscription contain_subscription(String arg_user_name){
         for (Subscription  subscription : Subscription) {
-            if (subscription.getUser_name().equals(arg_user_name)){
+            if (subscription.getUserName().equals(arg_user_name)){
                 return subscription;
             }
         }

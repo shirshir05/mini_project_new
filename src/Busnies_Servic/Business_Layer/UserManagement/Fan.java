@@ -7,7 +7,7 @@ import java.util.Observer;
 
 public class Fan extends Subscription implements Observer{
 
-    HashSet<Complaint> list_complaint;
+    public HashSet<Complaint> list_complaint;
 
 
     public boolean add_complaint(Complaint Complaint){

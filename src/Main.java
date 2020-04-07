@@ -30,7 +30,7 @@ public class Main {
             Game g = new Game("Teddi", null, host, guest);
             g.addObserver(me);
             g.update_new_event();
-            me.printAlerts();
+            me.getAlerts();
 
 
         }
