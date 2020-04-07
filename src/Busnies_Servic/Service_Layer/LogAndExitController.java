@@ -3,7 +3,7 @@ package Busnies_Servic.Service_Layer;
 // all Subscription in system
 import Busnies_Servic.Action;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
-import java.util.HashSet;
+import Busnies_Servic.Role;
 
 // to function that remove all Subscription
 
@@ -32,7 +32,7 @@ public class LogAndExitController extends LogicManagement{
             return "The role does not exist in the system.";
         }
 
-        Subscription.add(factory.Create(arg_user_name,arg_password, role_enum.ordinal()));
+        Subscription.add(factory.Create(arg_user_name,arg_password, role_enum));
         return "Subscription successfully added!";
     }
 

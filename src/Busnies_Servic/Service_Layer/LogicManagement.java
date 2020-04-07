@@ -2,9 +2,8 @@ package Busnies_Servic.Service_Layer;
 // all Subscription in system
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
+import Busnies_Servic.Role;
 import java.util.HashSet;
-
-enum Role { Coach, Fan, Guest, Players, Referee, SystemAdministrator, TeamManager, TeamOwner, UnionRepresentative}
 
 public class LogicManagement {
 

@@ -17,7 +17,6 @@ public class TeamGameController extends LogicManagement{
     HashSet<League> list_league = new HashSet<>();
 
 
-    // add_od_remove int 0 = remove ; 1 = add ; 2 - edit
 
     public boolean create_game(Date date, String arg_host, String arg_guest, String arg_head, String linesman1, String linesman2){
 
@@ -74,6 +73,11 @@ public class TeamGameController extends LogicManagement{
         return null;
     }
 
+    /**
+     * This function get game_id and return Game
+     * @param game_id
+     * @return
+     */
     private Game find_game(int game_id){
         for ( Game g: list_game ){
             if (g.get_game_id()==game_id)

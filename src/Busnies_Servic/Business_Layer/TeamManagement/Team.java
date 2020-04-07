@@ -19,6 +19,7 @@ public class Team extends Observable {
     int statue; // 0 - off 1 - on -1 - always close
     HashMap<Integer, Pair<String,Integer>> financial;//Integer  = quarterly
 
+
     public Team(String arg_name, String arg_field ){
         this.Name =arg_name;
         this.Field = arg_field;
