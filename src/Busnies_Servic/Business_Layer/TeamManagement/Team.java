@@ -12,11 +12,11 @@ public class Team extends Observable {
     String Name;
     HashSet<Player> list_Player;
     HashSet<Coach> list_Coach;
-    HashSet<TeamManager> list_TeamManagement;// המנהל קבוצ
+    HashSet<TeamManager> list_TeamManager;// המנהל קבוצ
     HashSet<TeamOwner> list_TeamOwner; // בעל קבוצה
     String Field;
     TeamPersonalPage PersonalPage;
-    int statue; // 0 - off 1 - on -1 - always close
+    int status; // 0 - off 1 - on -1 - always close
     HashMap<Integer, Pair<String,Integer>> financial;//Integer  = quarterly
 
 
@@ -26,42 +26,68 @@ public class Team extends Observable {
         list_Player = new HashSet<>();
     }
 
-    public void set_Player(Player Player) {
+    public String set_Player(Player Player) {
+        if(status == -1 || status == 0){
+            return "The team is inactive so no activity can be performed on it";
+        }
         if(Player != null){
             this.list_Player.add(Player);
         }
+        return null;
     }
 
-    public void set_Coach(Coach coach) {
+    public String set_Coach(Coach coach) {
+        if(status == -1 || status == 0){
+            return "The team is inactive so no activity can be performed on it";
+        }
         if(coach != null){
             this.list_Coach.add(coach);
         }
+        return null;
     }
 
-    public void set_TeamManagement(TeamManager TeamManagement) {
-        if(TeamManagement != null){
-            this.list_TeamManagement.add(TeamManagement);
+    public String set_TeamManagement(TeamManager TeamManagement) {
+        if(status == -1 || status == 0){
+            return "The team is inactive so no activity can be performed on it";
         }
+        if(TeamManagement != null){
+            this.list_TeamManager.add(TeamManagement);
+        }
+        return null;
     }
 
-    public void set_TeamOwner(TeamOwner TeamOwner) {
+    public String set_TeamOwner(TeamOwner TeamOwner) {
+        if(status == -1 || status == 0){
+            return "The team is inactive so no activity can be performed on it";
+        }
         if(TeamOwner != null){
             this.list_TeamOwner.add(TeamOwner);
+
         }
+        return "Operation failed.";
     }
 
-    public void setField(String field) {
+    public String setField(String field) {
+        if(status == -1 || status == 0){
+            return "The team is inactive so no activity can be performed on it";
+        }
         Field = field;
+        return null;
+
     }
 
-    public void setPersonalPage(TeamPersonalPage personalPage) {
+    public String setPersonalPage(TeamPersonalPage personalPage) {
+        if(status == -1 || status == 0){
+            return "The team is inactive so no activity can be performed on it";
+        }
         PersonalPage = personalPage;
+        return null;
     }
 
-    public void setStatue(int statue) {
-        this.statue = statue;
-    }
 
+    public int getStatus() {
+        return status;
+    }
 
     /**
      * The function allows a player to be added to a team or to remove a player from the team.
@@ -70,6 +96,9 @@ public class Team extends Observable {
      * @return
      */
     public String add_or_remove_player(Player player, int add_or_remove ){
+        if(status == -1 || status == 0){
+            return "The team is inactive so no activity can be performed on it";
+        }
         //remove the players
         if(add_or_remove == 0){
             if(list_Player.contains(player)){
@@ -97,6 +126,9 @@ public class Team extends Observable {
      * @return
      */
     public String add_or_remove_coach(Coach coach_add, int add_or_remove ){
+        if(status == -1 || status == 0){
+            return "The team is inactive so no activity can be performed on it";
+        }
         //remove the Coach
         if(add_or_remove == 0){
             if(list_Coach.contains(coach_add)){
@@ -125,9 +157,62 @@ public class Team extends Observable {
         return null;
     }
 
-    public boolean Edit_TeamOwner(TeamOwner TeamOwner, int add_or_remove){
+    /**
+     * The function allows to add and remove Team Owner from the team.
+     * @param TeamOwner
+     * @param add_or_remove
+     * @return
+     */
+    public String Edit_TeamOwner(TeamOwner TeamOwner, int add_or_remove){
+        if(status == -1 || status == 0){
+            return "The team is inactive so no activity can be performed on it";
+        }
+        //remove the TeamOwner
+        if(add_or_remove == 0){
+            if(list_TeamOwner.contains(TeamOwner)){
+                list_TeamOwner.remove(TeamOwner);
+                return "The Team Owner was successfully removed from the team.";
+            }
+            return "The Team Owner is not in the team.";
+        }
+        //add the TeamOwner
+        else if(add_or_remove == 1){
+            if(!list_TeamOwner.contains(TeamOwner)){
+                list_TeamOwner.add(TeamOwner);
+                return "he Team Owner was successfully added from the team.";
+            }
+            return "The Team Owner is already in the team.";
+        }
+        return "The action is invalid.";
+    }
 
-        return true;
+    /**
+     * The function allows to add and remove Team mANAGER from the team.
+     * @param teamManager
+     * @param add_or_remove
+     * @return
+     */
+    public String Edit_TeamManager(TeamManager teamManager, int add_or_remove){
+        if(status == -1 || status == 0){
+            return "The team is inactive so no activity can be performed on it";
+        }
+        //remove the teamManager
+        if(add_or_remove == 0){
+            if(list_TeamManager.contains(teamManager)){
+                list_TeamManager.remove(teamManager);
+                return "The Team Manager was successfully removed from the team.";
+            }
+            return "The Team Manager is not in the team.";
+        }
+        //add the teamManager
+        else if(add_or_remove == 1){
+            if(!list_TeamManager.contains(teamManager)){
+                list_TeamManager.add(teamManager);
+                return "he Team Manager was successfully added from the team.";
+            }
+            return "The Team Manager is already in the team.";
+        }
+        return "The action is invalid.";
     }
 
     /**
@@ -136,14 +221,18 @@ public class Team extends Observable {
      * @return
      */
     public boolean check_if_object_in_team(Subscription object){
-        return list_TeamManagement.contains(object) || list_TeamOwner.contains(object) ;
+        return list_TeamManager.contains(object) || list_TeamOwner.contains(object) ;
     }
 
-
-    public boolean change_status(int status){
+    public String change_status(int status){
+        if(status == this.status){
+           return "The group is already set" + this.status;
+        }
+        this.status = status;
         setChanged();
         notifyObservers();
-        return true;
+        // רז צריך להשלים התראות
+        return "The status of the group has changed successfully.";
     }
 
     public String getName() {
