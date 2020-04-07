@@ -1,31 +1,49 @@
 package Busnies_Servic.Business_Layer.UserManagement;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
 public abstract class Subscription {
-    protected String user_name;
+    protected String userName;
     public String password;
-    protected String name;
     public Permissions permissions;
     protected HashSet<String> alerts = new HashSet<>();
 
-    public Subscription(String arg_user_name, String arg_password){
-        user_name=arg_user_name;
-        password=arg_password;
+    public Subscription(String argUserName, String argPassword){
+        userName=argUserName;
+        password = getHash(argPassword);
         permissions = new Permissions();
     }
 
+    /**
+     * This function returns the hash of the password
+     */
+    private String getHash(String password){
+        String sha1 = "";
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
+            digest.reset();
+            digest.update(password.getBytes("utf8"));
+            sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return sha1;
+    }
 
     /**
-     * This function prints the subscription alerts
+     * This function returns the subscription alerts
      */
-    public void printAlerts(){
+    public String getAlerts(){
+        String ans = "";
         for (String alert : alerts){
-            System.out.println(alert);
+            ans = ans + alert +"\n";
         }
+        return ans;
     }
 
     /**
@@ -38,7 +56,7 @@ public abstract class Subscription {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Subscription that = (Subscription) o;
-        return Objects.equals(user_name, that.user_name);
+        return Objects.equals(userName, that.userName);
     }
 
     public Permissions getPermissions() {
@@ -46,23 +64,19 @@ public abstract class Subscription {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = getHash(password);
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String name) {
+        this.userName = name;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public String getUser_name() {
-        return user_name;
-    }
-
-    public String get_name() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
 }
