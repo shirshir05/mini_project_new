@@ -16,7 +16,7 @@ public class ComplaintController extends LogicManagement{
     };
 
     /**
-     * This function adds a complaint to the complaints list
+     * This function adds a complaint by a user.
      *
      */
     public void add_complaint(){
