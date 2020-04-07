@@ -12,80 +12,11 @@ import java.util.Scanner;
 
 public class TeamGameController extends LogicManagement{
 
-    HashSet<Team> list_team = new HashSet<>();
-    HashSet<Game> list_game = new HashSet<>();
-    HashSet<League> list_league = new HashSet<>();
-
-
 
     public boolean create_game(Date date, String arg_host, String arg_guest, String arg_head, String linesman1, String linesman2){
 
         return true;
     }
-
-    /**
-     *
-     */
-    public void fan_register_to_game_alerts(){
-        Scanner scanner = new Scanner (System.in);
-        System.out.println("Enter game id:");
-        int game_number=scanner.nextInt();
-        scanner.close();
-        Game chosen_game = find_game(game_number);
-        chosen_game.addObserver((Fan)this.Current);
-    }
-
-    /**
-     * This function register the current user to the page he asked to be registered to.
-     * @param arg_user_to_register is the name of the page the user wants to register to
-     * @return true if the registeration succeeded
-     */
-    public boolean fan_register_to_page(String arg_user_to_register){
-        Subscription current_user = this.contain_subscription(arg_user_to_register);
-        if (current_user instanceof Coach) {
-            ((Coach) current_user).getPersonalPage().addObserver((Fan)this.Current);
-            return true;
-        }
-        else if (current_user instanceof Player) {
-            ((Player) current_user).getPersonalPage().addObserver((Fan)this.Current);
-            return true;
-        }
-        else{
-            Team t = findTeam(arg_user_to_register);
-            if (t!=null){
-                t.getPersonalPage().addObserver((Fan)this.Current);
-                return true;
-            }
-        }
-        System.out.println("Wrong page name");
-        return false;
-    }
-
-    /**
-     * @param arg_user_to_register
-     * @return
-     */
-    private Team findTeam(String arg_user_to_register) {
-        for (Team t : list_team){
-            if (t.getName().equals(arg_user_to_register))
-                return t;
-        }
-        return null;
-    }
-
-    /**
-     * This function get game_id and return Game
-     * @param game_id
-     * @return
-     */
-    private Game find_game(int game_id){
-        for ( Game g: list_game ){
-            if (g.get_game_id()==game_id)
-                return g;
-        }
-        return null;
-    }
-
     /**
      * @param arg_name
      * @return
