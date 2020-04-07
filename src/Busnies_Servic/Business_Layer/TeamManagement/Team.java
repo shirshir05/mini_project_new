@@ -150,7 +150,7 @@ public class Team extends Observable {
 
     public Player return_player(String player_name){
         for (Player p : list_Player){
-            if (p.getUser_name().equals(player_name)){
+            if (p.getUserName().equals(player_name)){
                 return p;
             }
         }

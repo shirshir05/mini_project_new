@@ -35,14 +35,13 @@ public class Event {
         return team.return_player(player_name);
     }
 
-
     /**
      * This function gets from the user the event-type he wants to report on
      * @return the event-type he chose.
      */
     public EventType get_event_type_from_user(){
-        Scanner scan = new Scanner(System.in);
         EventType type_chosen = null;
+        String menu = "Choose event type:/n1 - Goal/n";
         System.out.println("Choose event type:");
         System.out.println("1 - Goal");
         System.out.println("2- Offside:");
@@ -51,7 +50,8 @@ public class Event {
         System.out.println("5 - Yellow Ticket");
         System.out.println("6 - Injury");
         System.out.println("7 - player replacement:");
-        int choose = scan.nextInt();
+        int choose = inputUser(menu);
+
         switch (choose) {
             case 1:
                 type_chosen=EventType.goal;
@@ -78,8 +78,15 @@ public class Event {
         return type_chosen;
     }
 
+    public int inputUser(String msg){
+        System.out.println(msg);
+        Scanner scan = new Scanner(System.in);
+        int choose = scan.nextInt();
+        return choose;
+    }
+
     public String event_to_string(){
-        return event_type+" for player:"+player.getUser_name()+" from team:"+ team.getName();
+        return event_type+" for player:"+player.getUserName()+" from team:"+ team.getName();
     }
 
 }

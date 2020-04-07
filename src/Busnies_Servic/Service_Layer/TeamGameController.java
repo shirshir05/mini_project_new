@@ -133,7 +133,7 @@ public class TeamGameController extends LogicManagement{
         // remove teamOwner to team
         if(add_or_remove == 0){
             Subscription appointed = ((TeamOwner) teamOwner).getAppointed_by_teamOwner();
-            if(contain_subscription(appointed.getUser_name()) != null ){
+            if(contain_subscription(appointed.getUserName()) != null ){
                 // The person responsible for appointing the team is still in the system
                 if(appointed != Current){
                     return "You do not appoint the team owner and therefore cannot remove them from the team";
@@ -181,7 +181,7 @@ public class TeamGameController extends LogicManagement{
         // remove teamOwner to team
         if(add_or_remove == 0){
             Subscription appointed = ((TeamManager) teamManager).getAppointed_by_teamOwner();
-            if(contain_subscription(appointed.getUser_name()) != null ){
+            if(contain_subscription(appointed.getUserName()) != null ){
                 // The person responsible for appointing the team is still in the system
                 if(appointed != Current){
                     return "You do not appoint the team owner and therefore cannot remove them from the team";
@@ -235,7 +235,7 @@ public class TeamGameController extends LogicManagement{
         if(status != 0 && status != 1 && status != -1){
             return "The action is invalid.";
         }
-        String ans = check_input_edit_team(name_team,Current.getUser_name());
+        String ans = check_input_edit_team(name_team,Current.getUserName());
         if(ans != null){
             return ans;
         }

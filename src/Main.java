@@ -11,7 +11,7 @@ import java.util.Date;
 public class Main {
 
         public static void main(String[] args) {
-
+            /**
             /// Check the complaints update
             Complaint c = new Complaint("Hello");
             SystemAdministrator s = new SystemAdministrator("Raz","Raz");
@@ -19,7 +19,7 @@ public class Main {
             ComplaintController cont = new ComplaintController(c);
             cont.add_complaint();
             s.printAlerts();
-
+             **/
 
             /// Check the game event update
             Player p = new Player("raz","1234");
@@ -30,6 +30,6 @@ public class Main {
             Game g = new Game("Teddi", null, host, guest);
             g.addObserver(me);
             g.update_new_event();
-            me.printAlerts();
+            me.getAlerts();
         }
 }
