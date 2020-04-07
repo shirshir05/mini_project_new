@@ -11,7 +11,12 @@ import static org.junit.Assert.*;
     @RunWith(Parameterized.class)
     public class registrationTest {
 
-        LogAndExitController controller = new LogAndExitController();
+
+        LogAndExitController controller;
+        @Before
+        public void init(){
+            controller = new LogAndExitController();
+        }
 
         String name;
         String password;
@@ -21,9 +26,14 @@ import static org.junit.Assert.*;
         @Parameterized.Parameters
         public static Collection<Object[]> data() {
             return Arrays.asList(new Object[][]{
-                    //Input_test
-                    {null, "12345", "Coach", "The input is empty."}, {"shir", "12345", "Coach", "Subscription successfully added!"},
-                    {"shir", null, "Coach", "The input is empty."}, {"", "null", "Coach", "The input is empty."},
+                    //user name = null
+                    {null, "12345", "Coach", "The input is empty."},
+                    // add user name
+                    {"shir", "12345", "Coach", "Subscription successfully added!"},
+                    //password null
+                    {"shir", null, "Coach", "The input is empty."},
+
+                    {"", "null", "Coach", "The input is empty."},
                     {"shir", "", "Coach", "The input is empty."}, {"shir", "123456", "Coach", "The password must contain exactly 5 digits."},
                     {"shir", "1", "Coach", "The password must contain exactly 5 digits."}, {"shir", "12345", "Coach", "Please select another username because this username exists in the system."},
                     {"shir", "1rr", "Coach", "The password must contain exactly 5 digits."}, {"shir", ";", "Coach", "The password must contain exactly 5 digits."},
@@ -41,7 +51,7 @@ import static org.junit.Assert.*;
         @Test
         public void user_name_incorrect() {
             String actual = controller.Registration(name, password, role);
-            assertEquals(actual, expected);
+            assertEquals(expected, actual);
         }
     }
 
