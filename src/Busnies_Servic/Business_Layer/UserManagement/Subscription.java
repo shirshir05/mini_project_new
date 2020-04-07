@@ -19,21 +19,6 @@ public abstract class Subscription {
     }
 
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUser_name() {
-        return user_name;
-    }
-    public String get_name() {
-        return name;
-    }
-
     /**
      * This function prints the subscription alerts
      */
@@ -43,6 +28,11 @@ public abstract class Subscription {
         }
     }
 
+    /**
+     * Thif function equal Subscription by user_name
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,12 +45,24 @@ public abstract class Subscription {
         return permissions;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(user_name);
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setUser_name(String user_name) {
         this.user_name = user_name;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public String get_name() {
+        return name;
+    }
+
 }
