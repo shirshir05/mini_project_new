@@ -3,6 +3,7 @@ package Busnies_Servic.Service_Layer;
 import Busnies_Servic.Business_Layer.Game.Game;
 import Busnies_Servic.Business_Layer.Game.League;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
+import Busnies_Servic.Business_Layer.UserManagement.Referee;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
 import Busnies_Servic.Role;
@@ -23,6 +24,8 @@ public class LogicManagement {
     HashSet<Game> list_game = new HashSet<>();
 
     HashSet<League> list_league = new HashSet<>();
+
+    HashSet<Referee> list_referee = new HashSet<>();
 
 
     /**
@@ -107,6 +110,11 @@ public class LogicManagement {
         return null;
     }
 
+    /**
+     * This function gets a leaugeName and return Leauge
+     * @param leaugeName
+     * @return
+     */
     protected League findLeauge(String leaugeName) {
         for (League l : list_league) {
             if (l.getName().equals(leaugeName)) {
@@ -116,6 +124,14 @@ public class LogicManagement {
         return null;
     }
 
+    protected Referee findReferee(String referee_name){
+        for (Referee r : list_referee){
+            if (r.getUserName().equals(referee_name)){
+                return r;
+            }
+        }
+        return null;
+    }
 
 
 
