@@ -26,7 +26,7 @@ public class Referee extends Subscription{
         if (this == o) return true;
         if (!(o instanceof Referee)) return false;
         Referee referee = (Referee) o;
-        return referee.user_name.equals(this.user_name);
+        return referee.userName.equals(this.userName);
     }
 
 }

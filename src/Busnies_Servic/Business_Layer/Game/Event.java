@@ -17,7 +17,7 @@ public class Event {
     public Event(Team arg_team, EventType arg_event_type, Player arg_player){
         team=arg_team;
         event_type=arg_event_type;
-        if (arg_team.return_player(arg_player.getUser_name())!=null){
+        if (arg_team.return_player(arg_player.getUserName())!=null){
             player=arg_player;
         }
         else{
@@ -27,7 +27,7 @@ public class Event {
     }
 
     public String event_to_string(){
-        return event_type+" for player:"+player.getUser_name()+" from team:"+ team.getName();
+        return event_type+" for player:"+player.getUserName()+" from team:"+ team.getName();
     }
 
 }

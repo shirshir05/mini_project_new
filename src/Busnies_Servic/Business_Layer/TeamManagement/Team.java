@@ -4,7 +4,6 @@ import java.util.Observable;
 import Busnies_Servic.Business_Layer.Trace.*;
 import Busnies_Servic.Business_Layer.UserManagement.*;
 import javafx.util.Pair;
-
 import java.util.HashSet;
 
 public class Team extends Observable {

@@ -1,6 +1,7 @@
 package Busnies_Servic.Service_Layer;
 
 import Busnies_Servic.Business_Layer.Game.League;
+import Busnies_Servic.Business_Layer.Game.Season;
 import Busnies_Servic.Business_Layer.UserManagement.Referee;
 
 import java.sql.Ref;
@@ -29,35 +30,55 @@ public class SettingsController extends LogicManagement{
      * @return true if the season was updated
      */
     public boolean defineSeasonToLeague(String league_name, String year){
-        Year year_format = Year.parse(year);
-        if (year_format.isAfter(Year.of(1900)) && league_name!=null && findLeauge(league_name)!=null){
-            this.findLeauge(league_name).set_season(year_format);
+        if (year!=null && league_name!=null) {
+            int intFormatYear= Integer.parseInt(year);
+            if (intFormatYear>1900 && intFormatYear<2021)
+                this.findLeauge(league_name).addSeason(new Season(year));
             return true;
         }
         return false;
     }
 
-    public boolean defineRefereeInLeauge(String leauge_name, String referee_user_name, String referee_password) {
-        League league = findLeauge(leauge_name);
-        if (league != null) {
-            Referee new_referee = new Referee(referee_user_name, referee_user_name);
-            league.add_referee(new_referee);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean deleteRefereeFromLeague(String league_name, String referee_user_name){
-        League league = findLeauge(league_name);
-        if (league!=null){
-            Referee referee = league.getReferee(referee_user_name);
-            if(referee!=null){
-                league.delete_referee(referee);
+    /**
+     * This function let the union rep to add a referee to the system
+     * @param referee_user_name is the username of the referee
+     * @param referee_password is the password of the referee
+     * @return true if the operation succeeded
+     */
+    public boolean addRefereeToSystem(String referee_user_name, String referee_password){
+        if (referee_user_name!=null && referee_password!=null){
+            Referee current = new Referee(referee_user_name,referee_password);
+            if (!list_referee.contains(current)) {
+                list_referee.add(current);
                 return true;
             }
         }
         return false;
     }
 
+    public boolean deleteRefereeFromSystem(String referee_user_name){
+        if (referee_user_name!=null){
+            Referee current_referee = this.findReferee(referee_user_name);
+            if (current_referee!=null){
+                this.list_referee.remove(current_referee);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public boolean defineRefereeInLeauge(String leauge_name, String referee_user_name, String season_year) {
+        League league = findLeauge(leauge_name);
+        Referee referee = findReferee(referee_user_name);
+        if (league != null && referee!=null) {
+            Season season = league.getSeason(season_year);
+            if (season!=null){
+                season.addReferee(referee);
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

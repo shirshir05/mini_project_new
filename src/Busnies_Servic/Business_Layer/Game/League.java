@@ -8,9 +8,7 @@ import java.util.HashSet;
 public class League {
 
     protected String name;
-    protected Year season;
-    protected HashSet<Referee> list_referee;
-    protected HashSet<Game> list_game;
+    protected HashSet<Season> seasons;
 
     /**
      * constructor
@@ -21,62 +19,39 @@ public class League {
     }
 
     /**
-     * this function sets the season of the leauge
-     * @param year is the season
-     */
-    public void set_season(Year year){
-        if (year.isBefore(Year.of(1900))){
-            season=year;
-        }
-    }
-
-    /**
-     * This function is adding a referee to the league
-     * @param r is the referee
-     */
-    public void add_referee(Referee r){
-        list_referee.add(r);
-    }
-
-    /**
-     * This function is deleting a referee from the league
-     * @param r is the referee
-     */
-    public void delete_referee(Referee r){
-        list_referee.remove(r);
-    }
-
-    public Referee getReferee(String refereeName){
-        for (Referee r : list_referee){
-            if (r.get_name().equals(refereeName)){
-                return r;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * This function is adding a game to the League
-     * @param g is the game
-     */
-    public void add_game(Game g){
-        list_game.add(g);
-    }
-
-    /**
-     * This function is deleting a game from the league
-     * @param g is the game
-     */
-    public void delete_game(Game g){
-        list_game.remove(g);
-    }
-
-    /**
      * leauge name getter
      * @return name
      */
     public String getName(){
         return this.name;
+    }
+
+    /**
+     * this function adds a season to the keauge
+     * @param season
+     * @return
+     */
+    public boolean addSeason(Season season){
+        if (season!=null){
+            seasons.add(season);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * This function gets a season in  a leauge
+     * @param year
+     * @return
+     */
+    public Season getSeason(String year){
+        for (Season s : seasons){
+            if (s.getYear().equals(year)){
+                return s;
+            }
+        }
+        return null;
+
     }
 
 
