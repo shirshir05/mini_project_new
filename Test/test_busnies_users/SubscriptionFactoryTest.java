@@ -2,7 +2,6 @@ package test_busnies_users;
 
 import Busnies_Servic.Business_Layer.UserManagement.*;
 import Busnies_Servic.Role;
-import Busnies_Servic.Service_Layer.TeamGameController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,27 +19,29 @@ public class SubscriptionFactoryTest {
     String password;
     Role role;
     String expected;
+    String email;
     SubscriptionFactory factory;
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 //Input_test
-                {null, "123456", Role.Coach, "null"}, {"shir", null, Role.Coach, "null"},
-                {"", "123456", Role.Coach, "null"}, {"shir", "", Role.Coach, "null"},
-                {"shir","123456" , null, "null"}, {"person", "123456", Role.Coach, "object"},
-                {"person", "123456", Role.Fan, "object"}, {"person", "123456", Role.Guest, "object"},
-                {"person", "123456", Role.Players, "object"}, {"person", "123456", Role.Referee, "object"},
-                {"person", "123456", Role.SystemAdministrator, "object"}, {"person", "123456", Role.TeamManager, "object"},
-                {"person", "123456", Role.TeamOwner, "object"}, {"person", "123456", Role.UnionRepresentative, "object"}
+                {null, "123456", Role.Coach,"shir0@post.bgu.ac.il", "null"}, {"shir", null, Role.Coach,"shir0@post.bgu.ac.il", "null"},
+                {"", "123456", Role.Coach,"shir0@post.bgu.ac.il", "null"}, {"shir", "", Role.Coach,"shir0@post.bgu.ac.il", "null"},
+                {"shir","123456" , null,"shir0@post.bgu.ac.il", "null"}, {"person", "123456", Role.Coach,"shir0@post.bgu.ac.il", "object"},
+                {"person", "123456", Role.Fan,"shir0@post.bgu.ac.il", "object"}, {"person", "123456", Role.Guest,"shir0@post.bgu.ac.il", "object"},
+                {"person", "123456", Role.Players,"shir0@post.bgu.ac.il", "object"}, {"person", "123456", Role.Referee,"shir0@post.bgu.ac.il", "object"},
+                {"person", "123456", Role.SystemAdministrator,"shir0@post.bgu.ac.il", "object"}, {"person", "123456", Role.TeamManager,"shir0@post.bgu.ac.il", "object"},
+                {"person", "123456", Role.TeamOwner,"shir0@post.bgu.ac.il", "object"}, {"person", "123456", Role.UnionRepresentative,"shir0@post.bgu.ac.il", "object"}
         });
     }
 
-    public SubscriptionFactoryTest(String arg_user_name, String arg_password, Role role,String expected ) {
+    public SubscriptionFactoryTest(String arg_user_name, String arg_password, Role role,String email ,String expected) {
         this.userName = arg_user_name;
         this.password = arg_password;
         this.role = role;
         this.expected = expected;
+        this.email = email;
     }
 
     @Before
@@ -50,9 +51,9 @@ public class SubscriptionFactoryTest {
 
     @Test
     public void create() {
-        Subscription sub = factory.Create(userName,password,role);
+        Subscription sub = factory.Create(userName,password,role,email);
         if(expected.equals("null")){
-            assertNull(factory.Create(userName,password,role));
+            assertNull(factory.Create(userName,password,role,email));
         }
         else if(expected.equals("object")){
             assertNotNull(sub);

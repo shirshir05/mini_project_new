@@ -5,14 +5,33 @@ import Busnies_Servic.Action;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Role;
 
+import java.util.regex.Pattern;
+
 // to function that remove all Subscription
 
 
 /**
  * This Class is responsible for connecting to the system exit system
  */
-public class LogAndExitController extends LogicManagement{
+public class LogAndExitController extends DataManagement {
 
+
+    /**
+     * This function check if email is legal
+     * @param email
+     * @return
+     */
+    private boolean check_email( String email){
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
 
     /**
      * The purpose of this function is to register the user to the system.
@@ -22,8 +41,12 @@ public class LogAndExitController extends LogicManagement{
      * @param arg_role
      * @return comment print to user
      */
-    public String Registration(String arg_user_name, String arg_password, String arg_role){
+    public String Registration(String arg_user_name, String arg_password, String arg_role, String email){
+        if(!check_email(email)){
+            return "Invalid email, please enter a valid email.";
+        }
         String check_input = Input_test(arg_user_name,arg_password);
+
         if( check_input!= null){
             return check_input;
         }
@@ -32,7 +55,7 @@ public class LogAndExitController extends LogicManagement{
             return "The role does not exist in the system.";
         }
 
-        Subscription.add(factory.Create(arg_user_name,arg_password, role_enum));
+        Subscription.add(factory.Create(arg_user_name,arg_password, role_enum,email));
         return "Subscription successfully added!";
     }
 
@@ -97,7 +120,7 @@ public class LogAndExitController extends LogicManagement{
      */
     public String Exit(String arg_user_name, String arg_password){
         if(Current != null){
-            if(Current.getUser_name().equals(arg_user_name) && Current.getPassword().equals(arg_password)){
+            if(Current.getUserName().equals(arg_user_name) && Current.getPassword().equals(arg_password)){
                 Current = null;
                 return "Successfully disconnected from the system.";
             }

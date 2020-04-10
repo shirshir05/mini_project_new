@@ -22,35 +22,37 @@ import static org.junit.Assert.*;
         String password;
         String role;
         String expected;
+        String email;
 
         @Parameterized.Parameters
         public static Collection<Object[]> data() {
             return Arrays.asList(new Object[][]{
                     //user name = null
-                    {null, "12345", "Coach", "The input is empty."},
+                    {null, "12345", "Coach","shir0@post.bgu.ac.il", "The input is empty."},
                     // add user name
-                    {"shir", "12345", "Coach", "Subscription successfully added!"},
+                    {"shir", "12345", "Coach","shir0@post.bgu.ac.il", "Subscription successfully added!"},
                     //password null
-                    {"shir", null, "Coach", "The input is empty."},
-
-                    {"", "null", "Coach", "The input is empty."},
-                    {"shir", "", "Coach", "The input is empty."}, {"shir", "123456", "Coach", "The password must contain exactly 5 digits."},
-                    {"shir", "1", "Coach", "The password must contain exactly 5 digits."}, {"shir", "12345", "Coach", "Please select another username because this username exists in the system."},
-                    {"shir", "1rr", "Coach", "The password must contain exactly 5 digits."}, {"shir", ";", "Coach", "The password must contain exactly 5 digits."},
-                    {"shir", "1rr", "Coach", "The password must contain exactly 5 digits."}, {"shir", "1rr", "Coach", "The password must contain exactly 5 digits."}
+                    {"shir", null, "Coach","shir0@post.bgu.ac.il", "The input is empty."},
+                    {"", "null", "Coach","shir0@post.bgu.ac.il", "The input is empty."},
+                    {"shir", "", "Coach","shir0@post.bgu.ac.il", "The input is empty."}, {"shir", "123456", "Coach","shir0@post.bgu.ac.il", "The password must contain exactly 5 digits."},
+                    {"shir", "1", "Coach","shir0@post.bgu.ac.il", "The password must contain exactly 5 digits."},
+                    //{"shir", "12345", "Coach","shir0@post.bgu.ac.il", "Please select another username because this username exists in the system."},
+                    {"shir", "1rr", "Coach","shir0@post.bgu.ac.il", "The password must contain exactly 5 digits."}, {"shir", ";", "Coach","shir0@post.bgu.ac.il", "The password must contain exactly 5 digits."},
+                    {"shir", "1rr", "Coach","shir0@post.bgu.ac.il", "The password must contain exactly 5 digits."}, {"shir", "1rr", "Coach","shir0@post.bgu.ac.il", "The password must contain exactly 5 digits."}
             });
         }
 
-        public registrationTest(String name, String password, String role, String expected) {
+        public registrationTest(String name, String password, String role, String email, String expected) {
             this.name = name;
             this.password = password;
             this.role = role;
             this.expected = expected;
+            this.email =email;
         }
 
         @Test
         public void user_name_incorrect() {
-            String actual = controller.Registration(name, password, role);
+            String actual = controller.Registration(name, password, role,email);
             assertEquals(expected, actual);
         }
     }

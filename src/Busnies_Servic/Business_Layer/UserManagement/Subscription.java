@@ -11,12 +11,15 @@ public abstract class Subscription {
     protected String userName;
     public String password;
     public Permissions permissions;
+    public String email;
+
     protected HashSet<String> alerts = new HashSet<>();
 
-    public Subscription(String argUserName, String argPassword){
+    public Subscription(String argUserName, String argPassword,String email){
         userName=argUserName;
         password = getHash(argPassword);
         permissions = new Permissions();
+        this.email = email;
     }
 
     /**
