@@ -45,9 +45,10 @@ public class TeamGameController extends LogicManagement{
             return "The Team already exists in the system.";
         }
         Team new_team = new Team(arg_name,arg_field);
-        new_team.set_TeamOwner((TeamOwner)Current);
         list_team.add(new_team);
+        new_team.set_TeamOwner((TeamOwner)Current);
         return "The Team was successfully created in the system.";
+
     }
 
     /**
@@ -97,10 +98,102 @@ public class TeamGameController extends LogicManagement{
     }
 
 
+    /**
+     * If the add_or_remove is 1 the function allows a new group owner to be set to the system
+     * If the add_or_remove is 0 the function allows a team owner to explain a group owner from the system eight by him
+     * @param name_team
+     * @param TeamOwner
+     * @param add_or_remove
+     * @return
+     */
     public String add_or_remove_TeamOwner(String name_team, String TeamOwner, int add_or_remove){
-            // יש בעיה איך מגדירים בעל קבוצה איזה מנוי הוא?
-        //??????????????????????
-        return null;
+        // כאן צריך ליצור אובייקט חדש למנוי שאינו מוגדר כ-team owner
+        //חלק זמן יממוש בהמשך
+        String ans = check_input_edit_team(name_team,TeamOwner);
+        if(ans != null){
+            return ans;
+        }
+        Subscription teamOwner = contain_subscription(TeamOwner);
+        if(!(teamOwner instanceof TeamOwner)){
+            return "The username is not defined as a Team Owner on the system.";
+        }
+        Team team = findTeam(name_team);
+        if(team == null){
+            return "The Team does not exist in the system.";
+        }
+        // add teamOwner to team
+        if(add_or_remove == 1){
+            Subscription appointed = ((TeamOwner) teamOwner).getAppointed_by_teamOwner();
+          if(appointed != null){
+              return "You are already set as a team owner.";
+          }
+          ((TeamOwner) teamOwner).setAppointed_by_teamOwner(Current);
+            return team.Edit_TeamOwner((TeamOwner) teamOwner,add_or_remove);
+        }
+        // remove teamOwner to team
+        if(add_or_remove == 0){
+            Subscription appointed = ((TeamOwner) teamOwner).getAppointed_by_teamOwner();
+            if(contain_subscription(appointed.getUserName()) != null ){
+                // The person responsible for appointing the team is still in the system
+                if(appointed != Current){
+                    return "You do not appoint the team owner and therefore cannot remove them from the team";
+                }
+            }
+            ((TeamOwner) teamOwner).setAppointed_by_teamOwner(null);
+            return team.Edit_TeamOwner((TeamOwner) teamOwner,add_or_remove);
+        }
+        return "The action is invalid.";
+    }
+
+
+    /**
+     * If the add_or_remove is 1 the function allows a new group owner to be set to the system
+     * If the add_or_remove is 0 the function allows a team owner to explain a group owner from the system eight by him
+     * @param name_team
+     * @param TeamOwner
+     * @param add_or_remove
+     * @return
+     */
+    public String add_or_remove_TeamManager(String name_team, String TeamOwner, int add_or_remove){
+        // כאן צריך ליצור אובייקט חדש למנוי שאינו מוגדר כ-team MANAGER
+        //חלק זמן יממוש בהמשך
+        String ans = check_input_edit_team(name_team,TeamOwner);
+        if(ans != null){
+            return ans;
+        }
+        Subscription teamManager = contain_subscription(TeamOwner);
+        if(!(teamManager instanceof TeamManager)){
+            return "The username is not defined as a Team Owner on the system.";
+        }
+        Team team = findTeam(name_team);
+        if(team == null){
+            return "The Team does not exist in the system.";
+        }
+        // add teamOwner to team
+        if(add_or_remove == 1){
+            Subscription appointed = ((TeamManager) teamManager).getAppointed_by_teamOwner();
+            if(appointed != null){
+                return "You are already set as a team Manager.";
+            }
+            ((TeamManager) teamManager).setAppointed_by_teamOwner(Current);
+            return team.Edit_TeamManager((TeamManager) teamManager,add_or_remove);
+        }
+        // remove teamOwner to team
+        if(add_or_remove == 0){
+            Subscription appointed = ((TeamManager) teamManager).getAppointed_by_teamOwner();
+            if(contain_subscription(appointed.getUserName()) != null ){
+                // The person responsible for appointing the team is still in the system
+                if(appointed != Current){
+                    return "You do not appoint the team owner and therefore cannot remove them from the team";
+                }
+
+            }
+            ((TeamManager) teamManager).setAppointed_by_teamOwner(null);
+            return team.Edit_TeamManager((TeamManager) teamManager,add_or_remove);
+
+        }
+        return "The action is invalid.";
+
     }
 
     /**
@@ -117,7 +210,7 @@ public class TeamGameController extends LogicManagement{
         if(team == null){
             return "The Team does not exist in the system.";
         }
-        if(!team.check_if_object_in_team(Current)){
+        if(!team.check_if_object_in_team(Current) || (Current instanceof SystemAdministrator)){
             return "You are not allowed to perform actions in this group.";
         }
         Subscription subscription = contain_subscription(user_name);
@@ -129,11 +222,45 @@ public class TeamGameController extends LogicManagement{
     }
 
 
+    /**
+     * A function that allows the system administrator and the group owner to change the status of the group
+     *  0 - close
+     *  1- open
+     * -1  -  permanently close
+     * @param name_team
+     * @param status
+     * @return
+     */
+    public String change_status_team(String name_team, int status){
+        if(status != 0 && status != 1 && status != -1){
+            return "The action is invalid.";
+        }
+        String ans = check_input_edit_team(name_team,Current.getUserName());
+        if(ans != null){
+            return ans;
+        }
+        Team team = findTeam(name_team);
+        if(team == null){
+            return "The Team does not exist in the system.";
+        }
+        if(team.getStatus() == -1){
+            return "The team is permanently closed.";
+        }
+        if(Current.getPermissions().check_permissions(Action.Close_team) == 0 ){
+            return "You are not allowed to close a team.";
+        }
 
-    public boolean change_status_team(int status, String name_team){
-
-
-        return true;
+        if(!(Current instanceof SystemAdministrator)){
+            //Only an administrator can permanently close the team
+            if(status == -1){
+                return "You are not authorized to perform this action.";
+            }
+        }else{
+            if(Current.getPermissions().check_permissions(Action.Close_team_perpetually) == 0 ){
+                return "You are not allowed to close a team.";
+            }
+        }
+       return team.change_status(status);
     }
 
     public boolean change_financial(String name_team, String Operation , Integer sum){

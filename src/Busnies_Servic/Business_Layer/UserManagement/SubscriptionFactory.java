@@ -7,42 +7,42 @@ public class SubscriptionFactory {
 
     /**
      * This function create Subscription by Role
-     * @param arg_user_name
-     * @param arg_password
+     * @param userName
+     * @param password
      * @param role
      * @return
      */
-    public Subscription Create(String arg_user_name, String arg_password, Role role){
-        if(role == Role.Coach ){
-            return new Coach(arg_user_name,arg_password);
+    public Subscription Create(String userName, String password, Role role){
+        if(userName==null || password==null || role==null || userName.equals("") || password.equals("")) {
+            return null;
         }
-        else if (role == Role.Fan){
-            return new Fan(arg_user_name,arg_password);
+        if(role == Role.Coach ){
+            return new Coach(userName,password);
+        }
+        else if (role ==Role.Fan){
+            return new Fan(userName,password);
         }
         else if (role == Role.Guest){
-            return new Guest(arg_user_name,arg_password);
+            return new Guest(userName,password);
         }
         else if (role == Role.Players){
-            return new Player(arg_user_name,arg_password);
+            return new Player(userName,password);
         }
         else if (role == Role.Referee){
-            return new Referee(arg_user_name,arg_password);
+            return new Referee(userName,password);
         }
         else if (role == Role.SystemAdministrator){
-            return new SystemAdministrator(arg_user_name,arg_password);
+            return new SystemAdministrator(userName,password);
         }
         else if (role == Role.TeamManager){
-            return new TeamManager(arg_user_name,arg_password);
+            return new TeamManager(userName,password);
         }
         else if (role == Role.TeamOwner){
-            return new TeamOwner(arg_user_name,arg_password);
+            return new TeamOwner(userName,password);
         }
         else if (role == Role.UnionRepresentative){
-            return new UnionRepresentative(arg_user_name,arg_password);
+            return new UnionRepresentative(userName,password);
         }
         return null;
     }
-
-
-
 }

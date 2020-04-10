@@ -67,7 +67,7 @@ public class LogAndExitControllerTest {
         controller = new LogAndExitController();
         factory = new SubscriptionFactory();
     }
-    
+
     @Test
     public void registrationTest() {
 

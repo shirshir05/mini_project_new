@@ -21,4 +21,12 @@ public class Referee extends Subscription{
         permissions.edit_permissions(Action.update_event,1);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Referee)) return false;
+        Referee referee = (Referee) o;
+        return referee.userName.equals(this.userName);
+    }
+
 }

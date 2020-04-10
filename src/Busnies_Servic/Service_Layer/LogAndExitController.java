@@ -111,6 +111,9 @@ public class LogAndExitController extends LogicManagement{
      * @return
      */
     public String remove_subscription(String user_name){
+        // לוודא שעדיין יש בעל קבוצה ומנהל קבוצה אחד לפחות בקבוצה
+
+        // פונקציה לא שלמה יש להסיר את התלויות מהקבוצה גם - נעשה בסוף לאחר שנבין את כל האילוצים
         if((Current.getPermissions().check_permissions((Action.Removing_Subscriptions)) == 0)){
             return "You are not authorized to perform this action.";
         }
