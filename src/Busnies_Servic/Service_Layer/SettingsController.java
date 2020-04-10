@@ -43,6 +43,7 @@ public class SettingsController extends DataManagement {
      * @return true if the operation succeeded
      */
     public boolean addRefereeToSystem(String referee_user_name, String referee_password){
+        /*
         if (referee_user_name!=null && referee_password!=null){
             Referee current = new Referee(referee_user_name,referee_password);
             if (!list_referee.contains(current)) {
@@ -50,6 +51,8 @@ public class SettingsController extends DataManagement {
                 return true;
             }
         }
+
+         */
         return false;
     }
 
