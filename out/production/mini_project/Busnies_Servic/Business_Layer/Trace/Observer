@@ -1,0 +1,23 @@
+כאשר אנחנו רוצים להגדיר מצב שבו אנחנו צופים על מישהו
+import java.util.Observable;
+import java.util.Observer;
+                             implements Observer
+עושים:
+ @Override
+      public void update(Observable o, Object arg) {
+         //do something
+      }
+
+
+כדי שמישהו יצפה עלינו:
+import java.util.Observable;
+                        extends Observable
+
+כאשר רוצים לשנות משהו בתוך הפונקציה נקרא לשיטות:
+public change(){
+        setChanged();
+        notifyObservers();
+}
+
+כדי להוסיף נושא מסוים עושים:
+subject.addObserver(צופה);

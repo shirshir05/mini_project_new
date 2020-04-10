@@ -97,7 +97,7 @@ public class LogAndExitController extends LogicManagement{
      */
     public String Exit(String arg_user_name, String arg_password){
         if(Current != null){
-            if(Current.equals(arg_user_name) && Current.getPassword().equals(arg_password)){
+            if(Current.getUser_name().equals(arg_user_name) && Current.getPassword().equals(arg_password)){
                 Current = null;
                 return "Successfully disconnected from the system.";
             }
