@@ -46,7 +46,7 @@ public class LogAndExitController extends LogicManagement{
      * @param arg_user_name
      * @param arg_password
      * @return comment print to user
-     * if return nul the input correct
+     * if return null the input correct
      */
     private String Input_test(String arg_user_name, String arg_password){
         if(arg_user_name == null || arg_password == null || arg_user_name.equals("") || arg_password.equals("")){

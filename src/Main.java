@@ -22,6 +22,7 @@ public class Main {
              **/
 
             /// Check the game event update
+            /*
             Player p = new Player("raz","1234");
             Fan me = new Fan("Raz","1234");
             Team host = new Team("TLV", "Teddi");
@@ -31,5 +32,10 @@ public class Main {
             g.addObserver(me);
             g.update_new_event();
             me.getAlerts();
+            */
+
+            //initialize the system:
+
+            
         }
 }
