@@ -19,12 +19,10 @@ public class ComplaintController{
      * This function adds a complaint by a user.
      *
      */
-    public void add_complaint(){
-        Scanner complaint_scan = new Scanner (System.in);
-        System.out.println("Enter tour complaint:");
-        String complaint_description="";
-        complaint_description+=complaint_scan.nextLine();
-        complaints.updateComplaint(complaint_description);
+    public void add_complaint(String complaint_description){
+        if (complaint_description!=null){
+            complaints.updateComplaint(complaint_description);
+        }
     }
 
 

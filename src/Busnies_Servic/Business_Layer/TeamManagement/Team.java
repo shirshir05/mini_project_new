@@ -1,6 +1,12 @@
 package Busnies_Servic.Business_Layer.TeamManagement;
 import java.util.HashMap;
 import java.util.Observable;
+
+import Busnies_Servic.Action;
+import Busnies_Servic.Business_Layer.ActionStatus;
+import Busnies_Servic.Business_Layer.BudgetManagement.Expense;
+import Busnies_Servic.Business_Layer.BudgetManagement.Income;
+import Busnies_Servic.Business_Layer.BudgetManagement.TeamBudget;
 import Busnies_Servic.Business_Layer.Trace.*;
 import Busnies_Servic.Business_Layer.UserManagement.*;
 import javafx.util.Pair;
@@ -19,10 +25,13 @@ public class Team extends Observable {
     int status; // 0 - off 1 - on -1 - always close
     HashMap<Integer, Pair<String,Integer>> financial;//Integer  = quarterly
 
+    TeamBudget budget;
+
 
     public Team(String arg_name, String arg_main_field ){
         this.Name =arg_name;
         list_Player = new HashSet<>();
+        budget = new TeamBudget();
         list_Coach = new HashSet<>() ;
         list_TeamManager = new HashSet<>();
         list_TeamOwner = new HashSet<>();
@@ -247,4 +256,26 @@ public class Team extends Observable {
     public PersonalPage getPersonalPage() {
         return PersonalPage;
     }
+
+    //region Budget
+
+    //TODO how to initialize budget?
+    public void setInitialBudget(double amount){
+        if(amount > 0)
+            budget.setAmount(amount);
+    }
+
+    public ActionStatus addExpense(double expense, Expense description){
+        return budget.addExpense(expense,description);
+    }
+
+    public ActionStatus addIncome(double income, Income description){
+        return budget.addIncome(income,description);
+    }
+
+    public double getCurrentAmountInBudget(){
+        return budget.getCurrentAmount();
+    }
+
+    //endregion
 }

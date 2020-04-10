@@ -3,17 +3,20 @@ package Busnies_Servic.Service_Layer;
 import Busnies_Servic.Business_Layer.Game.Game;
 import Busnies_Servic.Business_Layer.Game.League;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
+import Busnies_Servic.Business_Layer.UserManagement.Referee;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
 import Busnies_Servic.Role;
 import DBconnection.stateTaxSystem;
 import DBconnection.unionFinanceSystem;
 
+
+import java.util.Arrays;
 import java.util.HashSet;
 
-public final class LogicManagement {
+public final class DataManagement {
 
-    private static final LogicManagement instance = new LogicManagement();
+    private static final DataManagement instance = new DataManagement();
 
 
 
@@ -26,6 +29,8 @@ public final class LogicManagement {
 
     private static HashSet<League> list_league = new HashSet<>();
 
+    private static HashSet<Referee> list_referee = new HashSet<>();
+
     // Saves the current subscription that is currently being registered to the system
     private static Subscription current;
 
@@ -33,14 +38,10 @@ public final class LogicManagement {
 
     private unionFinanceSystem financeSys;
 
-    public static LogicManagement getInstance() {
-        return instance;
-    }
-
     /**
      * singleton constructor to initialize the parameters
      */
-    private LogicManagement() {
+    private DataManagement() {
         if (instance == null) {
             //Prevent Reflection
             throw new IllegalStateException("Cannot instantiate a new singleton instance of logic management");
@@ -48,6 +49,7 @@ public final class LogicManagement {
         }
         this.createLogicManagement();
     }
+
 
 
     /**
@@ -77,6 +79,10 @@ public final class LogicManagement {
         return null;
     }
 
+    private static boolean isInEnum(String value) {
+        return Arrays.stream(Role.values()).anyMatch(e -> e.name().equals(value));
+    }
+
 
     /**
      * The function accepts a string with the role name and returns Enum.
@@ -85,6 +91,10 @@ public final class LogicManagement {
      */
     protected static Role return_enum(String arg_role){
         Role enum_role =  Role.valueOf(arg_role);
+        if (!isInEnum(arg_role)) {
+
+            return null;
+        }
         switch (enum_role) {
             case Coach:
                 return Role.Coach;
@@ -135,6 +145,30 @@ public final class LogicManagement {
         return null;
     }
 
+    /**
+     * This function gets a leaugeName and return Leauge
+     * @param leaugeName
+     * @return
+     */
+    protected static League findLeauge(String leaugeName) {
+        for (League l : list_league) {
+            if (l.getName().equals(leaugeName)) {
+                return l;
+            }
+        }
+        return null;
+    }
+
+    protected static Referee findReferee(String referee_name){
+        for (Referee r : list_referee){
+            if (r.getUserName().equals(referee_name)){
+                return r;
+            }
+        }
+        return null;
+    }
+
+
     public static void setSubscription(Subscription sub){
         Subscription.add(sub);
     }
@@ -159,4 +193,23 @@ public final class LogicManagement {
         return list_team;
     }
 
+    public static void addToListLeague(League league){
+        list_league.add(league);
+    }
+
+    public static HashSet getListLeague(){
+        return list_league;
+    }
+
+    public static void addToListReferee(Referee referee){
+        list_referee.add(referee);
+    }
+
+    public static HashSet getListReferee(){
+        return list_referee;
+    }
+
+    public static void removeReferee(Referee referee){
+        list_referee.remove(referee);
+    }
 }

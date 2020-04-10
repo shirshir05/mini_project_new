@@ -5,6 +5,7 @@ import java.util.Observable;
 public class Referee extends Subscription{
 
     protected String qualification;
+    protected String name;
 
     public String getQualification() {
         return qualification;
@@ -14,11 +15,19 @@ public class Referee extends Subscription{
         this.qualification = qualification;
     }
 
-    public Referee(String arg_user_name, String arg_password) {
-        super(arg_user_name, arg_password);
+    public Referee(String arg_user_name, String arg_password,String email) {
+        super(arg_user_name, arg_password,email);
         permissions.edit_permissions(Action.Upload_personal_page,1);
         permissions.edit_permissions(Action.watch_game,1);
         permissions.edit_permissions(Action.update_event,1);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Referee)) return false;
+        Referee referee = (Referee) o;
+        return referee.userName.equals(this.userName);
     }
 
 }

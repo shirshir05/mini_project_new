@@ -1,14 +1,4 @@
-import Busnies_Servic.Business_Layer.Game.Game;
-import Busnies_Servic.Business_Layer.TeamManagement.Team;
-import Busnies_Servic.Business_Layer.UserManagement.Complaint;
-import Busnies_Servic.Business_Layer.UserManagement.Fan;
-import Busnies_Servic.Business_Layer.UserManagement.Player;
-import Busnies_Servic.Business_Layer.UserManagement.SystemAdministrator;
-import Busnies_Servic.Service_Layer.ComplaintController;
 import Busnies_Servic.Service_Layer.LogAndExitController;
-import Busnies_Servic.Service_Layer.LogicManagement;
-
-import java.util.Date;
 
 public class Main {
 
@@ -38,7 +28,7 @@ public class Main {
 
             //initialize the system:
             LogAndExitController lc = new LogAndExitController();
-            String str = lc.Registration("mainAdmin", "p@$$w0rd", "SystemAdministrator");
+            String str = lc.Registration("mainAdmin", "p@$$w0rd", "SystemAdministrator","email");
             System.out.println(str + "\n" );
         }
 }

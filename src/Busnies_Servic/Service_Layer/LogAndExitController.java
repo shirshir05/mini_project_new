@@ -6,6 +6,8 @@ import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
 import Busnies_Servic.Role;
 
+import java.util.regex.Pattern;
+
 // to function that remove all Subscription
 
 
@@ -16,6 +18,22 @@ public class LogAndExitController{
 
     protected static SubscriptionFactory factory = new SubscriptionFactory();
     private Subscription current;
+    /**
+     * This function check if email is legal
+     * @param email
+     * @return
+     */
+    private boolean check_email( String email){
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
 
     /**
      * The purpose of this function is to register the user to the system.
@@ -25,18 +43,23 @@ public class LogAndExitController{
      * @param arg_role
      * @return comment print to user
      */
-    public String Registration(String arg_user_name, String arg_password, String arg_role){
+    public String Registration(String arg_user_name, String arg_password, String arg_role, String email){
+        if(!check_email(email)){
+            return "Invalid email, please enter a valid email.";
+        }
         String check_input = Input_test(arg_user_name,arg_password);
+
         if( check_input!= null){
             return check_input;
         }
-        Role role_enum = LogicManagement.return_enum(arg_role);
+        Role role_enum = DataManagement.return_enum(arg_role);
         if (role_enum == null){
             return "The role does not exist in the system.";
         }
-        Subscription newSub = factory.Create(arg_user_name,arg_password, role_enum);
-        LogicManagement.setSubscription(newSub);
-        LogicManagement.setCurrent(newSub);
+
+        Subscription newSub = factory.Create(arg_user_name,arg_password, role_enum,email);
+        DataManagement.setSubscription(newSub);
+        DataManagement.setCurrent(newSub);
         return "Subscription successfully added!";
     }
 
@@ -59,7 +82,7 @@ public class LogAndExitController{
         if(arg_password.length() < 5){
             return "The password must contain at least 5 digits.";
         }
-        if (LogicManagement.contain_subscription(arg_user_name) != null){
+        if (DataManagement.contain_subscription(arg_user_name) != null){
             return "Please select another username because this username exists in the system.";
         }
         return null;
@@ -76,7 +99,7 @@ public class LogAndExitController{
         if(current != null){
             return "Another subscription is connected to the system.";
         }
-        Subscription Current_check = LogicManagement.contain_subscription(arg_user_name);
+        Subscription Current_check = DataManagement.contain_subscription(arg_user_name);
         if (Current_check != null){
             if (!Current_check.getPassword().equals(arg_password) ){
                 return "The password does not match the username.";
@@ -95,9 +118,9 @@ public class LogAndExitController{
      * @return comment print to user
      */
     public String Exit(String arg_user_name, String arg_password){
-        if(current != null){
-            if(current.equals(arg_user_name) && current.getPassword().equals(arg_password)){
-                current = null;
+        if(DataManagement.getCurrent() != null){
+            if(DataManagement.getCurrent().getUserName().equals(arg_user_name) && DataManagement.getCurrent().getPassword().equals(arg_password)){
+                DataManagement.setCurrent(null);
                 return "Successfully disconnected from the system.";
             }
         }
@@ -116,10 +139,10 @@ public class LogAndExitController{
         if((current.getPermissions().check_permissions((Action.Removing_Subscriptions)) == 0)){
             return "You are not authorized to perform this action.";
         }
-        if(LogicManagement.contain_subscription(user_name) == null){
+        if(DataManagement.contain_subscription(user_name) == null){
             return "The subscription does not exist in the system.";
         }
-        LogicManagement.removeSubscription(user_name);
+        DataManagement.removeSubscription(user_name);
         return "the transaction completed successfully.";
     }
 

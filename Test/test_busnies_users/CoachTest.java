@@ -18,26 +18,28 @@ public class CoachTest {
     String userName;
     String password;
     String complaint;
+    String email;
     Coach coach;
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 //Input_test
-                {"person","09876",""}, {"me","837465","complaining complaints"},
-                {"???","123456","fix this!"}, {"", "123456","what?!"}
+                {"person","09876","shir0@post.bgu.ac.il",""}, {"me","837465","shir0@post.bgu.ac.il","complaining complaints"},
+                {"???","123456","shir0@post.bgu.ac.il","fix this!"}, {"", "123456","shir0@post.bgu.ac.il|","what?!"}
         });
     }
 
-    public CoachTest(String arg_user_name, String arg_password,String arg_complaint) {
+    public CoachTest(String arg_user_name, String arg_password,String arg_complaint, String email) {
         this.userName = arg_user_name;
         this.password = arg_password;
+        this.email = email;
         this.complaint = arg_complaint;
     }
 
     @Before
     public void setUp() throws Exception {
-        coach = new Coach(userName,password);
+        coach = new Coach(userName,password,email);
     }
 
     @Test
