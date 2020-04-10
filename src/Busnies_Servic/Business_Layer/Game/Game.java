@@ -10,7 +10,6 @@ import Busnies_Servic.EventType;
 import javafx.util.Pair;
 
 import java.util.Date;
-import java.util.Scanner;
 
 public class Game extends Observable{
     static int game_id=0;
@@ -70,7 +69,7 @@ public class Game extends Observable{
             return false;
         }
         setChanged();
-        notifyObservers(new_event.event_to_string());
+        notifyObservers(new_event.eventToString());
         return true;
 
     }

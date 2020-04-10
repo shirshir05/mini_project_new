@@ -7,20 +7,13 @@ import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Coach;
 import Busnies_Servic.Business_Layer.UserManagement.Fan;
 import Busnies_Servic.Business_Layer.UserManagement.Player;
-import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 
-import java.util.Scanner;
-
-public class AlertController extends LogicManagement {
+public class AlertController extends DataManagement {
 
     /**
      *  This function register the fan to alerts of a game he choose.
      */
-    public void fan_register_to_game_alerts(){
-        Scanner scanner = new Scanner (System.in);
-        System.out.println("Enter game id:");
-        int game_number=scanner.nextInt();
-        scanner.close();
+    public void fan_register_to_game_alerts(int game_number){
         Game chosen_game = find_game(game_number);
         chosen_game.addObserver((Fan)this.Current);
     }

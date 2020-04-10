@@ -25,8 +25,8 @@ public class Player extends Subscription implements Observer {
         return PersonalPage;
     }
 
-    public Player(String arg_user_name, String arg_password) {
-        super(arg_user_name, arg_password);
+    public Player(String arg_user_name, String arg_password,String email) {
+        super(arg_user_name, arg_password,email);
         PersonalPage=new PlayerPersonalPage(arg_user_name);
 
     }

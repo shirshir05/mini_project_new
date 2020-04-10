@@ -11,7 +11,7 @@ import Busnies_Servic.Role;
 import java.util.Arrays;
 import java.util.HashSet;
 
-public class LogicManagement {
+public class DataManagement {
 
     SubscriptionFactory factory;
 
@@ -29,11 +29,10 @@ public class LogicManagement {
 
     HashSet<Referee> list_referee = new HashSet<>();
 
-
     /**
      * Constructor to initialize the parameters
      */
-    public LogicManagement(){
+    public DataManagement(){
         Subscription = new HashSet<>();
         Current = null;
         factory = new SubscriptionFactory();

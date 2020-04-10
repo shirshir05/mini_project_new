@@ -21,6 +21,7 @@ public class Coach extends Subscription implements Observer {
         return PersonalPage;
     }
 
+
     public String getName() {
         return name;
     }
@@ -48,7 +49,6 @@ public class Coach extends Subscription implements Observer {
 
     public void setRoleInTeam(String roleInTeam) {
         this.roleInTeam = roleInTeam;
-    }
 
     @Override
     public void update(Observable o, Object arg) {

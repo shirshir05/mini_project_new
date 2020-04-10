@@ -1,10 +1,9 @@
 package Busnies_Servic.Service_Layer;
 
+
 import Busnies_Servic.Business_Layer.UserManagement.Complaint;
 
-import java.util.Scanner;
-
-public class ComplaintController extends LogicManagement{
+public class ComplaintController extends DataManagement {
     Complaint complaints;
 
     /**
