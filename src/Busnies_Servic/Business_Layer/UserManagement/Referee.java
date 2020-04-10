@@ -5,6 +5,7 @@ import java.util.Observable;
 public class Referee extends Subscription{
 
     protected String qualification;
+    protected String name;
 
     public String getQualification() {
         return qualification;

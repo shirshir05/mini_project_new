@@ -11,9 +11,11 @@ import java.util.Observer;
 import java.util.Scanner;
 
 public class Player extends Subscription implements Observer {
+
     protected PlayerPersonalPage PersonalPage;
-    protected String role;
+    protected String position;
     protected Date birthday;
+    protected String name;
 
     public void setPersonalPage(PlayerPersonalPage personalPage) {
         PersonalPage = personalPage;
@@ -26,6 +28,7 @@ public class Player extends Subscription implements Observer {
     public Player(String arg_user_name, String arg_password) {
         super(arg_user_name, arg_password);
         PersonalPage=new PlayerPersonalPage(arg_user_name);
+
     }
 
     @Override

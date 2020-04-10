@@ -8,6 +8,8 @@ import java.util.Observer;
 public class Fan extends Subscription implements Observer{
 
     public HashSet<Complaint> list_complaint;
+    protected String name;
+
 
 
     public boolean add_complaint(Complaint complaint){
@@ -34,4 +36,6 @@ public class Fan extends Subscription implements Observer{
     public void update(Observable o, Object arg) {
         this.alerts.add((String)arg);
     }
+
+
 }

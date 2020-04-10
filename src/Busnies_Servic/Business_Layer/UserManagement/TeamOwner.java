@@ -9,7 +9,7 @@ public class TeamOwner extends Subscription  implements Observer{
 
     //teamOwner or SystemAdministrator
     Subscription appointed_by_teamOwner;
-
+    protected String name;
 
 
     public TeamOwner(String arg_user_name, String arg_password) {
