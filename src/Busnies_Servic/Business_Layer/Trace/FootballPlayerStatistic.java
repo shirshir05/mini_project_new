@@ -1,6 +1,6 @@
 package Busnies_Servic.Business_Layer.Trace;
 
-public class FootBallStatistic { //current/yearly statistic consider also all time statistic
+public class FootballPlayerStatistic { //current/yearly statistic consider also all time statistic
 
     protected int goals;
     protected int shots;
@@ -14,7 +14,7 @@ public class FootBallStatistic { //current/yearly statistic consider also all ti
     protected int yellowCards;
     protected int doubleYellowCards;
 
-    public FootBallStatistic() {
+    public FootballPlayerStatistic() {
 
     }
 

@@ -16,6 +16,9 @@ public class Player extends Subscription implements Observer {
     protected String position;
     protected Date birthday;
     protected String name;
+    //כרטיס שחקן או מספר שחקן?
+    //salary?
+
 
     public void setPersonalPage(PlayerPersonalPage personalPage) {
         PersonalPage = personalPage;
