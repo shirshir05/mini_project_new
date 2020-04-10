@@ -7,19 +7,27 @@ public class Referee extends Subscription{
     protected String qualification;
     protected String name;
 
+    public Referee(String arg_user_name, String arg_password) {
+        super(arg_user_name, arg_password);
+        permissions.edit_permissions(Action.Upload_personal_page,1);
+        permissions.edit_permissions(Action.watch_game,1);
+        permissions.edit_permissions(Action.update_event,1);
+    }
+
     public String getQualification() {
         return qualification;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setQualification(String qualification) {
         this.qualification = qualification;
     }
 
-    public Referee(String arg_user_name, String arg_password) {
-        super(arg_user_name, arg_password);
-        permissions.edit_permissions(Action.Upload_personal_page,1);
-        permissions.edit_permissions(Action.watch_game,1);
-        permissions.edit_permissions(Action.update_event,1);
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

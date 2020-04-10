@@ -18,7 +18,6 @@ public class SystemAdministrator extends Subscription implements Observer{
 
     public boolean approve_create_team(){
 
-
         return true;
     }
 

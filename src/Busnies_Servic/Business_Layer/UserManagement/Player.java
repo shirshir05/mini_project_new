@@ -31,6 +31,30 @@ public class Player extends Subscription implements Observer {
 
     }
 
+    public String getPosition() {
+        return position;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         this.alerts.add((String)arg);

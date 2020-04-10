@@ -92,6 +92,12 @@ public class PlayerPersonalPage extends PersonalPage{
         this.jerseyNumber = jerseyNumber;
     }
 
+    public void setStatistic(statisticStrategy statisticStrategy, int newValue){
+
+        statisticStrategy.doSetOperation(newValue);
+
+    }
+
     public void setStatistic(StatisticParameter statisticParameter, int newValue) {
 
         switch (statisticParameter) {
