@@ -16,7 +16,7 @@ public class SubscriptionFactory {
         if(role == Role.Coach ){
             return new Coach(arg_user_name,arg_password);
         }
-        else if (role ==Role.Fan){
+        else if (role == Role.Fan){
             return new Fan(arg_user_name,arg_password);
         }
         else if (role == Role.Guest){

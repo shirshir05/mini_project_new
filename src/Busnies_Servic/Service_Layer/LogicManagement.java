@@ -6,6 +6,8 @@ import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
 import Busnies_Servic.Role;
+
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class LogicManagement {
@@ -49,14 +51,24 @@ public class LogicManagement {
         return null;
     }
 
+    private static boolean isInEnum(String value) {
+        return Arrays.stream(Role.values()).anyMatch(e -> e.name().equals(value));
+    }
+
 
     /**
      * The function accepts a string with the role name and returns Enum.
      * @param arg_role
      * @return Role or null if the tole not found
      */
-    protected Role return_enum(String arg_role){
-        Role enum_role =  Role.valueOf(arg_role);
+    protected Role return_enum(String arg_role) {
+
+        if (!isInEnum(arg_role)) {
+
+            return null;
+        }
+
+        Role enum_role = Role.valueOf(arg_role);
         switch (enum_role) {
             case Coach:
                 return Role.Coach;
@@ -80,7 +92,6 @@ public class LogicManagement {
                 return null;
         }
     }
-
 
     /**
      * @param arg_user_to_register

@@ -41,8 +41,8 @@ public class Event {
      * @return the event-type he chose.
      */
     public EventType get_event_type_from_user(){
+
         Scanner scan = new Scanner(System.in);
-        EventType type_chosen = null;
         System.out.println("Choose event type:");
         System.out.println("1 - Goal");
         System.out.println("2- Offside:");
@@ -52,6 +52,14 @@ public class Event {
         System.out.println("6 - Injury");
         System.out.println("7 - player replacement:");
         int choose = scan.nextInt();
+        return get_event_type_from_user_For_Test(choose);
+
+    }
+
+    private EventType get_event_type_from_user_For_Test(int choose) {
+
+        EventType type_chosen = null;
+
         switch (choose) {
             case 1:
                 type_chosen=EventType.goal;
