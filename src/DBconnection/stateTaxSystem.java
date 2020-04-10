@@ -3,21 +3,21 @@ package DBconnection;
 public class stateTaxSystem implements apiConnections {
     @Override
     public boolean initConnection() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean checkConnection() {
-        return false;
+        return true;
     }
 
     @Override
     public String getUpdatedData() {
-        return null;
+        return "";
     }
 
     @Override
     public boolean setNewData(Object data) {
-        return false;
+        return true;
     }
 }

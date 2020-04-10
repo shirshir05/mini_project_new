@@ -4,7 +4,7 @@ import Busnies_Servic.Business_Layer.UserManagement.Complaint;
 
 import java.util.Scanner;
 
-public class ComplaintController extends LogicManagement{
+public class ComplaintController{
     Complaint complaints;
 
     /**

@@ -6,33 +6,61 @@ import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
 import Busnies_Servic.Role;
+import DBconnection.stateTaxSystem;
+import DBconnection.unionFinanceSystem;
+
 import java.util.HashSet;
 
-public class LogicManagement {
+public final class LogicManagement {
 
-    SubscriptionFactory factory;
+    private static final LogicManagement instance = new LogicManagement();
+
+
 
     // A list that keeps all the subscriptions that are currently subscribed to the system
-    HashSet<Subscription>  Subscription;
+    private static HashSet<Subscription>  Subscription = new HashSet<>();
+
+    private static HashSet<Team> list_team = new HashSet<>();
+
+    private static HashSet<Game> list_game = new HashSet<>();
+
+    private static HashSet<League> list_league = new HashSet<>();
 
     // Saves the current subscription that is currently being registered to the system
-    Subscription Current;
+    private static Subscription current;
 
-    HashSet<Team> list_team = new HashSet<>();
+    private stateTaxSystem taxSys;
 
-    HashSet<Game> list_game = new HashSet<>();
+    private unionFinanceSystem financeSys;
 
-    HashSet<League> list_league = new HashSet<>();
+    public static LogicManagement getInstance() {
+        return instance;
+    }
+
+    /**
+     * singleton constructor to initialize the parameters
+     */
+    private LogicManagement() {
+        if (instance == null) {
+            //Prevent Reflection
+            throw new IllegalStateException("Cannot instantiate a new singleton instance of logic management");
+
+        }
+        this.createLogicManagement();
+    }
 
 
     /**
-     * Constructor to initialize the parameters
+     * singleton initialize the parameters
      */
-    public LogicManagement(){
-        Subscription = new HashSet<>();
-        Current = null;
-        factory = new SubscriptionFactory();
+    private void createLogicManagement(){
+        //initialize system and connections
+        financeSys = new unionFinanceSystem();
+        boolean checkSystem1 = financeSys.initConnection();
+        taxSys = new stateTaxSystem();
+        boolean checkSystem2 = taxSys.initConnection();
     }
+
 
 
     /**
@@ -40,7 +68,7 @@ public class LogicManagement {
      * @param arg_user_name
      * @return Subscription
      */
-    public Subscription contain_subscription(String arg_user_name){
+    public static Subscription contain_subscription(String arg_user_name){
         for (Subscription  subscription : Subscription) {
             if (subscription.getUserName().equals(arg_user_name)){
                 return subscription;
@@ -55,7 +83,7 @@ public class LogicManagement {
      * @param arg_role
      * @return Role or null if the tole not found
      */
-    protected Role return_enum(String arg_role){
+    protected static Role return_enum(String arg_role){
         Role enum_role =  Role.valueOf(arg_role);
         switch (enum_role) {
             case Coach:
@@ -86,7 +114,7 @@ public class LogicManagement {
      * @param arg_user_to_register
      * @return
      */
-    protected Team findTeam(String arg_user_to_register) {
+    protected static Team findTeam(String arg_user_to_register) {
         for (Team t : list_team){
             if (t.getName().equals(arg_user_to_register))
                 return t;
@@ -99,7 +127,7 @@ public class LogicManagement {
      * @param game_id
      * @return
      */
-    protected Game find_game(int game_id){
+    protected static Game find_game(int game_id){
         for ( Game g: list_game ){
             if (g.get_game_id()==game_id)
                 return g;
@@ -107,7 +135,28 @@ public class LogicManagement {
         return null;
     }
 
+    public static void setSubscription(Subscription sub){
+        Subscription.add(sub);
+    }
 
+    public static void removeSubscription(String user_name){
+        Subscription.remove(contain_subscription(user_name));
+    }
 
+    public static void setCurrent(Subscription sub){
+        current = sub;
+    }
+
+    public static Subscription getCurrent(){
+        return current;
+    }
+
+    public static void addToListTeam(Team team){
+        list_team.add(team);
+    }
+
+    public static HashSet getListTeam(){
+        return list_team;
+    }
 
 }

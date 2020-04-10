@@ -5,6 +5,8 @@ import Busnies_Servic.Business_Layer.UserManagement.Fan;
 import Busnies_Servic.Business_Layer.UserManagement.Player;
 import Busnies_Servic.Business_Layer.UserManagement.SystemAdministrator;
 import Busnies_Servic.Service_Layer.ComplaintController;
+import Busnies_Servic.Service_Layer.LogAndExitController;
+import Busnies_Servic.Service_Layer.LogicManagement;
 
 import java.util.Date;
 
@@ -35,7 +37,8 @@ public class Main {
             */
 
             //initialize the system:
-
-            
+            LogAndExitController lc = new LogAndExitController();
+            String str = lc.Registration("mainAdmin", "p@$$w0rd", "SystemAdministrator");
+            System.out.println(str + "\n" );
         }
 }
