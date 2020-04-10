@@ -2,7 +2,6 @@ package Busnies_Servic.Business_Layer.TeamManagement;
 import java.util.HashMap;
 import java.util.Observable;
 
-import Busnies_Servic.Action;
 import Busnies_Servic.Business_Layer.ActionStatus;
 import Busnies_Servic.Business_Layer.BudgetManagement.Expense;
 import Busnies_Servic.Business_Layer.BudgetManagement.Income;
@@ -256,7 +255,11 @@ public class Team extends Observable {
     //TODO how to initialize budget?
     public void setInitialBudget(double amount){
         if(amount > 0)
-            budget.setAmount(amount);
+            budget.setAmountForCurrentQuarter(amount);
+    }
+
+    public void startNewQuarterForBudget(double amount){
+        budget.startNewQuarter(amount);
     }
 
     public ActionStatus addExpense(double expense, Expense description){

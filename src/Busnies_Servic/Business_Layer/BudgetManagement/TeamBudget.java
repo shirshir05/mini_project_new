@@ -10,10 +10,11 @@ import Busnies_Servic.Business_Layer.ActionStatus;
 public class TeamBudget implements IBudget{
 
     //region Members
+
     /**
      * keeps the amount left for the team
      */
-    private double amount;
+    private double amountForCurrentQuarter;
 
     /**
      * the following members keep how much was spent so far.
@@ -30,7 +31,8 @@ public class TeamBudget implements IBudget{
 
     @Override
     public ActionStatus addExpense(double expense, Expense description) {
-        if(expense <= 0)
+        //to verify that in each quarter the expenses are less than the incomes.
+        if(expense <= 0 || (amountForCurrentQuarter - expense) < 0)
             return new ActionStatus(false,"Not a valid expense");
         ActionStatus tempAS;
         switch(description){
@@ -72,12 +74,24 @@ public class TeamBudget implements IBudget{
 
     @Override
     public double getCurrentAmount() {
-        return amount;
+        return amountForCurrentQuarter;
     }
 
     //endregion
 
     //region Setters -> requires permission
+
+    /**
+     * resets all expenses to zero for the current quarter and updates the amount
+     * @param amount the amount the team will have for the quarter
+     */
+    public void startNewQuarter(double amount){
+        uniformExpenses = 0;
+        advertisementExpenses = 0;
+        maintenanceExpenses = 0;
+        otherExpenses = 0;
+        amountForCurrentQuarter = amount;
+    }
 
     public void setUniformExpenses(double uniformExpenses) {
         this.uniformExpenses = uniformExpenses;
@@ -97,8 +111,8 @@ public class TeamBudget implements IBudget{
 
     //TODO how to initialize budget?
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setAmountForCurrentQuarter(double amountForCurrentQuarter) {
+        this.amountForCurrentQuarter = amountForCurrentQuarter;
     }
 
     //endregion
@@ -116,7 +130,7 @@ public class TeamBudget implements IBudget{
     }
 
     private void updateAmount(double toAddOrReduce){
-        amount+=toAddOrReduce;
+        amountForCurrentQuarter +=toAddOrReduce;
     }
 
     //endregion
