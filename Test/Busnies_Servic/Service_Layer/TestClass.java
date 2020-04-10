@@ -105,9 +105,9 @@ public class TestClass{
             //controller.Subscription.add(factory.Create(name,password, Role.Coach)); //Registare user manualy
 
             //check login when another subscription is connected
-            controller.Current = controller.contain_subscription(name);
+            DataManagement.setCurrent(DataManagement.contain_subscription(name));
             assertEquals("Another subscription is connected to the system.", controller.Login(name, password));
-            controller.Current = null;
+            DataManagement.setCurrent(null);
 
             //check login when password does not match
             this.password = "12346";
@@ -131,7 +131,8 @@ public class TestClass{
             this.role = "Coach";
 
             //Register and login user manually
-            controller.Subscription.add(controller.Current = factory.Create(name,password, Role.Coach,email));
+            DataManagement.setCurrent(factory.Create(name,password, Role.Coach,email));
+            DataManagement.setSubscription(DataManagement.getCurrent());
 
             //check exit wrong user name
             this.name = "mata";
@@ -147,7 +148,7 @@ public class TestClass{
             assertEquals("Successfully disconnected from the system.", controller.Exit(name, password));
 
             //check exit no current login user
-            controller.Current = null;
+            DataManagement.setCurrent(null);
             assertEquals("One of the details you entered is incorrect.", controller.Exit(name, password));
         }
     }

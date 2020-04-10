@@ -1,7 +1,7 @@
 package Busnies_Servic.Business_Layer.Trace;
 
 import Busnies_Servic.Role;
-import Busnies_Servic.StatisticParameter;
+//import Busnies_Servic.StatisticParameter;
 
 import java.util.Date;
 
@@ -15,7 +15,7 @@ public class PlayerPersonalPage extends PersonalPage{
     protected String weight; //in kg
     protected String position;
     protected String jerseyNumber;
-    protected FootBallStatistic statistic;
+   // protected FootBallStatistic statistic;
     protected String seasonYear;
 
     //full time statistic??
@@ -25,9 +25,9 @@ public class PlayerPersonalPage extends PersonalPage{
 
     public PlayerPersonalPage(String name){
         super(name);
-        statistic = new FootBallStatistic();
+        //statistic = new FootBallStatistic();
     }
-
+/*
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -152,4 +152,5 @@ public class PlayerPersonalPage extends PersonalPage{
                 "statistic: " + "\n" +
                 statistic.toString();
     }
+    */
 }

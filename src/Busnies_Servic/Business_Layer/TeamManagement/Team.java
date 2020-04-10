@@ -9,6 +9,7 @@ import Busnies_Servic.Business_Layer.BudgetManagement.TeamBudget;
 import Busnies_Servic.Business_Layer.Trace.*;
 import Busnies_Servic.Business_Layer.UserManagement.*;
 import javafx.util.Pair;
+
 import java.util.HashSet;
 
 public class Team extends Observable {
@@ -18,7 +19,7 @@ public class Team extends Observable {
     HashSet<Coach> list_Coach;
     HashSet<TeamManager> list_TeamManager;// המנהל קבוצ
     HashSet<TeamOwner> list_TeamOwner; // בעל קבוצה
-    String Field;
+    HashSet<Object> list_assets;
     TeamPersonalPage PersonalPage;
     int status; // 0 - off 1 - on -1 - always close
     HashMap<Integer, Pair<String,Integer>> financial;//Integer  = quarterly
@@ -26,11 +27,16 @@ public class Team extends Observable {
     TeamBudget budget;
 
 
-    public Team(String arg_name, String arg_field ){
+    public Team(String arg_name, String arg_main_field ){
         this.Name =arg_name;
-        this.Field = arg_field;
         list_Player = new HashSet<>();
         budget = new TeamBudget();
+        list_Coach = new HashSet<>() ;
+        list_TeamManager = new HashSet<>();
+        list_TeamOwner = new HashSet<>();
+        list_assets = new HashSet<>();
+        PersonalPage = new TeamPersonalPage(Name);
+        list_assets.add(arg_main_field);
     }
 
     public String set_Player(Player Player) {
@@ -74,11 +80,11 @@ public class Team extends Observable {
         return "Operation failed.";
     }
 
-    public String setField(String field) {
+    public String setAsset(String asset) {
         if(status == -1 || status == 0){
             return "The team is inactive so no activity can be performed on it";
         }
-        Field = field;
+        list_assets.add(asset);
         return null;
 
     }

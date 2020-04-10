@@ -7,36 +7,62 @@ import Busnies_Servic.Business_Layer.UserManagement.Referee;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
 import Busnies_Servic.Role;
+import DBconnection.stateTaxSystem;
+import DBconnection.unionFinanceSystem;
+
 
 import java.util.Arrays;
 import java.util.HashSet;
 
-public class DataManagement {
+public final class DataManagement {
 
-    SubscriptionFactory factory;
+    private static final DataManagement instance = new DataManagement();
+
+
 
     // A list that keeps all the subscriptions that are currently subscribed to the system
-    HashSet<Subscription>  Subscription;
+    private static HashSet<Subscription>  Subscription = new HashSet<>();
+
+    private static HashSet<Team> list_team = new HashSet<>();
+
+    private static HashSet<Game> list_game = new HashSet<>();
+
+    private static HashSet<League> list_league = new HashSet<>();
+
+    private static HashSet<Referee> list_referee = new HashSet<>();
 
     // Saves the current subscription that is currently being registered to the system
-    Subscription Current;
+    private static Subscription current;
 
-    HashSet<Team> list_team = new HashSet<>();
+    private stateTaxSystem taxSys;
 
-    HashSet<Game> list_game = new HashSet<>();
-
-    HashSet<League> list_league = new HashSet<>();
-
-    HashSet<Referee> list_referee = new HashSet<>();
+    private unionFinanceSystem financeSys;
 
     /**
-     * Constructor to initialize the parameters
+     * singleton constructor to initialize the parameters
      */
-    public DataManagement(){
-        Subscription = new HashSet<>();
-        Current = null;
-        factory = new SubscriptionFactory();
+    private DataManagement() {
+        if (instance == null) {
+            //Prevent Reflection
+            throw new IllegalStateException("Cannot instantiate a new singleton instance of logic management");
+
+        }
+        this.createLogicManagement();
     }
+
+
+
+    /**
+     * singleton initialize the parameters
+     */
+    private void createLogicManagement(){
+        //initialize system and connections
+        financeSys = new unionFinanceSystem();
+        boolean checkSystem1 = financeSys.initConnection();
+        taxSys = new stateTaxSystem();
+        boolean checkSystem2 = taxSys.initConnection();
+    }
+
 
 
     /**
@@ -44,7 +70,7 @@ public class DataManagement {
      * @param arg_user_name
      * @return Subscription
      */
-    public Subscription contain_subscription(String arg_user_name){
+    public static Subscription contain_subscription(String arg_user_name){
         for (Subscription  subscription : Subscription) {
             if (subscription.getUserName().equals(arg_user_name)){
                 return subscription;
@@ -63,14 +89,12 @@ public class DataManagement {
      * @param arg_role
      * @return Role or null if the tole not found
      */
-    protected Role return_enum(String arg_role) {
-
+    protected static Role return_enum(String arg_role){
+        Role enum_role =  Role.valueOf(arg_role);
         if (!isInEnum(arg_role)) {
 
             return null;
         }
-
-        Role enum_role = Role.valueOf(arg_role);
         switch (enum_role) {
             case Coach:
                 return Role.Coach;
@@ -95,11 +119,12 @@ public class DataManagement {
         }
     }
 
+
     /**
      * @param arg_user_to_register
      * @return
      */
-    protected Team findTeam(String arg_user_to_register) {
+    protected static Team findTeam(String arg_user_to_register) {
         for (Team t : list_team){
             if (t.getName().equals(arg_user_to_register))
                 return t;
@@ -112,7 +137,7 @@ public class DataManagement {
      * @param game_id
      * @return
      */
-    protected Game find_game(int game_id){
+    protected static Game find_game(int game_id){
         for ( Game g: list_game ){
             if (g.get_game_id()==game_id)
                 return g;
@@ -125,7 +150,7 @@ public class DataManagement {
      * @param leaugeName
      * @return
      */
-    protected League findLeauge(String leaugeName) {
+    protected static League findLeauge(String leaugeName) {
         for (League l : list_league) {
             if (l.getName().equals(leaugeName)) {
                 return l;
@@ -134,7 +159,7 @@ public class DataManagement {
         return null;
     }
 
-    protected Referee findReferee(String referee_name){
+    protected static Referee findReferee(String referee_name){
         for (Referee r : list_referee){
             if (r.getUserName().equals(referee_name)){
                 return r;
@@ -144,7 +169,47 @@ public class DataManagement {
     }
 
 
+    public static void setSubscription(Subscription sub){
+        Subscription.add(sub);
+    }
 
+    public static void removeSubscription(String user_name){
+        Subscription.remove(contain_subscription(user_name));
+    }
 
+    public static void setCurrent(Subscription sub){
+        current = sub;
+    }
 
+    public static Subscription getCurrent(){
+        return current;
+    }
+
+    public static void addToListTeam(Team team){
+        list_team.add(team);
+    }
+
+    public static HashSet getListTeam(){
+        return list_team;
+    }
+
+    public static void addToListLeague(League league){
+        list_league.add(league);
+    }
+
+    public static HashSet getListLeague(){
+        return list_league;
+    }
+
+    public static void addToListReferee(Referee referee){
+        list_referee.add(referee);
+    }
+
+    public static HashSet getListReferee(){
+        return list_referee;
+    }
+
+    public static void removeReferee(Referee referee){
+        list_referee.remove(referee);
+    }
 }

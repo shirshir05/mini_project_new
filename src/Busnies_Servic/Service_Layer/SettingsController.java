@@ -4,7 +4,7 @@ import Busnies_Servic.Business_Layer.Game.League;
 import Busnies_Servic.Business_Layer.Game.Season;
 import Busnies_Servic.Business_Layer.UserManagement.Referee;
 
-public class SettingsController extends DataManagement {
+public class SettingsController{
 
 
     /**
@@ -14,7 +14,7 @@ public class SettingsController extends DataManagement {
      */
     public boolean defineLeaugue(String name){
         if (name!=null) {
-            this.list_league.add(new League(name));
+            DataManagement.getListLeague().add(new League(name));
             return true;
         }
         return false;
@@ -30,7 +30,7 @@ public class SettingsController extends DataManagement {
         if (year!=null && league_name!=null) {
             int intFormatYear= Integer.parseInt(year);
             if (intFormatYear>1900 && intFormatYear<2021)
-                this.findLeauge(league_name).addSeason(new Season(year));
+                DataManagement.findLeauge(league_name).addSeason(new Season(year));
             return true;
         }
         return false;
@@ -58,9 +58,9 @@ public class SettingsController extends DataManagement {
 
     public boolean deleteRefereeFromSystem(String referee_user_name){
         if (referee_user_name!=null){
-            Referee current_referee = this.findReferee(referee_user_name);
+            Referee current_referee = DataManagement.findReferee(referee_user_name);
             if (current_referee!=null){
-                this.list_referee.remove(current_referee);
+                DataManagement.removeReferee(current_referee);
                 return true;
             }
         }
@@ -69,8 +69,8 @@ public class SettingsController extends DataManagement {
 
 
     public boolean defineRefereeInLeauge(String leauge_name, String referee_user_name, String season_year) {
-        League league = findLeauge(leauge_name);
-        Referee referee = findReferee(referee_user_name);
+        League league = DataManagement.findLeauge(leauge_name);
+        Referee referee = DataManagement.findReferee(referee_user_name);
         if (league != null && referee!=null) {
             Season season = league.getSeason(season_year);
             if (season!=null){

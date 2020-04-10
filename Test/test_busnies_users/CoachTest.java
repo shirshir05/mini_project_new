@@ -1,6 +1,7 @@
 package test_busnies_users;
 
-import Busnies_Servic.Business_Layer.UserManagement.Coach;
+
+import Busnies_Servic.Business_Layer.UserManagement.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,7 +51,7 @@ public class CoachTest {
     public void setPersonalPage() {
         assertNotNull(coach.getPersonalPage());
         coach.setPersonalPage(null);
-        assertNotNull(coach.getPersonalPage());
+        assertNull(coach.getPersonalPage());
     }
 
     @Test

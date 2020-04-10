@@ -1,9 +1,10 @@
 package Busnies_Servic.Service_Layer;
 
-
 import Busnies_Servic.Business_Layer.UserManagement.Complaint;
 
-public class ComplaintController extends DataManagement {
+import java.util.Scanner;
+
+public class ComplaintController{
     Complaint complaints;
 
     /**
@@ -23,8 +24,6 @@ public class ComplaintController extends DataManagement {
             complaints.updateComplaint(complaint_description);
         }
     }
-
-
 
 
 }
