@@ -14,8 +14,8 @@ public class Referee extends Subscription{
         this.qualification = qualification;
     }
 
-    public Referee(String arg_user_name, String arg_password) {
-        super(arg_user_name, arg_password);
+    public Referee(String arg_user_name, String arg_password,String email) {
+        super(arg_user_name, arg_password,email);
         permissions.edit_permissions(Action.Upload_personal_page,1);
         permissions.edit_permissions(Action.watch_game,1);
         permissions.edit_permissions(Action.update_event,1);

@@ -4,10 +4,7 @@ import Busnies_Servic.Business_Layer.Game.League;
 import Busnies_Servic.Business_Layer.Game.Season;
 import Busnies_Servic.Business_Layer.UserManagement.Referee;
 
-import java.sql.Ref;
-import java.time.Year;
-
-public class SettingsController extends LogicManagement{
+public class SettingsController extends DataManagement {
 
 
     /**

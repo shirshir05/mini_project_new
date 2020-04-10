@@ -7,11 +7,8 @@ import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Coach;
 import Busnies_Servic.Business_Layer.UserManagement.Fan;
 import Busnies_Servic.Business_Layer.UserManagement.Player;
-import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 
-import java.util.Scanner;
-
-public class AlertController extends LogicManagement {
+public class AlertController extends DataManagement {
 
     /**
      *  This function register the fan to alerts of a game he choose.
