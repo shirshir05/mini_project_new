@@ -4,6 +4,7 @@ import Busnies_Servic.Action;
 
 public class UnionRepresentative extends Subscription{
 
+    protected String name;
     public UnionRepresentative(String arg_user_name, String arg_password,String email) {
         super(arg_user_name, arg_password,email);
         permissions.edit_permissions(Action.define_league,1);
