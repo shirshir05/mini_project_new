@@ -2,8 +2,6 @@ package Busnies_Servic.Service_Layer;
 
 import Busnies_Servic.Business_Layer.UserManagement.Complaint;
 
-import java.util.Scanner;
-
 public class ComplaintController{
     Complaint complaints;
 
@@ -20,9 +18,7 @@ public class ComplaintController{
      *
      */
     public void add_complaint(String complaint_description){
-        if (complaint_description!=null){
-            complaints.updateComplaint(complaint_description);
-        }
+        DataManagement.setComplaint(complaint_description);
     }
 
 

@@ -16,10 +16,9 @@ public class TeamOwner extends Subscription  implements Observer{
         appointed_by_teamOwner = null;
     }
 
-
     @Override
     public void update(Observable o, Object arg) {
-
+        this.alerts.add((String)arg);
     }
 
     /**

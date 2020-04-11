@@ -17,8 +17,8 @@ public class Team extends Observable {
     String Name;
     HashSet<Player> list_Player;
     HashSet<Coach> list_Coach;
-    HashSet<TeamManager> list_TeamManager;// המנהל קבוצ
-    HashSet<TeamOwner> list_TeamOwner; // בעל קבוצה
+    HashSet<TeamManager> list_TeamManager;
+    HashSet<TeamOwner> list_TeamOwner;
     HashSet<Object> list_assets;
     TeamPersonalPage PersonalPage;
     int status; // 0 - off 1 - on -1 - always close
@@ -65,6 +65,7 @@ public class Team extends Observable {
         }
         if(TeamManagement != null){
             this.list_TeamManager.add(TeamManagement);
+            this.addObserver(TeamManagement); //adds the team manager as an observer
         }
         return null;
     }
@@ -75,6 +76,7 @@ public class Team extends Observable {
         }
         if(TeamOwner != null){
             this.list_TeamOwner.add(TeamOwner);
+            this.addObserver(TeamOwner); //adds the team owner as an observer
 
         }
         return "Operation failed.";
@@ -238,13 +240,16 @@ public class Team extends Observable {
     }
 
     public String change_status(int status){
+        String notify="";
         if(status == this.status){
            return "The group is already set" + this.status;
         }
         this.status = status;
+        if (status==0){notify="The group "+this.Name+" is closed";}
+        else if(status==1){notify="The group "+this.Name+" is open";}
+        else if(status==2){notify="The group "+this.Name+" is permanently closed";}
         setChanged();
-        notifyObservers();
-        // רז צריך להשלים התראות
+        notifyObservers(notify);
         return "The status of the group has changed successfully.";
     }
 
@@ -280,5 +285,23 @@ public class Team extends Observable {
         return budget.getCurrentAmount();
     }
 
-    //endregion
+    public HashSet<TeamManager> getListTeamManager() {
+        return list_TeamManager;
+    }
+
+    public HashSet<TeamOwner> getListTeamOwner() {
+        return list_TeamOwner;
+    }
+
+    public Player getPlayer(String player_name){
+        if ( player_name!=null) {
+            for (Player p : list_Player) {
+                if (p.getUserName().equals(player_name)) {
+                    return p;
+                }
+            }
+        }
+        return null;
+    }
+
 }

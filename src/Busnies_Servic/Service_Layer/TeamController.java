@@ -249,8 +249,6 @@ public class TeamController {
     }
 
     public boolean change_financial(String name_team, String Operation, Integer sum) {
-
-
         return true;
     }
 

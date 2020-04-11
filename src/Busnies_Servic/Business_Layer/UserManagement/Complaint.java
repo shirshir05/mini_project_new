@@ -11,10 +11,9 @@ public class Complaint extends Observable {
         status=false;
     }
 
-    public void updateComplaint(String new_description){
-        this.description=new_description;
+    public void notify_all(){
         setChanged();
-        notifyObservers(new_description);
+        notifyObservers(description);
     }
 
 }
