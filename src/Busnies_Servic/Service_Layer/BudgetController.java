@@ -9,7 +9,7 @@ import Busnies_Servic.Business_Layer.TeamManagement.Team;
 
 import javax.xml.crypto.Data;
 
-public class UnionBudgetController {
+public class BudgetController {
 
     //TODO check permissions!
 

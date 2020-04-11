@@ -2,6 +2,7 @@ package Busnies_Servic.Service_Layer;
 
 import Busnies_Servic.Business_Layer.ActionStatus;
 import Busnies_Servic.Business_Layer.UserManagement.Complaint;
+import Busnies_Servic.Business_Layer.UserManagement.Fan;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 
 import java.util.ArrayList;
@@ -16,13 +17,15 @@ public class ComplaintController{
 
     /**
      * This method adds a complaint by a user.
+     * @param fan the fan who created the complaint
      */
-    public static ActionStatus add_complaint(String complaint_description){
+    public static ActionStatus addComplaint(String complaint_description, Fan fan){
         if(complaint_description == null || complaint_description.equals(""))
             return new ActionStatus(false,"Complaint cannot be empty");
         if(complaints == null)
             complaints = new ArrayList<>();
         Complaint c = new Complaint(complaint_description);
+        fan.addComplaint(c);
         complaints.add(c);
         return new ActionStatus(true,"Complaint added successfully");
     }

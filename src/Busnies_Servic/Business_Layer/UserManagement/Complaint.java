@@ -39,4 +39,13 @@ public class Complaint extends Observable {
             return "Complaint has not been answered";
         return answer;
     }
+
+    /**
+     * for the hash set saved in Fan class
+     */
+    @Override
+    public int hashCode() {
+        return description.toLowerCase().hashCode();
+    }
+
 }
