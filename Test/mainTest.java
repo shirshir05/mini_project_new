@@ -10,27 +10,25 @@ public class mainTest {
 
     public static void main(String[] args){
         register();
-       // SystemAdministratorTest();
-
-
+        SystemAdministratorTest();
     }
 
     private static void register(){
         System.out.println("----------------------TEST FOR LOGANDEXITCONTROLER----------------------------");
         Result result = JUnitCore.runClasses(TestClass.class);
         for(Failure fail : result.getFailures()){
-          //  System.out.println(fail.toString());
+            System.out.println(fail.toString());
         }
-        //System.out.println("The number of test = " + result.getRunCount());
-       // System.out.println("The number of test fail = " + result.getFailureCount());
+        System.out.println("The number of test = " + result.getRunCount());
+       System.out.println("The number of test fail = " + result.getFailureCount());
     }
     private static void SystemAdministratorTest(){
-       // System.out.println("----------------------TEST FOR SYSTEMADMINSTRATOR----------------------------");
+        System.out.println("----------------------TEST FOR SYSTEMADMINSTRATOR----------------------------");
         Result result = JUnitCore.runClasses(SystemAdministratorTest.class);
         for(Failure fail : result.getFailures()){
-          //  System.out.println(fail.toString());
+            System.out.println(fail.toString());
         }
-       // System.out.println("The number of test = " + result.getRunCount());
-      //  System.out.println("The number of test fail = " + result.getFailureCount());
+        System.out.println("The number of test = " + result.getRunCount());
+        System.out.println("The number of test fail = " + result.getFailureCount());
     }
 }

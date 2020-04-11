@@ -108,27 +108,27 @@ public class Team extends Observable {
      * @param add_or_remove
      * @return
      */
-    public String add_or_remove_player(Player player, int add_or_remove ){
+    public ActionStatus add_or_remove_player(Player player, int add_or_remove ){
         if(status == -1 || status == 0){
-            return "The team is inactive so no activity can be performed on it";
+            return new ActionStatus(false,"The team is inactive so no activity can be performed on it");
         }
         //remove the players
         if(add_or_remove == 0){
             if(list_Player.contains(player)){
                 list_Player.remove(player);
-                return "The player was successfully removed from the team.";
+                return new ActionStatus(true, "The player was successfully removed from the team.");
             }
-            return "The player is not in the team.";
+            return new ActionStatus(false, "The player is not in the team.");
         }
         //add the players
         else if(add_or_remove == 1){
             if(!list_Player.contains(player)){
                 list_Player.add(player);
-                return "he player was successfully added from the team.";
+                return new ActionStatus(true, "The player was successfully added from the team.");
             }
-            return "The player is already in the team.";
+            return new ActionStatus(false,  "The player is already in the team.");
         }
-        return "The action is invalid.";
+        return new ActionStatus(false,  "The action is invalid.");
     }
 
 
@@ -138,27 +138,27 @@ public class Team extends Observable {
      * @param add_or_remove
      * @return
      */
-    public String add_or_remove_coach(Coach coach_add, int add_or_remove ){
+    public ActionStatus add_or_remove_coach(Coach coach_add, int add_or_remove ){
         if(status == -1 || status == 0){
-            return "The team is inactive so no activity can be performed on it";
+            return new ActionStatus(false,  "The team is inactive so no activity can be performed on it");
         }
         //remove the Coach
         if(add_or_remove == 0){
             if(list_Coach.contains(coach_add)){
                 list_Coach.remove(coach_add);
-                return "The Coach was successfully removed from the team.";
+                return new ActionStatus(true, "The Coach was successfully removed from the team.");
             }
-            return "The Coach is not in the team.";
+            return new ActionStatus(false, "The Coach is not in the team.");
         }
         //add the Coach
         else if(add_or_remove == 1){
             if(!list_Coach.contains(coach_add)){
                 list_Coach.add(coach_add);
-                return "he Coach was successfully added from the team.";
+                return new ActionStatus(true, "he Coach was successfully added from the team.");
             }
-            return "The Coach is already in the team.";
+            return new ActionStatus(false, "The Coach is already in the team.");
         }
-        return "The action is invalid.";
+        return new ActionStatus(false, "The action is invalid.");
     }
 
     public Player return_player(String player_name){
@@ -176,27 +176,27 @@ public class Team extends Observable {
      * @param add_or_remove
      * @return
      */
-    public String Edit_TeamOwner(TeamOwner TeamOwner, int add_or_remove){
+    public ActionStatus Edit_TeamOwner(TeamOwner TeamOwner, int add_or_remove){
         if(status == -1 || status == 0){
-            return "The team is inactive so no activity can be performed on it";
+            return new ActionStatus(false, "The team is inactive so no activity can be performed on it");
         }
         //remove the TeamOwner
         if(add_or_remove == 0){
             if(list_TeamOwner.contains(TeamOwner)){
                 list_TeamOwner.remove(TeamOwner);
-                return "The Team Owner was successfully removed from the team.";
+                return new ActionStatus(true, "The Team Owner was successfully removed from the team.");
             }
-            return "The Team Owner is not in the team.";
+            return new ActionStatus(false, "The Team Owner is not in the team.");
         }
         //add the TeamOwner
         else if(add_or_remove == 1){
             if(!list_TeamOwner.contains(TeamOwner)){
                 list_TeamOwner.add(TeamOwner);
-                return "he Team Owner was successfully added from the team.";
+                return new ActionStatus(true, "The Team Owner was successfully added from the team.");
             }
-            return "The Team Owner is already in the team.";
+            return new ActionStatus(false, "The Team Owner is already in the team.");
         }
-        return "The action is invalid.";
+        return new ActionStatus(false, "The action is invalid.");
     }
 
     /**
@@ -205,27 +205,27 @@ public class Team extends Observable {
      * @param add_or_remove
      * @return
      */
-    public String Edit_TeamManager(TeamManager teamManager, int add_or_remove){
+    public ActionStatus Edit_TeamManager(TeamManager teamManager, int add_or_remove){
         if(status == -1 || status == 0){
-            return "The team is inactive so no activity can be performed on it";
+            return new ActionStatus(false,  "The team is inactive so no activity can be performed on it");
         }
         //remove the teamManager
         if(add_or_remove == 0){
             if(list_TeamManager.contains(teamManager)){
                 list_TeamManager.remove(teamManager);
-                return "The Team Manager was successfully removed from the team.";
+                return new ActionStatus(true,  "The Team Manager was successfully removed from the team.");
             }
-            return "The Team Manager is not in the team.";
+            return new ActionStatus(false,  "The Team Manager is not in the team.");
         }
         //add the teamManager
         else if(add_or_remove == 1){
             if(!list_TeamManager.contains(teamManager)){
                 list_TeamManager.add(teamManager);
-                return "he Team Manager was successfully added from the team.";
+                return new ActionStatus(true,  "The Team Manager was successfully added from the team.");
             }
-            return "The Team Manager is already in the team.";
+            return new ActionStatus(false,  "The Team Manager is already in the team.");
         }
-        return "The action is invalid.";
+        return new ActionStatus(false,  "The action is invalid.");
     }
 
     /**
@@ -237,15 +237,15 @@ public class Team extends Observable {
         return list_TeamManager.contains(object) || list_TeamOwner.contains(object) ;
     }
 
-    public String change_status(int status){
+    public ActionStatus change_status(int status){
         if(status == this.status){
-           return "The group is already set" + this.status;
+            return new ActionStatus(false,  "The group is already set" + this.status);
         }
         this.status = status;
         setChanged();
         notifyObservers();
         // רז צריך להשלים התראות
-        return "The status of the group has changed successfully.";
+        return new ActionStatus(true,  "The status of the group has changed successfully.");
     }
 
     public String getName() {

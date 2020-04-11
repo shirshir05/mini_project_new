@@ -8,15 +8,6 @@ public class GameController{
 
         return true;
     }
-    /**
-     * @param arg_name
-     * @return
-     */
-    public boolean request_create_team(String arg_name){
-        // בדיקה שה-current מורשה ליצור קבוצה
-        // שליחת התראה לניצג ההתאחדות איך????????????????
-        //
-        return true;
-    }
+
 
 }
