@@ -3,6 +3,7 @@ package Busnies_Servic.Service_Layer;
 import Busnies_Servic.Business_Layer.Game.Game;
 import Busnies_Servic.Business_Layer.UserManagement.Referee;
 import Busnies_Servic.EventType;
+import DB_Layer.logger;
 
 import java.util.Date;
 
@@ -23,6 +24,7 @@ public class GameController{
      * @return true if operation succeeded
      */
     public boolean refereeCreateNewEvent(int game_id, String team_name, String player_name, EventType event ){
+        boolean ans = false;
         Game game = DataManagement.getGame(game_id);
         if (DataManagement.getCurrent() instanceof Referee){
             // check if the referee is a referee of the team
@@ -30,10 +32,11 @@ public class GameController{
                     game.getLinesman1Referee().getUserName().equals(DataManagement.getCurrent().getUserName()) ||
                     game.getLinesman2Referee().getUserName().equals(DataManagement.getCurrent().getUserName()) ){
                 game.update_new_event(team_name,player_name,event);
-                return true;
+                ans = true;
             }
         }
-        return false;
+        logger.log("Game controller: refereeCreateNewEvent, team: "+team_name +" , player: "+ player_name +" ,event : " +event +" ,created:  "+ ans);
+        return ans;
     }
 
     /**
