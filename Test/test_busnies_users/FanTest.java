@@ -61,11 +61,11 @@ public class FanTest {
     @Test
     public void add_complaint() {
         Complaint comp1 = new Complaint(complaint);
-        fan.add_complaint(comp1);
+        fan.addComplaint(comp1);
         //assertEquals(fan.list_complaint.size(),1);
         assertTrue(fan.list_complaint.contains(comp1));
         Complaint comp2 = new Complaint("");
-        fan.add_complaint(comp2);
+        fan.addComplaint(comp2);
         //assertEquals(fan.list_complaint.size(),2);
         assertTrue(fan.list_complaint.contains(comp2));
     }

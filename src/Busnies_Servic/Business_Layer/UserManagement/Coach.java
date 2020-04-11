@@ -12,8 +12,8 @@ public class Coach extends Subscription implements Observer {
     protected String qualification;
     protected String roleInTeam;
 
-    public Coach(String arg_user_name, String arg_password) {
-        super(arg_user_name, arg_password);
+    public Coach(String arg_user_name, String arg_password,String email) {
+        super(arg_user_name, arg_password,email);
         PersonalPage = new CoachPersonalPage(arg_user_name);
     }
 
@@ -49,6 +49,7 @@ public class Coach extends Subscription implements Observer {
 
     public void setRoleInTeam(String roleInTeam) {
         this.roleInTeam = roleInTeam;
+    }
 
     @Override
     public void update(Observable o, Object arg) {

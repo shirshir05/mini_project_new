@@ -1,21 +1,20 @@
 package Busnies_Servic.Service_Layer;
 
-
-
-import Busnies_Servic.Business_Layer.Game.Game;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Coach;
 import Busnies_Servic.Business_Layer.UserManagement.Fan;
 import Busnies_Servic.Business_Layer.UserManagement.Player;
 
-public class AlertController extends DataManagement {
+import java.util.Observable;
+
+public class AlertController {
 
     /**
      *  This function register the fan to alerts of a game he choose.
      */
     public void fan_register_to_game_alerts(int game_number){
-        Game chosen_game = find_game(game_number);
-        chosen_game.addObserver((Fan)this.Current);
+        Observable chosen_game = DataManagement.getGame(game_number);
+        chosen_game.addObserver((Fan) DataManagement.getCurrent());
     }
 
 
@@ -25,19 +24,19 @@ public class AlertController extends DataManagement {
      * @return true if the registeration succeeded
      */
     public boolean fan_register_to_page(String arg_user_to_register){
-        Busnies_Servic.Business_Layer.UserManagement.Subscription current_user = this.contain_subscription(arg_user_to_register);
+        Busnies_Servic.Business_Layer.UserManagement.Subscription current_user = DataManagement.contain_subscription(arg_user_to_register);
         if (current_user instanceof Coach) {
-            ((Coach) current_user).getPersonalPage().addObserver((Fan)this.Current);
+            ((Coach) current_user).getPersonalPage().addObserver((Fan) DataManagement.getCurrent());
             return true;
         }
         else if (current_user instanceof Player) {
-            ((Player) current_user).getPersonalPage().addObserver((Fan)this.Current);
+            ((Player) current_user).getPersonalPage().addObserver((Fan) DataManagement.getCurrent());
             return true;
         }
         else{
-            Team t = findTeam(arg_user_to_register);
+            Team t = DataManagement.findTeam(arg_user_to_register);
             if (t!=null){
-                t.getPersonalPage().addObserver((Fan)this.Current);
+                t.getPersonalPage().addObserver((Fan) DataManagement.getCurrent());
                 return true;
             }
         }

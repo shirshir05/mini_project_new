@@ -38,6 +38,5 @@ public class TeamManager extends Subscription  implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-
-    }
-}
+        this.alerts.add((String)arg);
+    }}

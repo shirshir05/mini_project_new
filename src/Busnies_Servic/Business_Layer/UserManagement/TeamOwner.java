@@ -16,6 +16,7 @@ public class TeamOwner extends Subscription  implements Observer{
         appointed_by_teamOwner = null;
     }
 
+
     public String getName() {
         return name;
     }
@@ -26,6 +27,11 @@ public class TeamOwner extends Subscription  implements Observer{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        this.alerts.add((String)arg);
     }
 
     /**
