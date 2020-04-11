@@ -11,25 +11,18 @@ public class UnionBudget implements IBudget {
 
     //region Members
     /**
-     * keeps the amount left for the team
+     * keeps the amount left for the union
      */
     private double amount;
 
     //endregion
-
-    //TODO how to initialize amount?
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
 
     //region IBudget override
 
     @Override
     public ActionStatus addExpense(double expense, Expense description) {
         if(expense <= 0)
-            return new ActionStatus(false,"Not a valid expense");
+            return new ActionStatus(false,"An expense should be a positive amount");
         ActionStatus tempAS;
         switch(description){
             case RefereeSalary:
@@ -43,7 +36,7 @@ public class UnionBudget implements IBudget {
     @Override
     public ActionStatus addIncome(double income, Income description) {
         if(income <= 0)
-            return new ActionStatus(false,"Not a valid income");
+            return new ActionStatus(false,"An income should be a positive amount");
         updateAmount(income);
         return new ActionStatus(true,"Income updated");
     }

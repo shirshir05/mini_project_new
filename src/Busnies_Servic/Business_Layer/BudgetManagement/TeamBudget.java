@@ -2,19 +2,27 @@ package Busnies_Servic.Business_Layer.BudgetManagement;
 
 import Busnies_Servic.Business_Layer.ActionStatus;
 
+import java.util.Observable;
+
 /**
  * Describes a budget of a team.
  * The budget is initialized to be zero until updated to be otherwise
  */
 
-public class TeamBudget implements IBudget{
+public class TeamBudget extends Observable implements IBudget {
 
     //region Members
 
     /**
-     * keeps the amount left for the team
+     * the sum of expenses and incomes of a team in the current quarter
      */
     private double amountForCurrentQuarter;
+
+    /**
+     * the remaining debt or excess funds from previous quarters.
+     * calculated in the end of each quarter in startNewQuarter method
+     */
+    private double amountFromPreviousQuarters;
 
     /**
      * the following members keep how much was spent so far.
@@ -31,9 +39,8 @@ public class TeamBudget implements IBudget{
 
     @Override
     public ActionStatus addExpense(double expense, Expense description) {
-        //to verify that in each quarter the expenses are less than the incomes.
-        if(expense <= 0 || (amountForCurrentQuarter - expense) < 0)
-            return new ActionStatus(false,"Not a valid expense");
+        if(expense <= 0)
+            return new ActionStatus(false,"An expense should be a positive amount");
         ActionStatus tempAS;
         switch(description){
             case PlayerSalary:
@@ -61,13 +68,13 @@ public class TeamBudget implements IBudget{
                     otherExpenses += expense;
                 return tempAS;
         }
-        return new ActionStatus(false,"Not a valid expense");
+        return new ActionStatus(false,"Not a valid expense description");
     }
 
     @Override
     public ActionStatus addIncome(double income, Income description) {
         if(income <= 0)
-            return new ActionStatus(false,"Not a valid income");
+            return new ActionStatus(false,"An income should be a positive amount");
         updateAmount(income);
         return new ActionStatus(true,"Income updated");
     }
@@ -79,40 +86,28 @@ public class TeamBudget implements IBudget{
 
     //endregion
 
-    //region Setters -> requires permission
+    //region startNewQuarter -> requires permission
 
     /**
      * resets all expenses to zero for the current quarter and updates the amount
-     * @param amount the amount the team will have for the quarter
      */
-    public void startNewQuarter(double amount){
+    public void startNewQuarter(){
+        //first, verify that the team did not exceed the budget in the previous quarter
+        if(amountForCurrentQuarter < 0)
+        {
+            setChanged();
+          //  notifyObservers(????????);
+        }
+        amountFromPreviousQuarters = amountForCurrentQuarter + amountFromPreviousQuarters;
+
+        //start from zero the balance for the current quarter:
+        amountForCurrentQuarter = 0;
+
+        //the track of the different expenses is also set to zero:
         uniformExpenses = 0;
         advertisementExpenses = 0;
         maintenanceExpenses = 0;
         otherExpenses = 0;
-        amountForCurrentQuarter = amount;
-    }
-
-    public void setUniformExpenses(double uniformExpenses) {
-        this.uniformExpenses = uniformExpenses;
-    }
-
-    public void setAdvertisementExpenses(double advertisementExpenses) {
-        this.advertisementExpenses = advertisementExpenses;
-    }
-
-    public void setMaintenanceExpenses(double maintenanceExpenses) {
-        this.maintenanceExpenses = maintenanceExpenses;
-    }
-
-    public void setOtherExpenses(double otherExpenses) {
-        this.otherExpenses = otherExpenses;
-    }
-
-    //TODO how to initialize budget?
-
-    public void setAmountForCurrentQuarter(double amountForCurrentQuarter) {
-        this.amountForCurrentQuarter = amountForCurrentQuarter;
     }
 
     //endregion
@@ -125,7 +120,7 @@ public class TeamBudget implements IBudget{
             return new ActionStatus(true,"Operation succeeded");
         }
         else {
-            return new ActionStatus(false,messageForFail);
+            return new ActionStatus(false, messageForFail);
         }
     }
 

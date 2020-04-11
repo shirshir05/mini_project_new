@@ -258,14 +258,9 @@ public class Team extends Observable {
 
     //region Budget
 
-    //TODO how to initialize budget?
-    public void setInitialBudget(double amount){
-        if(amount > 0)
-            budget.setAmountForCurrentQuarter(amount);
-    }
 
-    public void startNewQuarterForBudget(double amount){
-        budget.startNewQuarter(amount);
+    public void startNewQuarterForBudget(){
+        budget.startNewQuarter();
     }
 
     public ActionStatus addExpense(double expense, Expense description){
