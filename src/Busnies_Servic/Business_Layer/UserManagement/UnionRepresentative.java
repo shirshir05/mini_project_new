@@ -25,5 +25,7 @@ public class UnionRepresentative extends Subscription implements Observer {
     @Override
     public void update(Observable o, Object arg) {
       //  if (o instanceof )
+
+        this.alerts.add((String)arg);
     }
 }

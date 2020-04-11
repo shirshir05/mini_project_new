@@ -32,7 +32,16 @@ public class TeamBudget extends Observable implements IBudget {
     private double maintenanceExpenses;
     private double otherExpenses;
 
+    /**
+     * the name of the team this budget belongs to, to notify the union representative when it exceeds the budget
+     */
+    private String teamName;
+
     //endregion
+
+    public TeamBudget(String teamName) {
+        this.teamName = teamName;
+    }
 
 
     //region IBudget override
@@ -93,10 +102,11 @@ public class TeamBudget extends Observable implements IBudget {
      */
     public void startNewQuarter(){
         //first, verify that the team did not exceed the budget in the previous quarter
+        //if it did, notify the union representatives:
         if(amountForCurrentQuarter < 0)
         {
             setChanged();
-          //  notifyObservers(????????);
+            notifyObservers("Team "+teamName+" has exceeded the budget for the quarter");
         }
         amountFromPreviousQuarters = amountForCurrentQuarter + amountFromPreviousQuarters;
 

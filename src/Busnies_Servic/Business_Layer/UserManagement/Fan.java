@@ -14,6 +14,7 @@ public class Fan extends Subscription implements Observer{
 
     public boolean add_complaint(Complaint complaint){
         if(!list_complaint.contains(complaint)) {
+            complaint.addObserver(this);
             list_complaint.add(complaint);
             return true;
         }

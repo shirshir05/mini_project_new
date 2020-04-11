@@ -30,13 +30,17 @@ public class Team extends Observable {
     public Team(String arg_name, String arg_main_field ){
         this.Name =arg_name;
         list_Player = new HashSet<>();
-        budget = new TeamBudget();
+        budget = new TeamBudget(Name);
         list_Coach = new HashSet<>() ;
         list_TeamManager = new HashSet<>();
         list_TeamOwner = new HashSet<>();
         list_assets = new HashSet<>();
         PersonalPage = new TeamPersonalPage(Name);
         list_assets.add(arg_main_field);
+    }
+
+    public TeamBudget getBudget() {
+        return budget;
     }
 
     public String set_Player(Player Player) {
