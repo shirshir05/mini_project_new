@@ -8,6 +8,7 @@ import Busnies_Servic.Business_Layer.BudgetManagement.UnionBudget;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
 
 import javax.xml.crypto.Data;
+import java.util.HashSet;
 
 public class BudgetController {
 
@@ -67,6 +68,13 @@ public class BudgetController {
     //endregion
 
     //region Team budget
+
+    public static void startNewQuarter(){
+        HashSet<Team> teams = DataManagement.getListTeam();
+        for (Team t:teams){
+            t.startNewQuarterForBudget();
+        }
+    }
 
     public static ActionStatus addExpenseToTeam(String teamName, double expense, Expense description){
         Team team = DataManagement.findTeam(teamName);
