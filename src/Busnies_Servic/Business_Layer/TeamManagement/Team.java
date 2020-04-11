@@ -44,9 +44,7 @@ public class Team extends Observable {
         if(status == -1 || status == 0){
             return "The team is inactive so no activity can be performed on it";
         }
-        if(Player != null){
-            this.list_Player.add(Player);
-        }
+        this.list_Player.add(Player);
         return null;
     }
 
@@ -54,39 +52,32 @@ public class Team extends Observable {
         if(status == -1 || status == 0){
             return "The team is inactive so no activity can be performed on it";
         }
-        if(coach != null){
-            this.list_Coach.add(coach);
-        }
-        return null;
+        this.list_Coach.add(coach);
+        return "success";
     }
 
     public String set_TeamManagement(TeamManager TeamManagement) {
         if(status == -1 || status == 0){
             return "The team is inactive so no activity can be performed on it";
         }
-        if(TeamManagement != null){
-            this.list_TeamManager.add(TeamManagement);
-        }
-        return null;
+        this.list_TeamManager.add(TeamManagement);
+        return "success";
     }
 
     public String set_TeamOwner(TeamOwner TeamOwner) {
         if(status == -1 || status == 0){
             return "The team is inactive so no activity can be performed on it";
         }
-        if(TeamOwner != null){
-            this.list_TeamOwner.add(TeamOwner);
-
-        }
+        this.list_TeamOwner.add(TeamOwner);
         return "Operation failed.";
     }
 
-    public String setAsset(String asset) {
+    public Object setAsset(String asset) {
         if(status == -1 || status == 0){
             return "The team is inactive so no activity can be performed on it";
         }
         list_assets.add(asset);
-        return null;
+        return "success";
 
     }
 
@@ -95,12 +86,22 @@ public class Team extends Observable {
             return "The team is inactive so no activity can be performed on it";
         }
         PersonalPage = personalPage;
-        return null;
+        return "success";
     }
 
 
     public int getStatus() {
         return status;
+    }
+
+    public Object getTeamAssets(){
+        return list_assets;
+    }
+
+    public void removeTeamAssets(Object asset){
+        if(list_assets.contains(asset)) {
+            list_assets.remove(asset);
+        }
     }
 
     /**
