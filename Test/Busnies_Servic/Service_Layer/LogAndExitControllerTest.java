@@ -13,7 +13,7 @@ public class LogAndExitControllerTest {
 
 
     /**
-     * Test - 8
+     * Test - LEC1
      */
     @RunWith(Parameterized.class)
     public static class checkEmail{
@@ -39,7 +39,7 @@ public class LogAndExitControllerTest {
     }//checkEmail
 
     /**
-     * Test - 9
+     * Test - LEC2
      */
     @RunWith(Parameterized.class)
     public static class Registration{
@@ -65,7 +65,7 @@ public class LogAndExitControllerTest {
     }//Registration
 
     /**
-     * Test - 10
+     * Test - LEC3
      */
     @RunWith(Parameterized.class)
     public static class InputTest{
@@ -91,7 +91,7 @@ public class LogAndExitControllerTest {
     }//InputTest
 
     /**
-     * Test - 11
+     * Test - LEC4
      */
     @RunWith(Parameterized.class)
     public static class Login{
@@ -118,7 +118,7 @@ public class LogAndExitControllerTest {
 
 
     /**
-     * Test - 12
+     * Test - LEC5
      */
     @RunWith(Parameterized.class)
     public static class Exit{
@@ -144,7 +144,7 @@ public class LogAndExitControllerTest {
     }//Exit
 
     /**
-     * Test - 13
+     * Test - LEC6
      */
     @RunWith(Parameterized.class)
     public static class RemoveSubscription{
