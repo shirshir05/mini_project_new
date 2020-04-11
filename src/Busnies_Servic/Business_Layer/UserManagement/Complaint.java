@@ -19,6 +19,7 @@ public class Complaint extends Observable {
         answer = null;
     }
 
+
     public void answerComplaint(String ans){
         answer = ans;
         isAnswered = true;
@@ -46,6 +47,12 @@ public class Complaint extends Observable {
     @Override
     public int hashCode() {
         return description.toLowerCase().hashCode();
+    }
+
+    public void notify_all(){
+        setChanged();
+        notifyObservers(description);
+
     }
 
 }

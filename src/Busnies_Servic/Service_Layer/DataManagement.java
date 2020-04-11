@@ -3,10 +3,12 @@ package Busnies_Servic.Service_Layer;
 import Busnies_Servic.Business_Layer.Game.Game;
 import Busnies_Servic.Business_Layer.Game.League;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
+
 import Busnies_Servic.Business_Layer.UserManagement.Referee;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
 import Busnies_Servic.Business_Layer.UserManagement.UnionRepresentative;
+import Busnies_Servic.Business_Layer.UserManagement.*;
 import Busnies_Servic.Role;
 import DBconnection.stateTaxSystem;
 import DBconnection.unionFinanceSystem;
@@ -32,7 +34,8 @@ public final class DataManagement {
 
     private static HashSet<League> list_league = new HashSet<>();
 
-    private static HashSet<Referee> list_referee = new HashSet<>();
+    private static HashSet<Complaint> list_Complaints = new HashSet<>();
+
 
     // Saves the current subscription that is currently being registered to the system
     private static Subscription current;
@@ -140,7 +143,7 @@ public final class DataManagement {
      * @param game_id
      * @return
      */
-    protected static Game find_game(int game_id){
+    protected static Game getGame(int game_id){
         for ( Game g: list_game ){
             if (g.get_game_id()==game_id)
                 return g;
@@ -162,10 +165,10 @@ public final class DataManagement {
         return null;
     }
 
-    protected static Referee findReferee(String referee_name){
-        for (Referee r : list_referee){
-            if (r.getUserName().equals(referee_name)){
-                return r;
+    protected static Subscription findSubscription(String subscription_name){
+        for (Subscription s : Subscription){
+            if (s.getUserName().equals(subscription_name)){
+                return s;
             }
         }
         return null;
@@ -179,6 +182,7 @@ public final class DataManagement {
         }
         return unionReps;
     }
+
 
 
     public static void setSubscription(Subscription sub){
@@ -199,10 +203,15 @@ public final class DataManagement {
 
     public static void addToListTeam(Team team){
         list_team.add(team);
+        HashSet<SystemAdministrator> list = getSystemAdministratorsList();
+        for (SystemAdministrator s : list){
+            team.addObserver(s);
+        }
     }
 
     public static HashSet getListTeam(){
         return list_team;
+
     }
 
     public static void addToListLeague(League league){
@@ -213,15 +222,28 @@ public final class DataManagement {
         return list_league;
     }
 
-    public static void addToListReferee(Referee referee){
-        list_referee.add(referee);
+    /**
+     * This function returns a list of all the System Administrators in the system
+     * @return
+     */
+    public static HashSet<SystemAdministrator> getSystemAdministratorsList(){
+        HashSet<SystemAdministrator> list = new HashSet<>();
+        for (Subscription s : Subscription){
+            if (s instanceof SystemAdministrator){
+                list.add((SystemAdministrator)s);
+            }
+        }
+        return list;
     }
 
-    public static HashSet getListReferee(){
-        return list_referee;
+    public static void setComplaint(String complaint){
+        Complaint new_complaint = new Complaint(complaint);
+        HashSet<SystemAdministrator> list = getSystemAdministratorsList();
+        for (SystemAdministrator s : list){
+            new_complaint.addObserver(s);
+        }
+        new_complaint.notify_all();
+        list_Complaints.add(new_complaint);
     }
 
-    public static void removeReferee(Referee referee){
-        list_referee.remove(referee);
-    }
 }

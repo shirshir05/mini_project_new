@@ -6,6 +6,8 @@ import Busnies_Servic.Business_Layer.ActionStatus;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
 import Busnies_Servic.Role;
+import Presentation_Layer.Spelling;
+
 
 import java.util.regex.Pattern;
 
@@ -61,6 +63,7 @@ public class LogAndExitController{
         Subscription newSub = factory.Create(arg_user_name,arg_password, role_enum,email);
         DataManagement.setSubscription(newSub);
         DataManagement.setCurrent(newSub);
+        Spelling.updateDictionary(arg_user_name);
         return new ActionStatus(true, "Subscription successfully added!");
     }
 

@@ -5,6 +5,7 @@ import Busnies_Servic.Business_Layer.UserManagement.Complaint;
 import Busnies_Servic.Business_Layer.UserManagement.Fan;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -36,6 +37,10 @@ public class ComplaintController{
      */
     public static ArrayList<Complaint> getComplaints() {
         return complaints;
+    }
+  
+    public void add_complaint(String complaint_description){
+        DataManagement.setComplaint(complaint_description);
     }
 
 }

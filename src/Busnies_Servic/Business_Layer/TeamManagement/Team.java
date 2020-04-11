@@ -2,6 +2,7 @@ package Busnies_Servic.Business_Layer.TeamManagement;
 import java.util.HashMap;
 import java.util.Observable;
 
+import Busnies_Servic.Action;
 import Busnies_Servic.Business_Layer.ActionStatus;
 import Busnies_Servic.Business_Layer.BudgetManagement.Expense;
 import Busnies_Servic.Business_Layer.BudgetManagement.Income;
@@ -17,8 +18,8 @@ public class Team extends Observable {
     String Name;
     HashSet<Player> list_Player;
     HashSet<Coach> list_Coach;
-    HashSet<TeamManager> list_TeamManager;// המנהל קבוצ
-    HashSet<TeamOwner> list_TeamOwner; // בעל קבוצה
+    HashSet<TeamManager> list_TeamManager;
+    HashSet<TeamOwner> list_TeamOwner;
     HashSet<Object> list_assets;
     TeamPersonalPage PersonalPage;
     int status; // 0 - off 1 - on -1 - always close
@@ -47,9 +48,7 @@ public class Team extends Observable {
         if(status == -1 || status == 0){
             return "The team is inactive so no activity can be performed on it";
         }
-        if(Player != null){
-            this.list_Player.add(Player);
-        }
+        this.list_Player.add(Player);
         return null;
     }
 
@@ -57,19 +56,16 @@ public class Team extends Observable {
         if(status == -1 || status == 0){
             return "The team is inactive so no activity can be performed on it";
         }
-        if(coach != null){
-            this.list_Coach.add(coach);
-        }
-        return null;
+        this.list_Coach.add(coach);
+        return "success";
     }
 
     public String set_TeamManagement(TeamManager TeamManagement) {
         if(status == -1 || status == 0){
             return "The team is inactive so no activity can be performed on it";
         }
-        if(TeamManagement != null){
-            this.list_TeamManager.add(TeamManagement);
-        }
+        this.list_TeamManager.add(TeamManagement);
+        this.addObserver(TeamManagement); //adds the team manager as an observer
         return null;
     }
 
@@ -79,12 +75,14 @@ public class Team extends Observable {
         }
         if(TeamOwner != null){
             this.list_TeamOwner.add(TeamOwner);
+            this.addObserver(TeamOwner); //adds the team owner as an observer
 
         }
+        this.list_TeamOwner.add(TeamOwner);
         return "Operation failed.";
     }
 
-    public String setAsset(String asset) {
+    public Object setAsset(String asset) {
         if(status == -1 || status == 0){
             return "The team is inactive so no activity can be performed on it";
         }
@@ -104,6 +102,16 @@ public class Team extends Observable {
 
     public int getStatus() {
         return status;
+    }
+
+    public Object getTeamAssets(){
+        return list_assets;
+    }
+
+    public void removeTeamAssets(Object asset){
+        if(list_assets.contains(asset)) {
+            list_assets.remove(asset);
+        }
     }
 
     /**
@@ -241,14 +249,20 @@ public class Team extends Observable {
         return list_TeamManager.contains(object) || list_TeamOwner.contains(object) ;
     }
 
+
     public ActionStatus change_status(int status){
+          String notify="";
+
         if(status == this.status){
             return new ActionStatus(false,  "The group is already set" + this.status);
         }
         this.status = status;
+        if (status==0){notify="The group "+this.Name+" is closed";}
+        else if(status==1){notify="The group "+this.Name+" is open";}
+        else if(status==2){notify="The group "+this.Name+" is permanently closed";}
         setChanged();
-        notifyObservers();
-        // רז צריך להשלים התראות
+        notifyObservers(notify);
+
         return new ActionStatus(true,  "The status of the group has changed successfully.");
     }
 
@@ -279,5 +293,23 @@ public class Team extends Observable {
         return budget.getCurrentAmount();
     }
 
-    //endregion
+    public HashSet<TeamManager> getListTeamManager() {
+        return list_TeamManager;
+    }
+
+    public HashSet<TeamOwner> getListTeamOwner() {
+        return list_TeamOwner;
+    }
+
+    public Player getPlayer(String player_name){
+        if ( player_name!=null) {
+            for (Player p : list_Player) {
+                if (p.getUserName().equals(player_name)) {
+                    return p;
+                }
+            }
+        }
+        return null;
+    }
+
 }

@@ -2,10 +2,8 @@ package Busnies_Servic.Business_Layer.UserManagement;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
+
 
 public abstract class Subscription {
     protected String userName;
@@ -82,4 +80,14 @@ public abstract class Subscription {
         return userName;
     }
 
+    public void addAlert(String s){alerts.add(s);}
+
+    public String sendEMail(String mailto, String mail){
+        return "Send to: "+mailto+"From: "+this.email+"Mail: "+mail;
+    }
+
 }
+
+
+
+
