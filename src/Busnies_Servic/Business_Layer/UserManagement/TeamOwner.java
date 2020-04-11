@@ -64,10 +64,5 @@ public class TeamOwner extends Subscription  implements Observer{
 
 
 
-
-    @Override
-    public void update(Observable o, Object arg) {
-
-    }
 }
 
