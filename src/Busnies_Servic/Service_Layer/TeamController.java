@@ -1,32 +1,13 @@
 package Busnies_Servic.Service_Layer;
 import Busnies_Servic.Action;
-import Busnies_Servic.Business_Layer.Game.Game;
-import Busnies_Servic.Business_Layer.Game.League;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.*;
 
 import java.time.Year;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Scanner;
 
-public class TeamGameController extends LogicManagement{
+public class TeamController extends DataManagement {
 
-
-    public boolean create_game(Date date, String arg_host, String arg_guest, String arg_head, String linesman1, String linesman2){
-
-        return true;
-    }
-    /**
-     * @param arg_name
-     * @return
-     */
-    public boolean request_create_team(String arg_name){
-        // בדיקה שה-current מורשה ליצור קבוצה
-        // שליחת התראה לניצג ההתאחדות איך????????????????
-        //
-        return true;
-    }
 
     /**
      * Once the association representative is approved, a Team is created in the system.
@@ -269,23 +250,6 @@ public class TeamGameController extends LogicManagement{
         return true;
     }
 
-    public boolean create_league(String name){
-        // לוודא כי המשתמש הוא נציג התאחדות
-
-        return true;
-    }
-
-    public boolean add_year_league(String name_league, Year year){
-
-
-        return true;
-    }
-
-
-    public boolean subscription_referee_to_league(String name_league, String name_referee, Year year){
-
-        return true;
-    }
 
 
 

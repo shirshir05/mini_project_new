@@ -15,6 +15,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.concurrent.Semaphore;
 
 import static org.junit.Assert.*;
 
@@ -23,30 +24,32 @@ public class SystemAdministratorTest {
 
     String userName;
     String password;
+    String email;
     SystemAdministrator sysAdmin;
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 //Input_test
-                {"person","09876"}, {"me","837465"},
-                {"???","123456"}, {"", "123456"}
+                {"person","shir0@post.bgu.ac.il","09876"}, {"me","shir0@post.bgu.ac.il","837465"},
+                {"???","shir0@post.bgu.ac.il","123456"}, {"","shir0@post.bgu.ac.il", "123456"}
         });
     }
 
-    public SystemAdministratorTest(String arg_user_name, String arg_password) {
+    public SystemAdministratorTest(String arg_user_name, String arg_password,String email) {
         this.userName = arg_user_name;
         this.password = arg_password;
+        this.email = email;
     }
 
     @Before
     public void setUp() throws Exception {
-        sysAdmin = new SystemAdministrator(userName,password);
+        sysAdmin = new SystemAdministrator(userName,password,email);
     }
 
     @Test
     public void creation() {
-        Subscription sub = new SystemAdministrator(userName,password);
+        Subscription sub = new SystemAdministrator(userName,password,email);
         assertTrue(sub instanceof SystemAdministrator);
     }
 

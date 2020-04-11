@@ -5,7 +5,6 @@ import Busnies_Servic.Business_Layer.UserManagement.Fan;
 import Busnies_Servic.Business_Layer.UserManagement.Player;
 import Busnies_Servic.Business_Layer.UserManagement.SystemAdministrator;
 import Busnies_Servic.Service_Layer.ComplaintController;
-import Busnies_Servic.StatisticParameter;
 
 import java.util.Date;
 
@@ -32,7 +31,5 @@ public class Main {
             g.addObserver(me);
             //g.update_new_event;
             //me.printAlerts();
-
-            System.out.println(StatisticParameter.goals.ordinal());
         }
 }

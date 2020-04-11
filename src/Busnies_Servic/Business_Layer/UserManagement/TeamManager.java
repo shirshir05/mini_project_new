@@ -10,8 +10,9 @@ public class TeamManager extends Subscription  implements Observer{
     Subscription appointed_by_teamOwner;
     protected String name;
 
-    public TeamManager(String arg_user_name, String arg_password) {
-        super(arg_user_name, arg_password);
+
+    public TeamManager(String arg_user_name, String arg_password,String email) {
+        super(arg_user_name, arg_password,email);
         appointed_by_teamOwner = null;
     }
 
