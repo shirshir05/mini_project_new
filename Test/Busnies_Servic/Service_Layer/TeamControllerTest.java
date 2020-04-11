@@ -39,7 +39,7 @@ public class TeamControllerTest {
 
     }//RequestCreateTeam
     /**
-     ** Test - 1
+     ** Test - TC1
      */
     @RunWith(Parameterized.class)
     public static class CreateTeam{
@@ -65,7 +65,7 @@ public class TeamControllerTest {
     }//CreateTeam
 
     /**
-     ** Test - 2
+     ** Test - TC2
      */
     @RunWith(Parameterized.class)
     public static class AddOrRemovePlayer{
@@ -90,7 +90,7 @@ public class TeamControllerTest {
     }//AddOrRemovePlayer
 
     /**
-     ** Test - 3
+     ** Test - TC3
      */
     @RunWith(Parameterized.class)
     public static class AddOrRemoveCoach{
@@ -115,7 +115,7 @@ public class TeamControllerTest {
     }//AddOrRemoveCoach
 
     /**
-     ** Test - 4
+     ** Test - TC4
      */
     @RunWith(Parameterized.class)
     public static class AddOrRemoveTeamOwner{
@@ -139,7 +139,7 @@ public class TeamControllerTest {
 
     }//AddOrRemoveTeamOwner
     /**
-     *Test - 5
+     *Test - TC5
      */
     @RunWith(Parameterized.class)
     public static class AddOrRemoveTeamManager{
@@ -165,7 +165,7 @@ public class TeamControllerTest {
 
 
     /**
-     *Test - 6
+     *Test - TC6
      */
     @RunWith(Parameterized.class)
     public static class CheckInputEditTeam{
@@ -190,7 +190,7 @@ public class TeamControllerTest {
     }//CheckInputEditTeam
 
     /**
-     *Test - 7
+     *Test - TC7
      */
     @RunWith(Parameterized.class)
     public static class ChangeStatusTeam{

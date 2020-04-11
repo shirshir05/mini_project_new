@@ -240,7 +240,6 @@ public class Team extends Observable {
     }
 
 
-=======
     public ActionStatus change_status(int status){
           String notify="";
 
@@ -254,8 +253,6 @@ public class Team extends Observable {
         setChanged();
         notifyObservers(notify);
         
-
-   
         return new ActionStatus(true,  "The status of the group has changed successfully.");
     }
 
