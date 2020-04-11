@@ -2,7 +2,10 @@ package Busnies_Servic.Business_Layer.UserManagement;
 
 import Busnies_Servic.Action;
 
-public class UnionRepresentative extends Subscription{
+import java.util.Observable;
+import java.util.Observer;
+
+public class UnionRepresentative extends Subscription implements Observer {
 
     protected String name;
     public UnionRepresentative(String arg_user_name, String arg_password,String email) {
@@ -19,6 +22,8 @@ public class UnionRepresentative extends Subscription{
     }
 
 
-
-
+    @Override
+    public void update(Observable o, Object arg) {
+      //  if (o instanceof )
+    }
 }
