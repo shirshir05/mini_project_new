@@ -1,5 +1,6 @@
 import Busnies_Servic.Business_Layer.UserManagement.Referee;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
+import Presentation_Layer.Spelling;
 
 public class Main {
 
@@ -33,5 +34,10 @@ public class Main {
             String str = lc.Registration("mainAdmin", "p@$$w0rd", "SystemAdministrator","email");
             System.out.println(str + "\n" );
              **/
+
+            /* test for spelling class
+            Spelling.updateDictionary("this is my name");
+            System.out.println("the correct: "+Spelling.getCorrectWord("this si mi name") +"!");
+            */
         }
 }
