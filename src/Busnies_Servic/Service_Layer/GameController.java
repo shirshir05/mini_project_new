@@ -13,6 +13,7 @@ public class GameController{
         return true;
     }
 
+
     /**
      * This function lets a referee in a game to update a new event
      * @param game_id
@@ -57,5 +58,6 @@ public class GameController{
         //
         return true;
     }
+
 
 }

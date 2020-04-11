@@ -1,5 +1,6 @@
 package Busnies_Servic.Service_Layer;
 
+import Busnies_Servic.Business_Layer.ActionStatus;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -52,7 +53,7 @@ import static org.junit.Assert.*;
 
         @Test
         public void user_name_incorrect() {
-            String actual = controller.Registration(name, password, role,email);
+            ActionStatus actual = controller.Registration(name, password, role,email);
             assertEquals(expected, actual);
         }
     }
