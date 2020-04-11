@@ -6,6 +6,8 @@ public class Main {
 
         public static void main(String[] args) {
 
+                System.out.println("shir");
+
             /**
             /// Check the complaints update
             Complaint c = new Complaint("Hello");

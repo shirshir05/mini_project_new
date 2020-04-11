@@ -1,8 +1,7 @@
 package Busnies_Servic.Business_Layer.Trace;
 
 
-import Busnies_Servic.Role;
-import Busnies_Servic.StatisticParameter;
+
 
 import java.util.Date;
 

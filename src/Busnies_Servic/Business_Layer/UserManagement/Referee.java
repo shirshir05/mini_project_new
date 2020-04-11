@@ -12,12 +12,6 @@ public class Referee extends Subscription implements Observer {
     protected String name;
     protected HashSet<Game> referee_games;
 
-    public Referee(String arg_user_name, String arg_password) {
-        super(arg_user_name, arg_password);
-        permissions.edit_permissions(Action.Upload_personal_page,1);
-        permissions.edit_permissions(Action.watch_game,1);
-        permissions.edit_permissions(Action.update_event,1);
-    }
 
     public String getQualification() {
         return qualification;
