@@ -1,12 +1,11 @@
 package Busnies_Servic.Service_Layer;
 
-
-
-import Busnies_Servic.Business_Layer.Game.Game;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Coach;
 import Busnies_Servic.Business_Layer.UserManagement.Fan;
 import Busnies_Servic.Business_Layer.UserManagement.Player;
+
+import java.util.Observable;
 
 public class AlertController {
 
@@ -14,7 +13,7 @@ public class AlertController {
      *  This function register the fan to alerts of a game he choose.
      */
     public void fan_register_to_game_alerts(int game_number){
-        Game chosen_game = DataManagement.find_game(game_number);
+        Observable chosen_game = DataManagement.getGame(game_number);
         chosen_game.addObserver((Fan) DataManagement.getCurrent());
     }
 

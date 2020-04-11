@@ -2,6 +2,7 @@ package Busnies_Servic.Service_Layer;
 
 import static org.junit.Assert.*;
 
+import Busnies_Servic.Business_Layer.ActionStatus;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
 import Busnies_Servic.Role;
@@ -197,7 +198,7 @@ public class TestClass{
 
         @Test
         public void user_name_incorrect() {
-            String actual = controller.Registration(name, password, role,email);
+            ActionStatus actual = controller.Registration(name, password, role,email);
             assertEquals(expected, actual);
         }
     }
