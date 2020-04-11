@@ -1,7 +1,8 @@
 package Busnies_Servic.Business_Layer.Trace;
 
+
 import Busnies_Servic.Role;
-//import Busnies_Servic.StatisticParameter;
+import Busnies_Servic.StatisticParameter;
 
 import java.util.Date;
 
@@ -15,19 +16,23 @@ public class PlayerPersonalPage extends PersonalPage{
     protected String weight; //in kg
     protected String position;
     protected String jerseyNumber;
-   // protected FootBallStatistic statistic;
+
+    protected FootballPlayerStatistic statistic;
+
     protected String seasonYear;
 
     //full time statistic??
     //personal photo
     //videos?? photos??
-    //personal info
+    //personal life info
 
     public PlayerPersonalPage(String name){
         super(name);
-        //statistic = new FootBallStatistic();
+
+        statistic = new FootballPlayerStatistic();
+
     }
-/*
+
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -56,12 +61,16 @@ public class PlayerPersonalPage extends PersonalPage{
         return jerseyNumber;
     }
 
-    public FootBallStatistic getStatistic() {
+    public FootballPlayerStatistic getStatistic() {
         return statistic;
     }
 
     public String getSeasonYear() {
         return seasonYear;
+    }
+
+    public String getCountryOfBirth() {
+        return countryOfBirth;
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
@@ -92,45 +101,9 @@ public class PlayerPersonalPage extends PersonalPage{
         this.jerseyNumber = jerseyNumber;
     }
 
-    public void setStatistic(StatisticParameter statisticParameter, int newValue) {
+    public void setStatistic(FootballPlayerStatistic statistic) {
 
-        switch (statisticParameter) {
-            case goals:
-                statistic.setGoals(newValue);
-                break;
-            case shots:
-                statistic.setShots(newValue);
-                break;
-            case gameMinutes:
-                statistic.setGameMinutes(newValue);
-                break;
-            case substitutions:
-                statistic.setSubstitutions(newValue);
-                break;
-            case penalties:
-                statistic.setPenalties(newValue);
-                break;
-            case redCards:
-                statistic.setRedCards(newValue);
-                break;
-            case assists:
-                statistic.setAssists(newValue);
-                break;
-            case starts:
-                statistic.setStarts(newValue);
-                break;
-            case fouls:
-                statistic.setFouls(newValue);
-                break;
-            case yellowCards:
-                statistic.setYellowCards(newValue);
-                break;
-            case doubleYellowCards:
-                statistic.setDoubleYellowCards(newValue);
-                break;
-            default:
-                System.out.println("please choose a valid statistic parameter");
-        }
+        this.statistic = statistic;
     }
 
     public void setSeasonYear(String seasonYear) {
@@ -152,5 +125,5 @@ public class PlayerPersonalPage extends PersonalPage{
                 "statistic: " + "\n" +
                 statistic.toString();
     }
-    */
+  
 }

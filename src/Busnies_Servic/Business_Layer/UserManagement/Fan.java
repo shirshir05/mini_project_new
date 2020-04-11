@@ -7,10 +7,12 @@ import java.util.Observer;
 
 public class Fan extends Subscription implements Observer{
 
-    public HashSet<Complaint> list_complaint;
+    protected HashSet<Complaint> list_complaint;
     protected String name;
 
+
     public boolean addComplaint(Complaint complaint){
+
         if(!list_complaint.contains(complaint)) {
             complaint.addObserver(this);
             list_complaint.add(complaint);
@@ -28,6 +30,14 @@ public class Fan extends Subscription implements Observer{
         permissions.edit_permissions(Action.Game_alerts,1);
         permissions.edit_permissions(Action.Search_History,1);
         list_complaint = new HashSet<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

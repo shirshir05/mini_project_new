@@ -5,6 +5,7 @@ import Presentation_Layer.Spelling;
 public class Main {
 
         public static void main(String[] args) {
+
             /**
             /// Check the complaints update
             Complaint c = new Complaint("Hello");
@@ -24,6 +25,10 @@ public class Main {
             guest.add_or_remove_player(p,1);
             Game g = new Game("Teddi", null, host, guest);
             g.addObserver(me);
+
+            //g.update_new_event;
+            //me.printAlerts();
+
             g.update_new_event();
             me.getAlerts();
             */
@@ -44,6 +49,7 @@ public class Main {
             Spelling.updateDictionary("this is my name");
             System.out.println("the correct: "+Spelling.getCorrectWord("this si mi name") +"!");
             */
+
 
         }
 }
