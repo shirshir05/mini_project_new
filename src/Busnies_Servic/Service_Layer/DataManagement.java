@@ -3,13 +3,20 @@ package Busnies_Servic.Service_Layer;
 import Busnies_Servic.Business_Layer.Game.Game;
 import Busnies_Servic.Business_Layer.Game.League;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
+
+import Busnies_Servic.Business_Layer.UserManagement.Referee;
+import Busnies_Servic.Business_Layer.UserManagement.Subscription;
+import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
+import Busnies_Servic.Business_Layer.UserManagement.UnionRepresentative;
 import Busnies_Servic.Business_Layer.UserManagement.*;
 import Busnies_Servic.Role;
 import DBconnection.stateTaxSystem;
 import DBconnection.unionFinanceSystem;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public final class DataManagement {
@@ -166,6 +173,17 @@ public final class DataManagement {
         }
         return null;
     }
+
+    protected static ArrayList<UnionRepresentative> getUnionRepresentatives(){
+        ArrayList<UnionRepresentative> unionReps = new ArrayList<>();
+        for(Subscription s: Subscription){
+            if(s instanceof UnionRepresentative)
+                unionReps.add((UnionRepresentative)s);
+        }
+        return unionReps;
+    }
+
+
 
     public static void setSubscription(Subscription sub){
         Subscription.add(sub);

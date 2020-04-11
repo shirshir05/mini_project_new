@@ -4,6 +4,9 @@ import Busnies_Servic.Business_Layer.ActionStatus;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.*;
 
+import java.util.ArrayList;
+import java.util.Observable;
+
 public class TeamController {
 
     /**
@@ -37,6 +40,14 @@ public class TeamController {
         Team new_team = new Team(arg_name, arg_field);
         DataManagement.addToListTeam((new_team));
         new_team.set_TeamOwner((TeamOwner) DataManagement.getCurrent());
+
+        //add the union representatives to the observers of the budget of the team:
+        ArrayList<UnionRepresentative> unionReps = DataManagement.getUnionRepresentatives();
+        Observable budget = new_team.getBudget();
+        for(UnionRepresentative s: unionReps){
+            budget.addObserver(s);
+        }
+
         return new ActionStatus(true, "The Team was successfully created in the system.");
 
     }
