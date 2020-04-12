@@ -1,4 +1,4 @@
-package DBconnection;
+package DB_Layer;
 
 import java.io.File;
 import java.io.FileWriter;

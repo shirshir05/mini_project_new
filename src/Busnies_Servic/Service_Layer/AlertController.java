@@ -4,6 +4,7 @@ import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Coach;
 import Busnies_Servic.Business_Layer.UserManagement.Fan;
 import Busnies_Servic.Business_Layer.UserManagement.Player;
+import DB_Layer.logger;
 
 import java.util.Observable;
 
@@ -24,24 +25,30 @@ public class AlertController {
      * @return true if the registeration succeeded
      */
     public boolean fan_register_to_page(String arg_user_to_register){
+        boolean ans = false;
         Busnies_Servic.Business_Layer.UserManagement.Subscription current_user = DataManagement.contain_subscription(arg_user_to_register);
+        //TODO -add spelling correction here?
         if (current_user instanceof Coach) {
             ((Coach) current_user).getPersonalPage().addObserver((Fan) DataManagement.getCurrent());
-            return true;
+            ans = true;
         }
         else if (current_user instanceof Player) {
             ((Player) current_user).getPersonalPage().addObserver((Fan) DataManagement.getCurrent());
-            return true;
+            ans = true;
         }
         else{
             Team t = DataManagement.findTeam(arg_user_to_register);
             if (t!=null){
                 t.getPersonalPage().addObserver((Fan) DataManagement.getCurrent());
-                return true;
+                ans = true;
             }
         }
-        System.out.println("Wrong page name");
-        return false;
+        logger.log("fan_register_to_page, page mane: "+arg_user_to_register+" ,user mane: "+ current_user.getUserName() +" successful: "+ans);
+        if (!ans) {
+            //TODO - remove print
+            System.out.println("Wrong page name");
+        }
+        return ans;
     }
 
 

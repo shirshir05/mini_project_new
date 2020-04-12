@@ -6,6 +6,7 @@ import Busnies_Servic.Business_Layer.ActionStatus;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
 import Busnies_Servic.Role;
+import DB_Layer.logger;
 import Presentation_Layer.Spelling;
 
 
@@ -47,24 +48,27 @@ public class LogAndExitController{
      * @return comment print to user
      */
     public ActionStatus Registration(String arg_user_name, String arg_password, String arg_role, String email){
-        if(!checkEmail(email)){
-            return new ActionStatus(false,  "Invalid email, please enter a valid email.");
-        }
+        ActionStatus AC = null;
         String check_input = InputTest(arg_user_name,arg_password);
-
-        if( check_input!= null){
-            return new ActionStatus(false, check_input);
-        }
         Role role_enum = DataManagement.return_enum(arg_role);
-        if (role_enum == null){
-            return new ActionStatus(false, "The role does not exist in the system.");
+        if(!checkEmail(email)){
+            AC =  new ActionStatus(false,  "Invalid email, please enter a valid email.");
         }
-
-        Subscription newSub = factory.Create(arg_user_name,arg_password, role_enum,email);
-        DataManagement.setSubscription(newSub);
-        DataManagement.setCurrent(newSub);
+        else if( check_input!= null){
+            AC = new ActionStatus(false, check_input);
+        }
+        else if(role_enum == null){
+            AC = new ActionStatus(false, "The role does not exist in the system.");
+        }
+        else {
+            Subscription newSub = factory.Create(arg_user_name, arg_password, role_enum, email);
+            DataManagement.setSubscription(newSub);
+            DataManagement.setCurrent(newSub);
+            AC = new ActionStatus(true, "Subscription successfully added!");
+        }
         Spelling.updateDictionary(arg_user_name);
-        return new ActionStatus(true, "Subscription successfully added!");
+        logger.log("new Registration attempt of user : "+ arg_user_name+" "+arg_role+" "+email + AC.getDescription());
+        return AC;
     }
 
 
@@ -100,18 +104,25 @@ public class LogAndExitController{
      * @return comment print to user
      */
     public ActionStatus Login(String arg_user_name, String arg_password){
-        if(current != null){
-            return new ActionStatus(false, "Another subscription is connected to the system.");
-        }
+        ActionStatus AC = null;
         Subscription Current_check = DataManagement.contain_subscription(arg_user_name);
-        if (Current_check != null){
-            if (!Current_check.getPassword().equals(arg_password) ){
-                return new ActionStatus(false,  "The password does not match the username.");
-            }
-            current =Current_check;
-            return new ActionStatus(true,  "Login successful.");
+        if(current != null){
+            AC = new ActionStatus(false, "Another subscription is connected to the system.");
         }
-        return new ActionStatus(false,  "There is no user with such a name.");
+        else if (Current_check != null){
+            if (!Current_check.getPassword().equals(arg_password) ){
+                AC = new ActionStatus(false,  "The password does not match the username.");
+            }
+            else {
+                current = Current_check;
+                AC = new ActionStatus(true, "Login successful.");
+            }
+        }
+        else if(AC ==null) {
+            AC = new ActionStatus(false, "There is no user with such a name.");
+        }
+        logger.log("Login attempt of user : "+ arg_user_name+" "+ AC.getDescription());
+        return AC;
     }
 
 
@@ -122,13 +133,18 @@ public class LogAndExitController{
      * @return comment print to user
      */
     public ActionStatus Exit(String arg_user_name, String arg_password){
+        ActionStatus AC = null;
         if(DataManagement.getCurrent() != null){
             if(DataManagement.getCurrent().getUserName().equals(arg_user_name) && DataManagement.getCurrent().getPassword().equals(arg_password)){
                 DataManagement.setCurrent(null);
-                return new ActionStatus(true,  "Successfully disconnected from the system.");
+                AC = new ActionStatus(true,  "Successfully disconnected from the system.");
             }
         }
-        return new ActionStatus(false, "One of the details you entered is incorrect.");
+        else if(AC ==null){
+            AC = new ActionStatus(false, "One of the details you entered is incorrect.");
+        }
+        logger.log("Exit attempt of user : "+ arg_user_name+" "+ AC.getDescription());
+        return AC;
     }
 
 
@@ -140,14 +156,19 @@ public class LogAndExitController{
         // לוודא שעדיין יש בעל קבוצה ומנהל קבוצה אחד לפחות בקבוצה
 
         // פונקציה לא שלמה יש להסיר את התלויות מהקבוצה גם - נעשה בסוף לאחר שנבין את כל האילוצים
+        ActionStatus AC = null;
         if((current.getPermissions().check_permissions((Action.Removing_Subscriptions)) == 0)){
-            return new ActionStatus(false,  "You are not authorized to perform this action.");
+            AC =  new ActionStatus(false,  "You are not authorized to perform this action.");
         }
-        if(DataManagement.contain_subscription(user_name) == null){
-            return new ActionStatus(false,  "The subscription does not exist in the system.");
+        else if(DataManagement.contain_subscription(user_name) == null){
+            AC = new ActionStatus(false,  "The subscription does not exist in the system.");
         }
-        DataManagement.removeSubscription(user_name);
-        return new ActionStatus(false,  "the transaction completed successfully.");
+        else {
+            DataManagement.removeSubscription(user_name);
+            AC = new ActionStatus(false, "the transaction completed successfully.");
+        }
+        logger.log("Remove Subscription attempt of user : "+user_name+" "+AC.getDescription());
+        return AC;
     }
 
 

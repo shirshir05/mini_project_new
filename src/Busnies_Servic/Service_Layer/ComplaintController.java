@@ -4,6 +4,7 @@ import Busnies_Servic.Business_Layer.ActionStatus;
 import Busnies_Servic.Business_Layer.UserManagement.Complaint;
 import Busnies_Servic.Business_Layer.UserManagement.Fan;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
+import DB_Layer.logger;
 
 
 import java.util.ArrayList;
@@ -21,14 +22,20 @@ public class ComplaintController{
      * @param fan the fan who created the complaint
      */
     public static ActionStatus addComplaint(String complaint_description, Fan fan){
-        if(complaint_description == null || complaint_description.equals(""))
-            return new ActionStatus(false,"Complaint cannot be empty");
-        if(complaints == null)
-            complaints = new ArrayList<>();
-        Complaint c = new Complaint(complaint_description);
-        fan.addComplaint(c);
-        complaints.add(c);
-        return new ActionStatus(true,"Complaint added successfully");
+        ActionStatus AC = null;
+        if(complaint_description == null || complaint_description.equals("")) {
+            AC = new ActionStatus(false, "Complaint cannot be empty");
+        }
+        else {
+            if (complaints == null)
+                complaints = new ArrayList<>();
+            Complaint c = new Complaint(complaint_description);
+            fan.addComplaint(c);
+            complaints.add(c);
+            AC = new ActionStatus(true, "Complaint added successfully");
+        }
+        logger.log("Add Complaint of user : "+ fan.getName() +" "+AC.getDescription());
+        return AC;
     }
 
     /**
@@ -38,9 +45,10 @@ public class ComplaintController{
     public static ArrayList<Complaint> getComplaints() {
         return complaints;
     }
-  
+
     public void add_complaint(String complaint_description){
         DataManagement.setComplaint(complaint_description);
     }
+
 
 }

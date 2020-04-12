@@ -5,6 +5,7 @@ import Busnies_Servic.Business_Layer.Game.Season;
 import Busnies_Servic.Business_Layer.UserManagement.Referee;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Business_Layer.UserManagement.UnionRepresentative;
+import DB_Layer.logger;
 
 public class SettingsController{
 
@@ -16,7 +17,7 @@ public class SettingsController{
      */
     public boolean defineLeaugue(String name){
         if (name!=null && DataManagement.getCurrent() instanceof UnionRepresentative) {
-            DataManagement.getListLeague().add(new League(name));
+            DataManagement.addToListLeague(new League(name));
             return true;
         }
         return false;
@@ -29,13 +30,15 @@ public class SettingsController{
      * @return true if the season was updated
      */
     public boolean defineSeasonToLeague(String league_name, String year){
+        boolean ans = false;
         if (year!=null && league_name!=null && DataManagement.getCurrent() instanceof UnionRepresentative) {
             int intFormatYear= Integer.parseInt(year);
             if (intFormatYear>1900 && intFormatYear<2021)
                 DataManagement.findLeauge(league_name).addSeason(new Season(year));
-            return true;
+            ans = true;
         }
-        return false;
+        logger.log("Settings controller: defineSeasonToLeague, league name: "+ league_name+" ,year: "+year +" ,successful: "+ ans);
+        return ans;
     }
 
     /**
@@ -48,6 +51,7 @@ public class SettingsController{
      * @return true if the operation succeeded
      */
     public boolean addOrDeleteRefereeToSystem(String referee_user_name, String referee_password, String mail, int add_or_remove){
+        boolean ans = false;
         if (DataManagement.getCurrent() instanceof UnionRepresentative) {
             if (referee_user_name != null && referee_password != null) {
                 Subscription current_referee = DataManagement.findSubscription(referee_user_name);
@@ -56,16 +60,17 @@ public class SettingsController{
                     String mail_content= "Hello! you were invited to our system! your username: "+referee_user_name+" and you password: "+referee_password;
                     DataManagement.getCurrent().sendEMail(mail,mail_content);
                     DataManagement.setSubscription(current);
-                    return true;
+                    ans = true;
                 } else if (add_or_remove == 1) {
                     if (current_referee != null) {
                         DataManagement.removeSubscription(referee_user_name);
-                        return true;
+                        ans =  true;
                     }
                 }
             }
         }
-        return false;
+        logger.log("Settings controller: addOrDeleteRefereeToSystem, referee name: "+ referee_user_name +" ,add or remove: "+add_or_remove +" ,successful: "+ ans);
+        return ans;
     }
 
     /**
@@ -76,16 +81,18 @@ public class SettingsController{
      * @return
      */
     public boolean defineRefereeInLeauge(String leauge_name, String referee_user_name, String season_year) {
+        boolean ans = false;
         League league = DataManagement.findLeauge(leauge_name);
         Subscription referee = DataManagement.findSubscription(referee_user_name);
         if (league != null && referee!=null && referee instanceof Referee) {
             Season season = league.getSeason(season_year);
             if (season!=null){
                 season.addReferee((Referee)referee);
-                return true;
+                ans = true;
             }
         }
-        return false;
+        logger.log("Settings controller: defineRefereeInLeauge, leauge name: "+ leauge_name +" ,referee name: "+referee_user_name+" ,season: "+season_year +" ,successful: "+ ans);
+        return ans;
     }
 
 }
