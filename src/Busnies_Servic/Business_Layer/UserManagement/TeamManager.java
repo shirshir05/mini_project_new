@@ -7,7 +7,7 @@ import java.util.Observer;
 
 public class TeamManager extends Subscription  implements Observer{
 
-    Subscription appointed_by_teamOwner;
+    protected Subscription appointed_by_teamOwner;
     protected String name;
 
 

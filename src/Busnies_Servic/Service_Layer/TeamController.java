@@ -30,7 +30,7 @@ public class TeamController {
      */
     public ActionStatus CreateTeam(String arg_name, String arg_field) {
         // צריך לבדוק שיש אישור ליצור קבוצה
-        if ((DataManagement.getCurrent().getPermissions().check_permissions((Action.Edit_team)) == 0) && !(DataManagement.getCurrent() instanceof TeamOwner)) {
+        if ((DataManagement.getCurrent().getPermissions().check_permissions((Action.Edit_team)) == false) && !(DataManagement.getCurrent() instanceof TeamOwner)) {
             return new ActionStatus(false,"You are not allowed to perform actions on the group.");
         }
         Team team = DataManagement.findTeam(arg_name);
@@ -209,7 +209,7 @@ public class TeamController {
      * @return
      */
     private String CheckInputEditTeam(String name_team, String user_name) {
-        if ((DataManagement.getCurrent().getPermissions().check_permissions((Action.Edit_team)) == 0)) {
+        if ((DataManagement.getCurrent().getPermissions().check_permissions((Action.Edit_team)) == false)) {
             return "You are not allowed to perform actions on the group.";
         }
         Team team = DataManagement.findTeam(name_team);
@@ -253,7 +253,7 @@ public class TeamController {
         if (team.getStatus() == -1) {
             return new ActionStatus(false,  "The team is permanently closed.");
         }
-        if (DataManagement.getCurrent().getPermissions().check_permissions(Action.Close_team) == 0) {
+        if (DataManagement.getCurrent().getPermissions().check_permissions(Action.Close_team) == false) {
             return new ActionStatus(false,  "You are not allowed to close a team.");
         }
 
@@ -263,7 +263,7 @@ public class TeamController {
                 return new ActionStatus(false,  "You are not authorized to perform this action.");
             }
         } else {
-            if (DataManagement.getCurrent().getPermissions().check_permissions(Action.Close_team_perpetually) == 0) {
+            if (DataManagement.getCurrent().getPermissions().check_permissions(Action.Close_team_perpetually) == false) {
                 return new ActionStatus(false,  "You are not allowed to close a team.");
             }
         }
