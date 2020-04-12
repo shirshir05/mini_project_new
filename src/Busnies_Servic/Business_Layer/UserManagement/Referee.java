@@ -22,9 +22,7 @@ public class Referee extends Subscription implements Observer {
 
     public Referee(String arg_user_name, String arg_password,String email) {
         super(arg_user_name, arg_password,email);
-        permissions.edit_permissions(Action.Upload_personal_page,1);
-        permissions.edit_permissions(Action.watch_game,1);
-        permissions.edit_permissions(Action.update_event,1);
+        permissions.add_default_referee_permission();
         referee_games = new HashSet<>();
     }
 

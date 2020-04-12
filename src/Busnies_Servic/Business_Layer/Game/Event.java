@@ -15,7 +15,7 @@ public class Event {
     public Event(Team arg_team, EventType arg_event_type, Player arg_player){
         team=arg_team;
         eventType =arg_event_type;
-        if (arg_team.return_player(arg_player.getUserName())!=null){
+        if (arg_team.returnPlayer(arg_player.getUserName())!=null){
             player=arg_player;
         }
         else{
