@@ -7,7 +7,6 @@ public class TeamOwner extends Subscription  implements Observer{
 
 
     //teamOwner or SystemAdministrator
-    protected String name;
     protected Subscription appointed_by_teamOwner;
 
     public TeamOwner(String arg_user_name, String arg_password,String email) {
@@ -15,17 +14,8 @@ public class TeamOwner extends Subscription  implements Observer{
         appointed_by_teamOwner = null;
     }
 
-
-    public String getName() {
-        return name;
-    }
-
     public Subscription getAppointed_by_teamOwner() {
         return appointed_by_teamOwner;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override
@@ -48,7 +38,13 @@ public class TeamOwner extends Subscription  implements Observer{
         }
     }
 
+    @Override
+    public String toString() {
 
+        return "TeamOwner: " + "\n" +
+                "name: " + name + "\n" +
+                "email: " + email;
+    }
 
 }
 

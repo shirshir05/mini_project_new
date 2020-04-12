@@ -8,7 +8,6 @@ import java.util.Observer;
 public class Referee extends Subscription implements Observer {
 
     protected String qualification;
-    protected String name;
     protected HashSet<Game> referee_games;
 
 
@@ -16,16 +15,8 @@ public class Referee extends Subscription implements Observer {
         return qualification;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setQualification(String qualification) {
         this.qualification = qualification;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Referee(String arg_user_name, String arg_password,String email) {
@@ -67,5 +58,13 @@ public class Referee extends Subscription implements Observer {
         }
     }
 
+    @Override
+    public String toString() {
+
+        return "Referee: " + "\n" +
+                "name: " + name + "\n" +
+                "email: " + email + "\n" +
+                "qualification: " + qualification;
+    }
 
 }

@@ -15,10 +15,8 @@ public class Player extends Subscription implements Observer {
     protected PlayerPersonalPage PersonalPage;
     protected String position;
     protected Date birthday;
-    protected String name;
     //כרטיס שחקן או מספר שחקן?
     //salary?
-
 
     public void setPersonalPage(PlayerPersonalPage personalPage) {
         PersonalPage = personalPage;
@@ -43,10 +41,6 @@ public class Player extends Subscription implements Observer {
         return birthday;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setPosition(String position) {
         this.position = position;
     }
@@ -55,13 +49,19 @@ public class Player extends Subscription implements Observer {
         this.birthday = birthday;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public void update(Observable o, Object arg) {
         this.alerts.add((String)arg);
+    }
+
+    @Override
+    public String toString() {
+
+        return "Player: " + "\n" +
+                "name: " + name + "\n" +
+                "email: " + email + "\n" +
+                "position: " + position + "\n" +
+                "birthday: " + birthday;
     }
 
 }

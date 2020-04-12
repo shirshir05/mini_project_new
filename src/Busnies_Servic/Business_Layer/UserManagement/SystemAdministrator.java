@@ -25,5 +25,12 @@ public class SystemAdministrator extends Subscription implements Observer{
         this.alerts.add((String)arg);
     }
 
+    @Override
+    public String toString() {
+
+        return "SystemAdministrator: " + "\n" +
+                "name: " + name + "\n" +
+                "email: " + email;
+    }
 
 }

@@ -7,8 +7,6 @@ import java.util.Observer;
 public class Fan extends Subscription implements Observer{
 
     protected HashSet<Complaint> list_complaint;
-    protected String name;
-
 
     public boolean addComplaint(Complaint complaint){
 
@@ -28,14 +26,6 @@ public class Fan extends Subscription implements Observer{
         list_complaint = new HashSet<>();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public void update(Observable o, Object arg) {
         String alert = (String)arg;
@@ -44,5 +34,11 @@ public class Fan extends Subscription implements Observer{
         }
     }
 
+    @Override
+    public String toString() {
 
+        return "Fam: " + "\n" +
+                "name: " + name + "\n" +
+                "email: " + email;
+    }
 }
