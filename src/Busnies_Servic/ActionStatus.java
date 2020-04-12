@@ -9,7 +9,7 @@ package Busnies_Servic;
 public class ActionStatus {
 
     private boolean actionSuccessful;
-    private String description;
+    private String description = " ";
 
     public ActionStatus(boolean actionSucceeded, String description) {
         this.actionSuccessful = actionSucceeded;

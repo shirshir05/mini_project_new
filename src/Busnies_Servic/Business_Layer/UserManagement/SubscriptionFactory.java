@@ -1,5 +1,6 @@
 package Busnies_Servic.Business_Layer.UserManagement;
 import Busnies_Servic.Role;
+import Presentation_Layer.Spelling;
 
 
 public class SubscriptionFactory {
@@ -17,30 +18,38 @@ public class SubscriptionFactory {
             return null;
         }
         if(role == Role.Coach ){
+            Spelling.updateDictionary("coach: " + userName);
             return new Coach(userName,password, email);
         }
         else if (role ==Role.Fan){
+            Spelling.updateDictionary("fan: " + userName);
             return new Fan(userName,password, email);
         }
         else if (role == Role.Guest){
             return new Guest(userName,password, email);
         }
         else if (role == Role.Players){
+            Spelling.updateDictionary("player: " + userName);
             return new Player(userName,password, email);
         }
         else if (role == Role.Referee){
+            Spelling.updateDictionary("referee: " + userName);
             return new Referee(userName,password, email);
         }
         else if (role == Role.SystemAdministrator){
+            Spelling.updateDictionary("systemAdministrator: " + userName);
             return new SystemAdministrator(userName,password, email);
         }
         else if (role == Role.TeamManager){
+            Spelling.updateDictionary("teamManager: " + userName);
             return new TeamManager(userName,password, email);
         }
         else if (role == Role.TeamOwner){
+            Spelling.updateDictionary("teamOwner: " + userName);
             return new TeamOwner(userName,password, email);
         }
         else if (role == Role.UnionRepresentative){
+            Spelling.updateDictionary("unionRepresentative: " + userName);
             return new UnionRepresentative(userName,password, email);
         }
         return null;
