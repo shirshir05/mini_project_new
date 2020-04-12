@@ -23,10 +23,7 @@ public class Fan extends Subscription implements Observer{
 
     public Fan(String arg_user_name, String arg_password,String email) {
         super(arg_user_name, arg_password, email);
-        permissions.edit_permissions(Action.watch_personal_page,1);
-        permissions.edit_permissions(Action.write_complaint,1);
-        permissions.edit_permissions(Action.Game_alerts,1);
-        permissions.edit_permissions(Action.Search_History,1);
+        permissions.add_default_fan_permission();
         list_complaint = new HashSet<>();
     }
 

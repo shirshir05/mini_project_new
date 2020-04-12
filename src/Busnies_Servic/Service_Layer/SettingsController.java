@@ -6,6 +6,7 @@ import Busnies_Servic.Business_Layer.UserManagement.Referee;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Business_Layer.UserManagement.UnionRepresentative;
 import DB_Layer.logger;
+import Presentation_Layer.Spelling;
 
 public class SettingsController{
 
@@ -15,9 +16,10 @@ public class SettingsController{
      * @param name is the name of the leauge
      * @return true if it was defined
      */
-    public boolean defineLeaugue(String name){
+    public boolean defineLeague(String name){
         if (name!=null && DataManagement.getCurrent() instanceof UnionRepresentative) {
             DataManagement.addToListLeague(new League(name));
+            Spelling.updateDictionary("league: " + name);
             return true;
         }
         return false;
@@ -33,9 +35,12 @@ public class SettingsController{
         boolean ans = false;
         if (year!=null && league_name!=null && DataManagement.getCurrent() instanceof UnionRepresentative) {
             int intFormatYear= Integer.parseInt(year);
-            if (intFormatYear>1900 && intFormatYear<2021)
+            if (intFormatYear>1900 && intFormatYear<2021){
                 DataManagement.findLeauge(league_name).addSeason(new Season(year));
-            ans = true;
+                ans = true;
+                Spelling.updateDictionary("season: " + league_name);
+            }
+
         }
         logger.log("Settings controller: defineSeasonToLeague, league name: "+ league_name+" ,year: "+year +" ,successful: "+ ans);
         return ans;
@@ -61,9 +66,10 @@ public class SettingsController{
                     DataManagement.getCurrent().sendEMail(mail,mail_content);
                     DataManagement.setSubscription(current);
                     ans = true;
+                    Spelling.updateDictionary("user: " + referee_user_name);
                 } else if (add_or_remove == 1) {
                     if (current_referee != null) {
-                        DataManagement.removeSubscription(referee_user_name);
+                        Spelling.updateDictionary("referee: " + referee_user_name);
                         ans =  true;
                     }
                 }
@@ -80,7 +86,7 @@ public class SettingsController{
      * @param season_year
      * @return
      */
-    public boolean defineRefereeInLeauge(String leauge_name, String referee_user_name, String season_year) {
+    public boolean defineRefereeInLeague(String leauge_name, String referee_user_name, String season_year) {
         boolean ans = false;
         League league = DataManagement.findLeauge(leauge_name);
         Subscription referee = DataManagement.findSubscription(referee_user_name);

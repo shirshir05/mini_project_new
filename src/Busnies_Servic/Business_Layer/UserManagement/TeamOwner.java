@@ -9,6 +9,7 @@ public class TeamOwner extends Subscription  implements Observer{
 
     //teamOwner or SystemAdministrator
     protected Subscription appointed_by_teamOwner;
+    protected
 
     public TeamOwner(String arg_user_name, String arg_password,String email) {
         super(arg_user_name, arg_password,email);
@@ -32,24 +33,11 @@ public class TeamOwner extends Subscription  implements Observer{
         //Removing the appointed
         if(appointed_by_teamOwner == null){
             this.appointed_by_teamOwner = null;
-            permissions.edit_permissions(Action.Edit_team,0);
-            permissions.edit_permissions(Action.Appointment_of_team_owner,0);
-            permissions.edit_permissions(Action.Remove_Appointment_of_team_owner,0);
-            permissions.edit_permissions(Action.Appointment_of_team_manager,0);
-            permissions.edit_permissions(Action.Remove_Appointment_of_team_manager,0);
-            permissions.edit_permissions(Action.Close_team,0);
-            permissions.edit_permissions(Action.financial,0);
-            return;
+
+        }else {
+            permissions.add_default_owner_permission();
+            this.appointed_by_teamOwner = appointed_by_teamOwner;
         }
-        permissions.edit_permissions(Action.Edit_team,1);
-        permissions.edit_permissions(Action.Appointment_of_team_owner,1);
-        permissions.edit_permissions(Action.Remove_Appointment_of_team_owner,1);
-        permissions.edit_permissions(Action.Appointment_of_team_manager,1);
-        permissions.edit_permissions(Action.Remove_Appointment_of_team_manager,1);
-        permissions.edit_permissions(Action.Close_team,1);
-        permissions.edit_permissions(Action.financial,1);
-        this.appointed_by_teamOwner = appointed_by_teamOwner;
-        return;
     }
 
     @Override

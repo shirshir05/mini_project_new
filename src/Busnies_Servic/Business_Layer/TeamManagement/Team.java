@@ -119,7 +119,7 @@ public class Team extends Observable {
      * @param add_or_remove
      * @return
      */
-    public ActionStatus add_or_remove_player(Player player, int add_or_remove ){
+    public ActionStatus addOrRemovePlayer(Player player, int add_or_remove ){
         if(status == -1 || status == 0){
             return new ActionStatus(false,"The team is inactive so no activity can be performed on it");
         }
@@ -149,7 +149,7 @@ public class Team extends Observable {
      * @param add_or_remove
      * @return
      */
-    public ActionStatus add_or_remove_coach(Coach coach_add, int add_or_remove ){
+    public ActionStatus AddOrRemoveCoach(Coach coach_add, int add_or_remove ){
         if(status == -1 || status == 0){
             return new ActionStatus(false,  "The team is inactive so no activity can be performed on it");
         }
@@ -172,7 +172,7 @@ public class Team extends Observable {
         return new ActionStatus(false, "The action is invalid.");
     }
 
-    public Player return_player(String player_name){
+    public Player returnPlayer(String player_name){
         for (Player p : list_Player){
             if (p.getUserName().equals(player_name)){
                 return p;
@@ -269,7 +269,7 @@ public class Team extends Observable {
         return Name;
     }
 
-    public PersonalPage getPersonalPage() {
+    public TeamPersonalPage getPersonalPage() {
         return PersonalPage;
     }
 

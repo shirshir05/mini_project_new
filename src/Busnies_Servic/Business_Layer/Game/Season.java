@@ -9,7 +9,7 @@ public class Season {
     protected String season;
     protected HashSet<Referee> list_referee;
     protected HashSet<Game> list_game;
-
+    //Score Table
     /**
      * season constructor
      * @param year is the season's year

@@ -6,12 +6,13 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Observable;
 
+
+
 public class PersonalPage extends Observable {
 
     protected String name;
     protected HashSet<String> perrmissionToEdit;
     protected String pageOwner;
-
     protected HashMap<String,Object> pageData;
 
 
@@ -67,12 +68,26 @@ public class PersonalPage extends Observable {
         }
         return ans;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+
+        if(name != null && name.length() != 0){
+
+            this.name = name;
+        }
+    }
+
     /*
     כאשר רוצים לשנות משהו בתוך הפונקציה נקרא לשיטות:
 public change(){
         setChanged();
         notifyObservers();
 }
+
 כדי להוסיף נושא מסוים עושים:
 subject.addObserver(צופה);
      */

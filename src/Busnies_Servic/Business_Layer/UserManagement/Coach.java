@@ -16,7 +16,7 @@ public class Coach extends Subscription implements Observer {
         PersonalPage = new CoachPersonalPage(arg_user_name);
     }
 
-    public PersonalPage getPersonalPage() {
+    public CoachPersonalPage getPersonalPage() {
         return PersonalPage;
     }
 
@@ -27,7 +27,6 @@ public class Coach extends Subscription implements Observer {
     public String getRoleInTeam() {
         return roleInTeam;
     }
-
 
     public void setPersonalPage(CoachPersonalPage personalPage) {
         PersonalPage = personalPage;

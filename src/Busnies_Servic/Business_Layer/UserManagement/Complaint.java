@@ -11,12 +11,11 @@ public class Complaint extends Observable {
     private boolean isAnswered;
 
     public Complaint(String dsc){
-        if(dsc == null || dsc.isEmpty())
-            throw new IllegalArgumentException("Cannot be null");
-        //TODO what to do if the arguments are null?
-        description = dsc;
-        isAnswered = false;
-        answer = null;
+        if(dsc != null && !dsc.isEmpty()) {
+            description = dsc;
+            isAnswered = false;
+            answer = null;
+        }
     }
 
 
