@@ -1,6 +1,6 @@
 package Busnies_Servic.Service_Layer;
 
-import Busnies_Servic.Business_Layer.ActionStatus;
+import Busnies_Servic.ActionStatus;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
