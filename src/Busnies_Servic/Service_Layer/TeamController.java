@@ -33,6 +33,7 @@ public class TeamController {
     public ActionStatus CreateTeam(String arg_name, String arg_field) {
         ActionStatus AC = null;
         // צריך לבדוק שיש אישור ליצור קבוצה
+
         if ((DataManagement.getCurrent().getPermissions().check_permissions((Action.Edit_team)) == 0) && !(DataManagement.getCurrent() instanceof TeamOwner)) {
             AC=  new ActionStatus(false,"You are not allowed to perform actions on the group.");
         }
@@ -239,7 +240,7 @@ public class TeamController {
      * @return
      */
     private String CheckInputEditTeam(String name_team, String user_name) {
-        if ((DataManagement.getCurrent().getPermissions().check_permissions((Action.Edit_team)) == 0)) {
+        if ((DataManagement.getCurrent().getPermissions().check_permissions((Action.Edit_team)) == false)) {
             return "You are not allowed to perform actions on the group.";
         }
         Team team = DataManagement.findTeam(name_team);
@@ -284,14 +285,17 @@ public class TeamController {
         }
         else if (DataManagement.getCurrent().getPermissions().check_permissions(Action.Close_team) == 0) {
             AC = new ActionStatus(false,  "You are not allowed to close a team.");
+
+     
         }
 
         else if (!(DataManagement.getCurrent() instanceof SystemAdministrator)) {
             //Only an administrator can permanently close the team
             if (status == -1) {
                 AC = new ActionStatus(false,  "You are not authorized to perform this action.");
+                return new ActionStatus(false,  "You are not authorized to perform this action.");
             }
-        }
+        } 
         else if (DataManagement.getCurrent().getPermissions().check_permissions(Action.Close_team_perpetually) == 0) {
                 AC = new ActionStatus(false,  "You are not allowed to close a team.");
         }
