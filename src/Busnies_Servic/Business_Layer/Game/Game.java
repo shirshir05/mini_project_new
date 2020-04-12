@@ -138,5 +138,35 @@ public class Game extends Observable{
         notifyObservers("The date has changed! The new date is: "+new_date.toString());
     }
 
+    public Date getDate() {
+        return date;
+    }
 
+    public Team getHost() {
+        return host;
+    }
+
+    public Team getGuest() {
+        return guest;
+    }
+
+    public Pair<Integer, Integer> getScore() {
+        return score;
+    }
+
+    public HashSet<Event> getEventList() {
+        return eventList;
+    }
+
+    public static void setGame_id(int game_id) {
+        Game.game_id = game_id;
+    }
+
+    public void setHost(Team host) {
+        this.host = host;
+    }
+
+    public void setGuest(Team guest) {
+        this.guest = guest;
+    }
 }
