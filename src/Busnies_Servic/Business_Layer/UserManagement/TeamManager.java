@@ -8,8 +8,6 @@ import java.util.Observer;
 public class TeamManager extends Subscription  implements Observer{
 
     Subscription appointed_by_teamOwner;
-    protected String name;
-
 
     public TeamManager(String arg_user_name, String arg_password,String email) {
         super(arg_user_name, arg_password,email);
@@ -18,14 +16,6 @@ public class TeamManager extends Subscription  implements Observer{
 
     public Subscription getAppointed_by_teamOwner() {
         return appointed_by_teamOwner;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**
@@ -39,4 +29,16 @@ public class TeamManager extends Subscription  implements Observer{
     @Override
     public void update(Observable o, Object arg) {
         this.alerts.add((String)arg);
-    }}
+    }
+
+    @Override
+    public String toString() {
+
+        return "TeamManager: " + "\n" +
+                "name: " + name + "\n" +
+                "email: " + email;
+    }
+
+}
+
+

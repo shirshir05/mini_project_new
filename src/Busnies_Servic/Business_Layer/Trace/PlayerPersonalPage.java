@@ -15,9 +15,7 @@ public class PlayerPersonalPage extends PersonalPage{
     protected String weight; //in kg
     protected String position;
     protected String jerseyNumber;
-
     protected FootballPlayerStatistic statistic;
-
     protected String seasonYear;
 
     //full time statistic??

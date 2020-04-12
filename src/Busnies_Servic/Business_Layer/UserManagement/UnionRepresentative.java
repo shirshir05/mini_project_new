@@ -7,7 +7,6 @@ import java.util.Observer;
 
 public class UnionRepresentative extends Subscription implements Observer {
 
-    protected String name;
     public UnionRepresentative(String arg_user_name, String arg_password,String email) {
         super(arg_user_name, arg_password,email);
         permissions.edit_permissions(Action.define_league,1);
@@ -21,9 +20,16 @@ public class UnionRepresentative extends Subscription implements Observer {
 
     }
 
-
     @Override
     public void update(Observable o, Object arg) {
         this.alerts.add((String)arg);
+    }
+
+    @Override
+    public String toString() {
+
+        return "UnionRepresentative: " + "\n" +
+                "name: " + name + "\n" +
+                "email: " + email;
     }
 }

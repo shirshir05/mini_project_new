@@ -7,7 +7,6 @@ import java.util.Observer;
 
 public class Coach extends Subscription implements Observer {
 
-    protected String name;
     protected CoachPersonalPage PersonalPage;
     protected String qualification;
     protected String roleInTeam;
@@ -19,11 +18,6 @@ public class Coach extends Subscription implements Observer {
 
     public PersonalPage getPersonalPage() {
         return PersonalPage;
-    }
-
-
-    public String getName() {
-        return name;
     }
 
     public String getQualification() {
@@ -39,10 +33,6 @@ public class Coach extends Subscription implements Observer {
         PersonalPage = personalPage;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setQualification(String qualification) {
         this.qualification = qualification;
     }
@@ -55,4 +45,13 @@ public class Coach extends Subscription implements Observer {
     public void update(Observable o, Object arg) {
     }
 
+    @Override
+    public String toString() {
+
+        return "Coach: " + "\n" +
+                "name: " + name + "\n" +
+                "email: " + email + "\n" +
+                "qualification: " + qualification + "\n" +
+                "roleInTeam: " + roleInTeam;
+    }
 }
