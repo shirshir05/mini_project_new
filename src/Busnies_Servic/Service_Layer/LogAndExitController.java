@@ -157,7 +157,7 @@ public class LogAndExitController{
 
         // פונקציה לא שלמה יש להסיר את התלויות מהקבוצה גם - נעשה בסוף לאחר שנבין את כל האילוצים
         ActionStatus AC = null;
-        if((current.getPermissions().check_permissions((Action.Removing_Subscriptions)) == 0)){
+        if((current.getPermissions().check_permissions((Action.Removing_Subscriptions)) == false)){
             AC =  new ActionStatus(false,  "You are not authorized to perform this action.");
         }
         else if(DataManagement.contain_subscription(user_name) == null){
