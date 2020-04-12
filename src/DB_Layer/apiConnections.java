@@ -1,4 +1,4 @@
-package DBconnection;
+package DB_Layer;
 
 public interface apiConnections {
 

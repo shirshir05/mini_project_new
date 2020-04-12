@@ -1,6 +1,6 @@
-package DBconnection;
+package DB_Layer;
 
-public class unionFinanceSystem implements apiConnections {
+public class stateTaxSystem implements apiConnections {
     @Override
     public boolean initConnection() {
         return true;

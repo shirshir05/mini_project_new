@@ -4,19 +4,17 @@ import Busnies_Servic.Business_Layer.Game.Game;
 import Busnies_Servic.Business_Layer.Game.League;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
 
-import Busnies_Servic.Business_Layer.UserManagement.Referee;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
-import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
 import Busnies_Servic.Business_Layer.UserManagement.UnionRepresentative;
 import Busnies_Servic.Business_Layer.UserManagement.*;
 import Busnies_Servic.Role;
-import DBconnection.stateTaxSystem;
-import DBconnection.unionFinanceSystem;
+import DB_Layer.logger;
+import DB_Layer.stateTaxSystem;
+import DB_Layer.unionFinanceSystem;
 
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 
 public final class DataManagement {
@@ -54,6 +52,7 @@ public final class DataManagement {
 
         }
         this.createLogicManagement();
+        logger.log("DataManagement :the system is initialized");
     }
 
 
@@ -187,14 +186,18 @@ public final class DataManagement {
 
     public static void setSubscription(Subscription sub){
         Subscription.add(sub);
+        logger.log("DataManagement :new Subscription , name: " + sub.getUserName());
+
     }
 
     public static void removeSubscription(String user_name){
         Subscription.remove(contain_subscription(user_name));
+        logger.log("DataManagement :remove Subscription , name: " + user_name);
     }
 
     public static void setCurrent(Subscription sub){
         current = sub;
+        logger.log("DataManagement :new current set, name: " + current.getUserName());
     }
 
     public static Subscription getCurrent(){
@@ -207,6 +210,7 @@ public final class DataManagement {
         for (SystemAdministrator s : list){
             team.addObserver(s);
         }
+        logger.log("DataManagement :new team was added, team name: " + team.getName());
     }
 
     public static HashSet getListTeam(){
@@ -216,6 +220,7 @@ public final class DataManagement {
 
     public static void addToListLeague(League league){
         list_league.add(league);
+        logger.log("DataManagement :new league was added, team name: " + league.getName());
     }
 
     public static HashSet getListLeague(){
