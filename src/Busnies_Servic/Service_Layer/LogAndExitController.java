@@ -3,13 +3,16 @@ package Busnies_Servic.Service_Layer;
 // all Subscription in system
 import Busnies_Servic.Action;
 import Busnies_Servic.ActionStatus;
+import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
+import Busnies_Servic.Business_Layer.UserManagement.SystemAdministrator;
+import Busnies_Servic.Business_Layer.UserManagement.TeamOwner;
 import Busnies_Servic.Role;
 import DB_Layer.logger;
-import Presentation_Layer.Spelling;
 
 
+import java.util.HashSet;
 import java.util.regex.Pattern;
 
 // to function that remove all Subscription
@@ -151,23 +154,72 @@ public class LogAndExitController{
      * Only the administrator can delete  users
      * @return
      */
-    public ActionStatus RemoveSubscription(String user_name){
-        // לוודא שעדיין יש בעל קבוצה ומנהל קבוצה אחד לפחות בקבוצה
-
-        // פונקציה לא שלמה יש להסיר את התלויות מהקבוצה גם - נעשה בסוף לאחר שנבין את כל האילוצים
+    public ActionStatus RemoveSubscription(String userName){
         ActionStatus AC = null;
-        if((current.getPermissions().check_permissions((Action.Removing_Subscriptions)) == false)){
+        if(ConstraintsCorrectness(userName) == false){
+            AC =  new ActionStatus(false,  "The system constraints do not allow this subscription to be deleted.");
+        }
+        else if(DataManagement.contain_subscription(userName) == null){
+            AC =  new ActionStatus(false,  "There is no subscription with this username in the system.");
+        }
+        else if(!(current.getPermissions().check_permissions((Action.Removing_Subscriptions)))){
             AC =  new ActionStatus(false,  "You are not authorized to perform this action.");
         }
-        else if(DataManagement.contain_subscription(user_name) == null){
-            AC = new ActionStatus(false,  "The subscription does not exist in the system.");
-        }
         else {
-            DataManagement.removeSubscription(user_name);
+            if(DataManagement.getCurrent().getPermissions().equals(userName)){
+                DataManagement.setCurrent(null);
+            }
+            DataManagement.removeSubscription(userName);
             AC = new ActionStatus(false, "the transaction completed successfully.");
         }
-        logger.log("Remove Subscription attempt of user : "+user_name+" "+AC.getDescription());
+        logger.log("Remove Subscription attempt of user : "+userName+" "+AC.getDescription());
         return AC;
+    }
+
+    private boolean ConstraintsCorrectness(String userName){
+        return ( numberSystemAdministrator(userName) && TeamOwnerForTeam(userName));
+
+    }
+
+    /**
+     * Check if there is more than one administrator
+     * @param userName
+     * @return false - error the action illegal
+     */
+    private boolean numberSystemAdministrator(String userName){
+        HashSet<SystemAdministrator> list =  DataManagement.getSystemAdministratorsList();
+        if(list.size() == 1){
+            for (SystemAdministrator user: list) {
+                if(user.getUserName().equals(userName)){
+                    // the action illegal
+                    return false;
+                }
+            }
+
+        }
+        return true;
+    }
+
+    /**
+     * Check that there is another team owner for a team
+     * @param userName
+     * @return
+     */
+    private boolean TeamOwnerForTeam(String userName){
+        Subscription teamOwner = DataManagement.contain_subscription(userName);
+        if(teamOwner instanceof TeamOwner){
+            HashSet<Team> list =  DataManagement.getListTeam();
+            for (Team team: list) {
+                HashSet<TeamOwner> teamOwnerHash = team.getListTeamOwner();
+                if(teamOwnerHash.size() == 1){
+                    if(teamOwnerHash.contains(teamOwner)){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+
     }
 
 

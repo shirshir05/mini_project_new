@@ -80,7 +80,7 @@ public class TeamController {
             AC = new ActionStatus(false, "The username is not defined as a player on the system.");
         }
         else if(DataManagement.findTeam(name_team) != null){
-            AC =  DataManagement.findTeam(name_team).add_or_remove_player((Player) DataManagement.contain_subscription(user_name), add_or_remove);
+            AC =  DataManagement.findTeam(name_team).addOrRemovePlayer((Player) DataManagement.contain_subscription(user_name), add_or_remove);
         }
         logger.log("Add Or Remove Player to Team: "+name_team+"-"+AC.getDescription());
         return AC;
@@ -105,7 +105,7 @@ public class TeamController {
             AC =  new ActionStatus(false, "The username is not defined as a Coach on the system.");
         }
         else if(DataManagement.findTeam(name_team) != null){
-            AC = DataManagement.findTeam(name_team).add_or_remove_coach((Coach) DataManagement.contain_subscription(coach_add), add_or_remove);
+            AC = DataManagement.findTeam(name_team).AddOrRemoveCoach((Coach) DataManagement.contain_subscription(coach_add), add_or_remove);
         }
 
         logger.log("Add Or Remove Coach to Team: "+name_team+"-"+AC.getDescription());
