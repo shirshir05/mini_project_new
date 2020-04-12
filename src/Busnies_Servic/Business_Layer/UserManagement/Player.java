@@ -22,6 +22,7 @@ public class Player extends Subscription implements Observer {
 
     public void setPersonalPage(PlayerPersonalPage personalPage) {
         PersonalPage = personalPage;
+
     }
 
     public PlayerPersonalPage getPersonalPage() {
@@ -31,7 +32,7 @@ public class Player extends Subscription implements Observer {
     public Player(String arg_user_name, String arg_password,String email) {
         super(arg_user_name, arg_password,email);
         PersonalPage=new PlayerPersonalPage(arg_user_name);
-
+        permissions.add_default_player_or_coach_permission();
     }
 
     public String getPosition() {
