@@ -1,15 +1,14 @@
 package Busnies_Servic.Service_Layer;
 
-import Busnies_Servic.Business_Layer.ActionStatus;
+import Busnies_Servic.ActionStatus;
 import Busnies_Servic.Business_Layer.UserManagement.Complaint;
 import Busnies_Servic.Business_Layer.UserManagement.Fan;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
 import DB_Layer.logger;
 
 
+
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
 
 public class ComplaintController{
 
@@ -21,15 +20,15 @@ public class ComplaintController{
      * This method adds a complaint by a user.
      * @param fan the fan who created the complaint
      */
-    public static ActionStatus addComplaint(String complaint_description, Fan fan){
+    public static ActionStatus addComplaint(String complaintDescription, Fan fan){
         ActionStatus AC = null;
-        if(complaint_description == null || complaint_description.equals("")) {
+        if(complaintDescription == null || complaintDescription.isEmpty()) {
             AC = new ActionStatus(false, "Complaint cannot be empty");
         }
         else {
             if (complaints == null)
                 complaints = new ArrayList<>();
-            Complaint c = new Complaint(complaint_description);
+            Complaint c = new Complaint(complaintDescription);
             fan.addComplaint(c);
             complaints.add(c);
             AC = new ActionStatus(true, "Complaint added successfully");
