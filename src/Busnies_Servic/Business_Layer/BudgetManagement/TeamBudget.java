@@ -1,6 +1,6 @@
 package Busnies_Servic.Business_Layer.BudgetManagement;
 
-import Busnies_Servic.Business_Layer.ActionStatus;
+import Busnies_Servic.ActionStatus;
 
 import java.util.Observable;
 
