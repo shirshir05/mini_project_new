@@ -213,7 +213,7 @@ public final class DataManagement {
         logger.log("DataManagement :new team was added, team name: " + team.getName());
     }
 
-    public static HashSet getListTeam(){
+    public  static HashSet<Team>  getListTeam(){
         return list_team;
 
     }
@@ -223,7 +223,7 @@ public final class DataManagement {
         logger.log("DataManagement :new league was added, team name: " + league.getName());
     }
 
-    public static HashSet getListLeague(){
+    public static  HashSet<League> getListLeague(){
         return list_league;
     }
 
