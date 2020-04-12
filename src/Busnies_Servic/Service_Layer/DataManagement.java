@@ -16,6 +16,7 @@ import DB_Layer.unionFinanceSystem;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.regex.Pattern;
 
 public final class DataManagement {
 
@@ -249,6 +250,47 @@ public final class DataManagement {
         }
         new_complaint.notify_all();
         list_Complaints.add(new_complaint);
+    }
+
+    /**
+     * This function check if email is legal
+     * @param email
+     * @return
+     */
+    public static boolean checkEmail(String email){
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
+
+    /**
+     * The purpose of this function is to check the correctness of the input of the user who
+     * wishes to register.
+     * Laws:
+     * password - only number and length of 5 digits
+     * user_name -Unique not empty
+     * @param arg_user_name
+     * @param arg_password
+     * @return comment print to user
+     * if return  null the input correct
+     */
+    public static String InputTest(String arg_user_name, String arg_password){
+        if(arg_user_name == null || arg_password == null || arg_user_name.equals("") || arg_password.equals("")){
+            return "The input is empty.";
+        }
+        if(arg_password.length() < 5){
+            return "The password must contain at least 5 digits.";
+        }
+        if (DataManagement.contain_subscription(arg_user_name) != null){
+            return "Please select another username because this username exists in the system.";
+        }
+        return null;
     }
 
 }
