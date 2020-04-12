@@ -66,7 +66,6 @@ public class LogAndExitController{
             DataManagement.setCurrent(newSub);
             AC = new ActionStatus(true, "Subscription successfully added!");
         }
-        Spelling.updateDictionary(arg_user_name);
         logger.log("new Registration attempt of user : "+ arg_user_name+" "+arg_role+" "+email + AC.getDescription());
         return AC;
     }
@@ -170,6 +169,7 @@ public class LogAndExitController{
         logger.log("Remove Subscription attempt of user : "+user_name+" "+AC.getDescription());
         return AC;
     }
+
 
 
 }

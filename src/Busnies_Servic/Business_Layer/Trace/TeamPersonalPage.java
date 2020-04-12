@@ -12,7 +12,6 @@ public class TeamPersonalPage extends PersonalPage{
     protected String stadiumName;
     protected FootballTeamStatistic teamStatistic;
 
-
     //league table
     //club accomplishes
     //full time statistic??
