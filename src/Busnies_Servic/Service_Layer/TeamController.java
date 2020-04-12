@@ -34,7 +34,7 @@ public class TeamController {
         ActionStatus AC = null;
         // צריך לבדוק שיש אישור ליצור קבוצה
 
-        if ((DataManagement.getCurrent().getPermissions().check_permissions((Action.Edit_team)) == 0) && !(DataManagement.getCurrent() instanceof TeamOwner)) {
+        if (!(DataManagement.getCurrent().getPermissions().check_permissions((Action.Edit_team))) && !(DataManagement.getCurrent() instanceof TeamOwner)) {
             AC=  new ActionStatus(false,"You are not allowed to perform actions on the group.");
         }
         else if(DataManagement.findTeam(arg_name) != null){
@@ -283,7 +283,7 @@ public class TeamController {
         else if (DataManagement.findTeam(name_team).getStatus() == -1) {
             AC = new ActionStatus(false,  "The team is permanently closed.");
         }
-        else if (DataManagement.getCurrent().getPermissions().check_permissions(Action.Close_team) == 0) {
+        else if (!(DataManagement.getCurrent().getPermissions().check_permissions(Action.Close_team))) {
             AC = new ActionStatus(false,  "You are not allowed to close a team.");
 
      
@@ -296,7 +296,7 @@ public class TeamController {
                 return new ActionStatus(false,  "You are not authorized to perform this action.");
             }
         } 
-        else if (DataManagement.getCurrent().getPermissions().check_permissions(Action.Close_team_perpetually) == 0) {
+        else if (!(DataManagement.getCurrent().getPermissions().check_permissions(Action.Close_team_perpetually) != false)) {
                 AC = new ActionStatus(false,  "You are not allowed to close a team.");
         }
         else{

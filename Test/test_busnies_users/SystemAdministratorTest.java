@@ -64,10 +64,8 @@ public class SystemAdministratorTest {
         assertEquals(one,perm.check_permissions(Action.watch_log));
         assertEquals(one,perm.check_permissions(Action.Recommendation_system));
 
-        assertEquals(zero,perm.check_permissions(Action.watch_personal_page));
         assertEquals(zero,perm.check_permissions(Action.write_complaint));
         assertEquals(zero,perm.check_permissions(Action.Search_History));
-        assertEquals(zero,perm.check_permissions(Action.Upload_personal_page));
     }
 
 

@@ -49,13 +49,9 @@ public class FanTest {
         Permissions perm = fan.getPermissions();
         Integer one = 1 ;
         Integer zero = 0;
-        assertEquals(one,perm.check_permissions(Action.watch_personal_page));
         assertEquals(one,perm.check_permissions(Action.write_complaint));
-        assertEquals(one,perm.check_permissions(Action.Game_alerts));
         assertEquals(one,perm.check_permissions(Action.Search_History));
-
         assertEquals(zero,perm.check_permissions(Action.Recommendation_system));
-        assertEquals(zero,perm.check_permissions(Action.Upload_personal_page));
     }
 
     @Test
