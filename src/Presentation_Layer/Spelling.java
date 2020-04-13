@@ -124,6 +124,7 @@ public class Spelling {
      * @return correct word from dictionary or empty string "" if word and correction not exist.
      */
     public static String getCorrectWord(String word){
+        word = word.split(":",2)[1];
         if(word.contains(" ")){
             String[] splited = word.split(" ");
             String ans = "";

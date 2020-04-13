@@ -1,6 +1,7 @@
-package Busnies_Servic.Service_Layer;
+package test_busnies_users;
 
 import Busnies_Servic.ActionStatus;
+import Busnies_Servic.Service_Layer.LogAndExitController;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;

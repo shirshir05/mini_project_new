@@ -42,7 +42,7 @@ public class TeamController {
         else{
             Team new_team = new Team(arg_name, arg_field);
             DataManagement.addToListTeam((new_team));
-            new_team.set_TeamOwner((TeamOwner) DataManagement.getCurrent());
+            new_team.setTeamOwner((TeamOwner) DataManagement.getCurrent());
             //add the union representatives to the observers of the budget of the team:
             ArrayList<UnionRepresentative> unionReps = DataManagement.getUnionRepresentatives();
             Observable budget = new_team.getBudget();
@@ -73,11 +73,11 @@ public class TeamController {
         if (ans != null) {
             AC =  new ActionStatus(false,ans);
         }
-        else if(!(DataManagement.contain_subscription(user_name) instanceof Player)) {
+        else if(!(DataManagement.containSubscription(user_name) instanceof Player)) {
             AC = new ActionStatus(false, "The username is not defined as a player on the system.");
         }
         else if(DataManagement.findTeam(name_team) != null){
-            AC =  DataManagement.findTeam(name_team).addOrRemovePlayer((Player) DataManagement.contain_subscription(user_name), add_or_remove);
+            AC =  DataManagement.findTeam(name_team).addOrRemovePlayer((Player) DataManagement.containSubscription(user_name), add_or_remove);
         }
         logger.log("Add Or Remove Player to Team: "+name_team+"-"+AC.getDescription());
         return AC;
@@ -98,11 +98,11 @@ public class TeamController {
         if (ans != null) {
             AC = new ActionStatus(false,ans);
         }
-        else if(!( DataManagement.contain_subscription(coach_add) instanceof Coach)){
+        else if(!( DataManagement.containSubscription(coach_add) instanceof Coach)){
             AC =  new ActionStatus(false, "The username is not defined as a Coach on the system.");
         }
         else if(DataManagement.findTeam(name_team) != null){
-            AC = DataManagement.findTeam(name_team).AddOrRemoveCoach((Coach) DataManagement.contain_subscription(coach_add), add_or_remove);
+            AC = DataManagement.findTeam(name_team).AddOrRemoveCoach((Coach) DataManagement.containSubscription(coach_add), add_or_remove);
         }
 
         logger.log("Add Or Remove Coach to Team: "+name_team+"-"+AC.getDescription());
@@ -125,7 +125,7 @@ public class TeamController {
         if (ans != null) {
             AC =  new ActionStatus(false, ans);
         }
-        else if (!(DataManagement.contain_subscription(TeamOwner) instanceof TeamOwner)) {
+        else if (!(DataManagement.containSubscription(TeamOwner) instanceof TeamOwner)) {
             AC =  new ActionStatus(false, "The username is not defined as a Team Owner on the system.");
         }
         else if (DataManagement.findTeam(name_team) == null) {
@@ -133,7 +133,7 @@ public class TeamController {
         }
         // add teamOwner to team
         else if (add_or_remove == 1) {
-            Subscription teamOwner = DataManagement.contain_subscription(TeamOwner);
+            Subscription teamOwner = DataManagement.containSubscription(TeamOwner);
             Team team = DataManagement.findTeam(name_team);
             Subscription appointed = ((TeamOwner) teamOwner).getAppointed_by_teamOwner();
             if (appointed != null) {
@@ -146,10 +146,10 @@ public class TeamController {
         }
         // remove teamOwner to team
         else if (add_or_remove == 0) {
-            Subscription teamOwner = DataManagement.contain_subscription(TeamOwner);
+            Subscription teamOwner = DataManagement.containSubscription(TeamOwner);
             Team team = DataManagement.findTeam(name_team);
             Subscription appointed = ((TeamOwner) teamOwner).getAppointed_by_teamOwner();
-            if (DataManagement.contain_subscription(appointed.getUserName()) != null) {
+            if (DataManagement.containSubscription(appointed.getUserName()) != null) {
                 // The person responsible for appointing the team is still in the system
                 if (appointed != DataManagement.getCurrent()) {
                     AC = new ActionStatus(false, "You do not appoint the team owner and therefore cannot remove them from the team");
@@ -181,7 +181,7 @@ public class TeamController {
         if (ans != null) {
             AC =  new ActionStatus(false, ans);
         }
-        else if(!(DataManagement.contain_subscription(TeamManager) instanceof TeamManager)){
+        else if(!(DataManagement.containSubscription(TeamManager) instanceof TeamManager)){
             AC =  new ActionStatus(false, "The username is not defined as a Team Manager on the system.");
         }
         else if(DataManagement.findTeam(name_team) == null){
@@ -190,7 +190,7 @@ public class TeamController {
 
         // add teamOwner to team
         if (add_or_remove == 1) {
-            Subscription teamManager =DataManagement.contain_subscription(TeamManager);
+            Subscription teamManager =DataManagement.containSubscription(TeamManager);
             Team team =DataManagement.findTeam(name_team);
             Subscription appointed = ((TeamManager) teamManager).getAppointed_by_teamOwner();
             if (appointed != null) {
@@ -205,10 +205,10 @@ public class TeamController {
         }
         // remove teamOwner to team
         else if (add_or_remove == 0) {
-            Subscription teamManager =DataManagement.contain_subscription(TeamManager);
+            Subscription teamManager =DataManagement.containSubscription(TeamManager);
             Team team =DataManagement.findTeam(name_team);
             Subscription appointed = ((TeamManager) teamManager).getAppointed_by_teamOwner();
-            if (DataManagement.contain_subscription(appointed.getUserName()) != null) {
+            if (DataManagement.containSubscription(appointed.getUserName()) != null) {
                 // The person responsible for appointing the team is still in the system
                 if (appointed != DataManagement.getCurrent()) {
                     AC = new ActionStatus(false, "You do not appoint the team owner and therefore cannot remove them from the team");
@@ -243,7 +243,7 @@ public class TeamController {
         if (!team.check_if_object_in_team(DataManagement.getCurrent()) || (DataManagement.getCurrent() instanceof SystemAdministrator)) {
             return "You are not allowed to perform actions in this group.";
         }
-        Subscription subscription = DataManagement.contain_subscription(user_name);
+        Subscription subscription = DataManagement.containSubscription(user_name);
         if (subscription == null) {
             return "The username does not exist on the system.";
         }
