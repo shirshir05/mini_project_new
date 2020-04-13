@@ -165,14 +165,6 @@ public final class DataManagement {
         return null;
     }
 
-    protected static Subscription findSubscription(String subscription_name){
-        for (Subscription s : Subscription){
-            if (s.getUserName().equals(subscription_name)){
-                return s;
-            }
-        }
-        return null;
-    }
 
     protected static ArrayList<UnionRepresentative> getUnionRepresentatives(){
         ArrayList<UnionRepresentative> unionReps = new ArrayList<>();
