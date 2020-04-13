@@ -6,8 +6,6 @@ import java.util.Observer;
 public class TeamManager extends Subscription  implements Observer{
 
     Subscription appointedByTeamOwner;
-    protected String name;
-
 
     public TeamManager(String arg_user_name, String arg_password,String email) {
         super(arg_user_name, arg_password,email);

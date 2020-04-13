@@ -243,7 +243,7 @@ public class Team extends Observable {
         return Name;
     }
 
-    public PersonalPage getPersonalPage() {
+    public TeamPersonalPage getPersonalPage() {
         return PersonalPage;
     }
 

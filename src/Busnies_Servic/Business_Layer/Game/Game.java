@@ -1,12 +1,17 @@
 package Busnies_Servic.Business_Layer.Game;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Observable;
 
+import Busnies_Servic.PermissionAction;
+import Busnies_Servic.ActionStatus;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Player;
 import Busnies_Servic.Business_Layer.UserManagement.Referee;
 import Busnies_Servic.EventType;
+import DB_Layer.logger;
 import javafx.util.Pair;
 
 import java.util.Date;
@@ -21,17 +26,28 @@ public class Game extends Observable{
     Referee head;
     Referee linesman1;
     Referee linesman2;
+    LocalDateTime startTime;
+    LocalDateTime endTime;
     Pair<Integer,Integer> score; // Integer[0] = host , Integer[1] = guest
     HashSet<Event> eventList;
 
-    public Game(String f, Date d, Team h, Team g){
+    public Game(String filed, Date date, Team host, Team guest){
         game_id++;
-        id = game_id;
-        field=f;
-        date=d;
-        host=h;
-        guest=g;
+         id = game_id;
+        this.field=filed;
+        this.date=date;
+        this.host=host;
+        this.guest=guest;
         eventList = new HashSet<>();
+    }
+
+    public void setGameStartTime(String time){
+        startTime = LocalDateTime.now();
+        endTime = startTime.plusMinutes(90);
+    }
+
+    public void updateEndTime(long additionalTimeInMinutes){
+        endTime = endTime.plusMinutes(additionalTimeInMinutes);
     }
 
     public boolean update_score(){
@@ -69,11 +85,13 @@ public class Game extends Observable{
             eventList.add(new_event);
         }
         else{
+            //todo - change to ActionStatus, cant print from business layer
             System.out.println("This team is not a part of the game!");
             return false;
         }
         setChanged();
         notifyObservers(new_event.eventToString());
+        logger.log("Game: update_new_event, team: "+ team_name +" ,player "+player_name +" ,event " + event);
         return true;
     }
 
