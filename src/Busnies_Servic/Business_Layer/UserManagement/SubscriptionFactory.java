@@ -48,10 +48,9 @@ public class SubscriptionFactory {
             Spelling.updateDictionary("teamOwner: " + userName);
             return new TeamOwner(userName,password, email);
         }
-        else if (role == Role.UnionRepresentative){
-            Spelling.updateDictionary("unionRepresentative: " + userName);
-            return new UnionRepresentative(userName,password, email);
-        }
-        return null;
+        //else if (role == Role.UnionRepresentative){
+       // }
+        Spelling.updateDictionary("unionRepresentative: " + userName);
+        return new UnionRepresentative(userName,password, email);
     }
 }

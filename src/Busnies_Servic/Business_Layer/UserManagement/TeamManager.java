@@ -5,25 +5,31 @@ import java.util.Observer;
 
 public class TeamManager extends Subscription  implements Observer{
 
-    Subscription appointed_by_teamOwner;
+    Subscription appointedByTeamOwner;
 
     public TeamManager(String arg_user_name, String arg_password,String email) {
         super(arg_user_name, arg_password,email);
-        appointed_by_teamOwner = null;
+        appointedByTeamOwner = null;
     }
 
-    public Subscription getAppointed_by_teamOwner() {
-        return appointed_by_teamOwner;
+    public Subscription getAppointedByTeamOwner() {
+        return appointedByTeamOwner;
     }
 
     /**
      * The function allows you to save who has appointed the group owner
-     * @param appointed_by_teamOwner
+     * @param appointedByTeamOwner
      */
-    public void setAppointed_by_teamOwner(Subscription appointed_by_teamOwner) {
-        this.appointed_by_teamOwner = appointed_by_teamOwner;
+    public void setAppointedByTeamOwner(Subscription appointedByTeamOwner) {
+        this.appointedByTeamOwner = appointedByTeamOwner;
     }
 
+
+    /**
+     * Add alert
+     * @param o
+     * @param arg
+     */
     @Override
     public void update(Observable o, Object arg) {
         this.alerts.add((String)arg);
@@ -31,11 +37,7 @@ public class TeamManager extends Subscription  implements Observer{
 
     @Override
     public String toString() {
-
-        return "TeamManager: " + "\n" +
-                "name: " + name + "\n" +
-                "email: " + email;
-    }
+        return "TeamManager: " + "\n" + "name: " + name + "\n" + "email: " + email; }
 
 }
 

@@ -18,6 +18,7 @@ import java.util.Date;
 
 public class Game extends Observable{
     static int game_id=0;
+    int id;
     String field;
     Date date;
     Team host;
@@ -32,6 +33,7 @@ public class Game extends Observable{
 
     public Game(String filed, Date date, Team host, Team guest){
         game_id++;
+         id = game_id;
         this.field=filed;
         this.date=date;
         this.host=host;
@@ -62,7 +64,7 @@ public class Game extends Observable{
     }
 
     public int getGameId(){
-        return game_id;
+        return id;
     }
 
     /**

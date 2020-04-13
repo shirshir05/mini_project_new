@@ -21,9 +21,6 @@ import java.util.regex.Pattern;
 public final class DataManagement {
 
     private static final DataManagement instance = new DataManagement();
-
-
-
     // A list that keeps all the subscriptions that are currently subscribed to the system
     private static HashSet<Subscription>  Subscription = new HashSet<>();
 
@@ -49,7 +46,8 @@ public final class DataManagement {
     private DataManagement() {
         if (instance == null) {
             //Prevent Reflection
-            throw new IllegalStateException("Cannot instantiate a new singleton instance of logic management");
+            //throw new IllegalStateException("Cannot instantiate a new singleton instance of logic management");
+            this.createLogicManagement();
 
         }
         this.createLogicManagement();

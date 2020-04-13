@@ -9,16 +9,16 @@ import java.io.*;
 import java.util.HashSet;
 
 public class SearchLogger {
-    private String dataPath;
-    private HashSet<String> searchHistory;
+    private String dataPath ="./lib/spellingDict.txt";
 
-    public SearchLogger(String path){
-        dataPath=path;
-        searchHistory = new HashSet<>();
-    }
 
+    /**
+     * Search data according word
+     * @param keyWord
+     * @return
+     */
     public String findData(String keyWord){
-        searchHistory.add(keyWord);
+        DataManagement.getCurrent().addSearch(keyWord);
         try
         {
             File file=new File(dataPath);
@@ -29,7 +29,8 @@ public class SearchLogger {
             while((line=br.readLine())!=null)
             {
                 if (line.contains(keyWord)){
-                    sb.append(line.substring(line.indexOf(':')+1));
+                    //sb.append(line.substring(line.indexOf(':')+1));
+                    sb.append(line);
                     sb.append("\n");
                 }
             }
@@ -42,11 +43,16 @@ public class SearchLogger {
             e.printStackTrace();
         }
         return null;
-
     }
+
+
+    /**
+     * Show the history of Search
+     * @return
+     */
     public String showSearchHistory(){
         StringBuffer sb=new StringBuffer();
-        for (String s : searchHistory){
+        for (String s : DataManagement.getCurrent().getSearch()){
             sb.append(s);
             sb.append("\n");
         }

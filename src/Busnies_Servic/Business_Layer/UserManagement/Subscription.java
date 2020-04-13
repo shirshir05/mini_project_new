@@ -11,6 +11,8 @@ public abstract class Subscription {
     public Permissions permissions;
     public String email;
     protected String name;
+    protected HashSet<String> searchHistory;
+
 
     protected HashSet<String> alerts = new HashSet<>();
 
@@ -19,6 +21,7 @@ public abstract class Subscription {
         password = getHash(argPassword);
         permissions = new Permissions();
         this.email = email;
+        searchHistory =new HashSet<>();
     }
 
     /**
@@ -100,8 +103,27 @@ public abstract class Subscription {
     public void addAlert(String s){alerts.add(s);}
 
     public String sendEMail(String mailto, String mail){
-        return "Send to: "+mailto+"From: "+this.email+"Mail: "+mail;
+        return "Send to: "+mailto+" From: "+this.email+" Mail: "+mail;
     }
+
+    /**
+     * Add word to history
+     * @param word
+     */
+    public void addSearch(String word){
+        searchHistory.add(word);
+    }
+
+    /**
+     * return hash search
+     * @param
+     */
+    public HashSet<String> getSearch(){
+        return searchHistory;
+    }
+
+
+
 
 }
 
