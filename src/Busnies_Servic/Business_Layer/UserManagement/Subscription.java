@@ -7,9 +7,10 @@ import java.util.*;
 
 public abstract class Subscription {
     protected String userName;
-    public String password;
+    private String password;
     public Permissions permissions;
     public String email;
+    protected String name;
 
     protected HashSet<String> alerts = new HashSet<>();
 
@@ -60,6 +61,22 @@ public abstract class Subscription {
         return Objects.equals(userName, that.userName);
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Permissions getPermissions() {
         return permissions;
     }
@@ -72,12 +89,12 @@ public abstract class Subscription {
         this.userName = name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public String getUserName() {
         return userName;
+    }
+
+    public String getPassword(){
+        return password;
     }
 
     public void addAlert(String s){alerts.add(s);}
