@@ -1,4 +1,4 @@
-package Busnies_Servic.Service_Layer;
+package Busnies_Servic.Business_Layer.BudgetManagement;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,14 +9,13 @@ import java.util.Collection;
 
 import static org.junit.Assert.*;
 
-public class LogAndExitControllerTest {
-
+public class UnionBudgetTest {
 
     /**
-     * Test - LEC1
+     * Test - UB1
      */
     @RunWith(Parameterized.class)
-    public static class RemoveSubscription{
+    public static class addExpense{
         //parameter
 
 
@@ -27,22 +26,21 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public RemoveSubscription() {
+        public addExpense() {
             //parameter
         }
         @Test
-        public void RemoveSubscriptionTest() {
+        public void addExpenseTest() {
 
         }
 
-
-    }//RemoveSubscription
+    }//addExpense
 
     /**
-     * Test - LEC2
+     * Test - UB2
      */
     @RunWith(Parameterized.class)
-    public static class Registration{
+    public static class addIncome{
         //parameter
 
 
@@ -53,23 +51,22 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public Registration() {
+        public addIncome() {
             //parameter
         }
         @Test
-        public void RegistrationTest() {
+        public void addIncomeTest() {
 
         }
 
-
-    }//Registration
+    }//addIncome
 
 
     /**
-     * Test - LEC3
+     * Test - UB3
      */
     @RunWith(Parameterized.class)
-    public static class Exit{
+    public static class getCurrentAmount{
         //parameter
 
 
@@ -80,23 +77,23 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public Exit() {
+        public getCurrentAmount() {
             //parameter
         }
         @Test
-        public void ExitTest() {
+        public void getCurrentAmountTest() {
 
         }
 
+    }//getCurrentAmount
 
-    }//Exit
 
 
     /**
-     * Test - LEC4
+     * Test - UB4
      */
     @RunWith(Parameterized.class)
-    public static class Login{
+    public static class statusToReturn{
         //parameter
 
 
@@ -107,30 +104,41 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public Login() {
+        public statusToReturn() {
             //parameter
         }
         @Test
-        public void LoginTest() {
+        public void statusToReturnTest() {
 
         }
 
-
-    }//Login
-
+    }//statusToReturn
 
 
+    /**
+     * Test - UB5
+     */
+    @RunWith(Parameterized.class)
+    public static class updateAmount{
+        //parameter
 
 
+        @Parameterized.Parameters
+        public static Collection<Object[]> data() {
+            return Arrays.asList(new Object[][]{
 
 
+            });
+        }
+        public updateAmount() {
+            //parameter
+        }
+        @Test
+        public void updateAmountTest() {
 
+        }
 
-
-
-
-
-
+    }//updateAmount
 
 
 

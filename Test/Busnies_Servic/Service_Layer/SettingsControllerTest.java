@@ -9,14 +9,15 @@ import java.util.Collection;
 
 import static org.junit.Assert.*;
 
-public class LogAndExitControllerTest {
+public class SettingsControllerTest {
 
 
-    /**
-     * Test - LEC1
+
+       /**
+     * Test - SC1
      */
     @RunWith(Parameterized.class)
-    public static class RemoveSubscription{
+    public static class defineLeague{
         //parameter
 
 
@@ -27,22 +28,23 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public RemoveSubscription() {
+        public defineLeague() {
             //parameter
         }
         @Test
-        public void RemoveSubscriptionTest() {
+        public void defineLeagueTest() {
 
         }
 
 
-    }//RemoveSubscription
+    }//defineLeague
+
 
     /**
-     * Test - LEC2
+     * Test - SC2
      */
     @RunWith(Parameterized.class)
-    public static class Registration{
+    public static class defineSeasonToLeague{
         //parameter
 
 
@@ -53,23 +55,24 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public Registration() {
+        public defineSeasonToLeague() {
             //parameter
         }
         @Test
-        public void RegistrationTest() {
+        public void defineSeasonToLeagueTest() {
 
         }
 
 
-    }//Registration
+    }//defineSeasonToLeague
+
 
 
     /**
-     * Test - LEC3
+     * Test - SC3
      */
     @RunWith(Parameterized.class)
-    public static class Exit{
+    public static class addOrDeleteRefereeToSystem{
         //parameter
 
 
@@ -80,23 +83,22 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public Exit() {
+        public addOrDeleteRefereeToSystem() {
             //parameter
         }
         @Test
-        public void ExitTest() {
+        public void addOrDeleteRefereeToSystemTest() {
 
         }
 
 
-    }//Exit
-
+    }//addOrDeleteRefereeToSystem
 
     /**
-     * Test - LEC4
+     * Test - SC4
      */
     @RunWith(Parameterized.class)
-    public static class Login{
+    public static class defineRefereeInLeague{
         //parameter
 
 
@@ -107,31 +109,16 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public Login() {
+        public defineRefereeInLeague() {
             //parameter
         }
         @Test
-        public void LoginTest() {
+        public void defineRefereeInLeagueTest() {
 
         }
 
 
-    }//Login
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }//defineRefereeInLeague
 
 
 }

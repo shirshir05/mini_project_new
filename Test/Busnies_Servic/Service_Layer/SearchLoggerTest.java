@@ -9,14 +9,13 @@ import java.util.Collection;
 
 import static org.junit.Assert.*;
 
-public class LogAndExitControllerTest {
-
+public class SearchLoggerTest {
 
     /**
-     * Test - LEC1
+     * Test - SL1
      */
     @RunWith(Parameterized.class)
-    public static class RemoveSubscription{
+    public static class SearchLogger{
         //parameter
 
 
@@ -27,22 +26,22 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public RemoveSubscription() {
+        public SearchLogger() {
             //parameter
         }
         @Test
-        public void RemoveSubscriptionTest() {
+        public void SearchLoggerTest() {
 
         }
 
 
-    }//RemoveSubscription
+    }//SearchLogger
 
     /**
-     * Test - LEC2
+     * Test - SL2
      */
     @RunWith(Parameterized.class)
-    public static class Registration{
+    public static class findData{
         //parameter
 
 
@@ -53,23 +52,23 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public Registration() {
+        public findData() {
             //parameter
         }
         @Test
-        public void RegistrationTest() {
+        public void findDataTest() {
 
         }
 
 
-    }//Registration
+    }//findData
 
 
     /**
-     * Test - LEC3
+     * Test - SL3
      */
     @RunWith(Parameterized.class)
-    public static class Exit{
+    public static class showSearchHistory{
         //parameter
 
 
@@ -80,58 +79,16 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public Exit() {
+        public showSearchHistory() {
             //parameter
         }
         @Test
-        public void ExitTest() {
+        public void showSearchHistory() {
 
         }
 
 
-    }//Exit
-
-
-    /**
-     * Test - LEC4
-     */
-    @RunWith(Parameterized.class)
-    public static class Login{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public Login() {
-            //parameter
-        }
-        @Test
-        public void LoginTest() {
-
-        }
-
-
-    }//Login
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }//showSearchHistory
 
 
 }

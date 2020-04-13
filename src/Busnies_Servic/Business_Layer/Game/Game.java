@@ -46,7 +46,7 @@ public class Game extends Observable{
         return true;
     }
 
-    public int get_game_id(){
+    public int getGameId(){
         return game_id;
     }
 
@@ -54,7 +54,7 @@ public class Game extends Observable{
      * This function let the user add an event to the game
      * @return true - if the event was update, false otherwise.
      */
-    public boolean update_new_event(String team_name, String player_name, EventType event){
+    public boolean updateNewEvent(String team_name, String player_name, EventType event){
         //***WRITE TO LOGGER***//
         Event new_event=null;
         if (host.getName().equals(team_name)){
@@ -132,7 +132,7 @@ public class Game extends Observable{
         notifyObservers("The field has changed! The new field is: "+new_field);
     }
 
-    public void change_date(Date new_date){
+    public void changeDate(Date new_date){
         date=new_date;
         setChanged();
         notifyObservers("The date has changed! The new date is: "+new_date.toString());
@@ -158,7 +158,7 @@ public class Game extends Observable{
         return eventList;
     }
 
-    public static void setGame_id(int game_id) {
+    public static void setGameId(int game_id) {
         Game.game_id = game_id;
     }
 
