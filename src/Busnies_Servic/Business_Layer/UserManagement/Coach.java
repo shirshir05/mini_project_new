@@ -17,7 +17,7 @@ public class Coach extends Subscription implements Observer {
         permissions.add_default_player_or_coach_permission();
     }
 
-    public PersonalPage getPersonalPage() {
+    public CoachPersonalPage getPersonalPage() {
         return PersonalPage;
     }
 
@@ -28,7 +28,6 @@ public class Coach extends Subscription implements Observer {
     public String getRoleInTeam() {
         return roleInTeam;
     }
-
 
     public void setPersonalPage(CoachPersonalPage personalPage) {
         PersonalPage = personalPage;
