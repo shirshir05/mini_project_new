@@ -207,7 +207,7 @@ public class EditAndShowUserDetails {
 
     public ActionStatus editCoachPersonalPage(String user_name ,Object[] values) {
 
-        Subscription subscription = DataManagement.contain_subscription(user_name);
+        Subscription subscription = DataManagement.containSubscription(user_name);
 
         if (subscription == null) {
             return new ActionStatus(false, "there is no subscription in the system by this username.");
@@ -225,11 +225,13 @@ public class EditAndShowUserDetails {
 
             return new ActionStatus(false, "You don't have permissions to edit this coach personal page");
         }
-
+/*
         coach.getPersonalPage().setDateOfBirth((Date) values[0]);
         coach.getPersonalPage().setCountryOfBirth((String)values[1]);
         coach.getPersonalPage().setYearOfExperience((String)values[2]);
         coach.getPersonalPage().setNumOfTitles((String)values[3]);
+
+ */
         coach.getPersonalPage().setName((String) values[4]);
 
         return new ActionStatus(true, "The personal page of coach was successfully update!");

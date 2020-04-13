@@ -17,7 +17,6 @@ public class Coach extends Subscription {
         permissions.add_default_player_or_coach_permission();
     }
 
-    }
 
     /**
      * Get of Coach Qualification
@@ -27,17 +26,6 @@ public class Coach extends Subscription {
         return qualification;
     }
 
-
-    public String getRoleInTeam() {
-        return roleInTeam;
-    }
-
-    public void setPersonalPage(CoachPersonalPage personalPage) {
-        PersonalPage = personalPage;
-    }
-   public CoachPersonalPage getPersonalPage() {
-        return PersonalPage;
-    }
 
       /**
      * Placement of Coach Qualification

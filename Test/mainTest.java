@@ -12,7 +12,7 @@ public class mainTest {
 
     public static void main(String[] args){
         JUnitCore.runClasses(CoachTest.class);
-       JUnitCore.runClasses(FanTest.class);
+        JUnitCore.runClasses(FanTest.class);
         JUnitCore.runClasses(PlayerTest.class);
         JUnitCore.runClasses(RefereeTest.class);
         JUnitCore.runClasses(SubscriptionFactoryTest.class);

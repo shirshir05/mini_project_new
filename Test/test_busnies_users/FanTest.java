@@ -1,9 +1,9 @@
 package test_busnies_users;
 
-import Busnies_Servic.Action;
 import Busnies_Servic.Business_Layer.UserManagement.Complaint;
 import Busnies_Servic.Business_Layer.UserManagement.Fan;
 import Busnies_Servic.Business_Layer.UserManagement.Permissions;
+import Busnies_Servic.PermissionAction;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,9 +49,9 @@ public class FanTest {
         Permissions perm = fan.getPermissions();
         Integer one = 1 ;
         Integer zero = 0;
-        assertEquals(one,perm.check_permissions(Action.write_complaint));
-        assertEquals(one,perm.check_permissions(Action.Search_History));
-        assertEquals(zero,perm.check_permissions(Action.Recommendation_system));
+        assertEquals(one,perm.check_permissions(PermissionAction.write_complaint));
+        assertEquals(one,perm.check_permissions(PermissionAction.Search_History));
+        assertEquals(zero,perm.check_permissions(PermissionAction.Recommendation_system));
     }
 
     @Test
