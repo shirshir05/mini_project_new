@@ -75,14 +75,6 @@ public class PersonalPage extends Observable {
         }
         return ans;
     }
-    /*
-    כאשר רוצים לשנות משהו בתוך הפונקציה נקרא לשיטות:
-public change(){
-        setChanged();
-        notifyObservers();
-}
-כדי להוסיף נושא מסוים עושים:
-subject.addObserver(צופה);
-     */
+
 
 }
