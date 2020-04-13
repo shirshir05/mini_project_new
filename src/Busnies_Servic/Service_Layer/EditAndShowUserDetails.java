@@ -207,7 +207,7 @@ public class EditAndShowUserDetails {
 
     public ActionStatus editCoachPersonalPage(String user_name ,Object[] values) {
 
-        Subscription subscription = DataManagement.contain_subscription(user_name);
+        Subscription subscription = DataManagement.containSubscription(user_name);
 
         if (subscription == null) {
             return new ActionStatus(false, "there is no subscription in the system by this username.");
