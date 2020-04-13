@@ -59,7 +59,7 @@ public class SettingsController{
         boolean ans = false;
         if (DataManagement.getCurrent() instanceof UnionRepresentative) {
             if (referee_user_name != null && referee_password != null) {
-                Subscription current_referee = DataManagement.findSubscription(referee_user_name);
+                Subscription current_referee = DataManagement.containSubscription(referee_user_name);
                 if (add_or_remove == 0 && current_referee != null) {
                     Referee current = new Referee(referee_user_name, referee_password, mail);
                     String mail_content= "Hello! you were invited to our system! your username: "+referee_user_name+" and you password: "+referee_password;
@@ -89,7 +89,7 @@ public class SettingsController{
     public boolean defineRefereeInLeague(String leauge_name, String referee_user_name, String season_year) {
         boolean ans = false;
         League league = DataManagement.findLeague(leauge_name);
-        Subscription referee = DataManagement.findSubscription(referee_user_name);
+        Subscription referee = DataManagement.containSubscription(referee_user_name);
         if (league != null && referee!=null && referee instanceof Referee) {
             Season season = league.getSeason(season_year);
             if (season!=null){
