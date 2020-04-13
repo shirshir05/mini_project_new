@@ -36,35 +36,11 @@ public class Team extends Observable {
         list_assets = new HashSet<>();
         PersonalPage = new TeamPersonalPage(Name);
         list_assets.add(arg_main_field);
+        status = 1;
     }
 
     public TeamBudget getBudget() {
         return budget;
-    }
-
-    public String setPlayer(Player Player) {
-        if(status == -1 || status == 0){
-            return "The team is inactive so no activity can be performed on it";
-        }
-        this.list_Player.add(Player);
-        return null;
-    }
-
-    public String setCoach(Coach coach) {
-        if(status == -1 || status == 0){
-            return "The team is inactive so no activity can be performed on it";
-        }
-        this.list_Coach.add(coach);
-        return "success";
-    }
-
-    public String setTeamManagement(TeamManager TeamManagement) {
-        if(status == -1 || status == 0){
-            return "The team is inactive so no activity can be performed on it";
-        }
-        this.list_TeamManager.add(TeamManagement);
-        this.addObserver(TeamManagement); //adds the team manager as an observer
-        return null;
     }
 
     public String setTeamOwner(TeamOwner TeamOwner) {
@@ -95,7 +71,6 @@ public class Team extends Observable {
         PersonalPage = personalPage;
         return null;
     }
-    ///////////XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 
     public int getStatus() {

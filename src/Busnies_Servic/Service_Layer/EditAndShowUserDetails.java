@@ -5,6 +5,8 @@ import Busnies_Servic.Business_Layer.UserManagement.Coach;
 import Busnies_Servic.Business_Layer.UserManagement.Player;
 import Busnies_Servic.Business_Layer.UserManagement.Referee;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class EditAndShowUserDetails {
@@ -151,7 +153,7 @@ public class EditAndShowUserDetails {
         return new ActionStatus(true, "The Position of player was successfully changed!");
     }
 
-    public ActionStatus editPlayerDate(String user_name, Date newValue) {
+    public ActionStatus editPlayerDate(String user_name, LocalDate newValue) {
         Subscription subscription = DataManagement.containSubscription(user_name);
         if(subscription == null){
             return new ActionStatus(false, "there is no subscription in the system by this username.");

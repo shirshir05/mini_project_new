@@ -13,6 +13,7 @@ import java.util.Date;
 
 public class Game extends Observable{
     static int game_id=0;
+    int id;
     String field;
     Date date;
     Team host;
@@ -25,12 +26,12 @@ public class Game extends Observable{
 
     public Game(String f, Date d, Team h, Team g){
         game_id++;
+        id = game_id;
         field=f;
         date=d;
         host=h;
         guest=g;
         eventList = new HashSet<>();
-
     }
 
     public boolean update_score(){
@@ -47,7 +48,7 @@ public class Game extends Observable{
     }
 
     public int getGameId(){
-        return game_id;
+        return id;
     }
 
     /**

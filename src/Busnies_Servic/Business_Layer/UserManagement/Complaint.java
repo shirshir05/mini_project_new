@@ -4,30 +4,19 @@ import java.util.Observable;
 
 public class Complaint extends Observable {
 
+
     private String description;
-
     private String answer;
-
     private boolean isAnswered;
 
     public Complaint(String dsc){
-        if(dsc != null && !dsc.isEmpty()) {
-            description = dsc;
-            isAnswered = false;
-            answer = null;
-        }
+        description = dsc;
+        isAnswered = false;
+        answer = null;
     }
 
-
-    public void answerComplaint(String ans){
-        answer = ans;
-        isAnswered = true;
-        // TODO add alert to subscription
-        setChanged();
-        notifyObservers("Your complaint:\n" +
-                "\""+description+"\"\n" +
-                "Has been answered:\n " +
-                "\""+ans+"\"");
+    public String getDescription() {
+        return description;
     }
 
     public boolean isAnswered() {
@@ -40,12 +29,14 @@ public class Complaint extends Observable {
         return answer;
     }
 
-    /**
-     * for the hash set saved in Fan class
-     */
-    @Override
-    public int hashCode() {
-        return description.toLowerCase().hashCode();
+    public void answerComplaint(String ans){
+        answer = ans;
+        isAnswered = true;
+        setChanged();
+        notifyObservers("Your complaint:\n" +
+                "\""+description+"\"\n" +
+                "Has been answered:\n " +
+                "\""+ans+"\"");
     }
 
     public void notify_all(){
@@ -53,5 +44,7 @@ public class Complaint extends Observable {
         notifyObservers(description);
 
     }
+
+
 
 }

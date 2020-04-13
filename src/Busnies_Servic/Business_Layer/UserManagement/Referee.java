@@ -11,6 +11,12 @@ public class Referee extends Subscription implements Observer {
     protected HashSet<Game> referee_games;
 
 
+    public Referee(String arg_user_name, String arg_password,String email) {
+        super(arg_user_name, arg_password,email);
+        permissions.add_default_referee_permission();
+        referee_games = new HashSet<>();
+    }
+
     public String getQualification() {
         return qualification;
     }
@@ -19,11 +25,6 @@ public class Referee extends Subscription implements Observer {
         this.qualification = qualification;
     }
 
-    public Referee(String arg_user_name, String arg_password,String email) {
-        super(arg_user_name, arg_password,email);
-        permissions.add_default_referee_permission();
-        referee_games = new HashSet<>();
-    }
 
     /**
      * adds a game to the game-list the referee participates in
@@ -42,14 +43,13 @@ public class Referee extends Subscription implements Observer {
         }
         return return_value.substring(0,return_value.length()-2);
     }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Referee)) return false;
-        Referee referee = (Referee) o;
-        return referee.userName.equals(this.userName);
-    }
 
+
+    /**
+     * Add alert to referee
+     * @param o
+     * @param arg
+     */
     @Override
     public void update(Observable o, Object arg) {
         String alert = (String)arg;
