@@ -76,7 +76,7 @@ public final class DataManagement {
      * @param arg_user_name
      * @return Subscription
      */
-    public static Subscription contain_subscription(String arg_user_name){
+    public static Subscription containSubscription(String arg_user_name){
         for (Subscription  subscription : Subscription) {
             if (subscription.getUserName().equals(arg_user_name)){
                 return subscription;
@@ -95,7 +95,7 @@ public final class DataManagement {
      * @param arg_role
      * @return Role or null if the tole not found
      */
-    protected static Role return_enum(String arg_role){
+    protected static Role returnEnum(String arg_role){
         Role enum_role =  Role.valueOf(arg_role);
         if (!isInEnum(arg_role)) {
 
@@ -145,7 +145,7 @@ public final class DataManagement {
      */
     protected static Game getGame(int game_id){
         for ( Game g: list_game ){
-            if (g.get_game_id()==game_id)
+            if (g.getGameId()==game_id)
                 return g;
         }
         return null;
@@ -156,7 +156,7 @@ public final class DataManagement {
      * @param leaugeName
      * @return
      */
-    protected static League findLeauge(String leaugeName) {
+    protected static League findLeague(String leaugeName) {
         for (League l : list_league) {
             if (l.getName().equals(leaugeName)) {
                 return l;
@@ -192,7 +192,7 @@ public final class DataManagement {
     }
 
     public static void removeSubscription(String user_name){
-        Subscription.remove(contain_subscription(user_name));
+        Subscription.remove(containSubscription(user_name));
         logger.log("DataManagement :remove Subscription , name: " + user_name);
     }
 
@@ -287,7 +287,7 @@ public final class DataManagement {
         if(arg_password.length() < 5){
             return "The password must contain at least 5 digits.";
         }
-        if (DataManagement.contain_subscription(arg_user_name) != null){
+        if (DataManagement.containSubscription(arg_user_name) != null){
             return "Please select another username because this username exists in the system.";
         }
         return null;

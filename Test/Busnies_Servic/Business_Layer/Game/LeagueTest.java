@@ -1,4 +1,4 @@
-package Busnies_Servic.Service_Layer;
+package Busnies_Servic.Business_Layer.Game;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,14 +9,13 @@ import java.util.Collection;
 
 import static org.junit.Assert.*;
 
-public class LogAndExitControllerTest {
-
+public class LeagueTest {
 
     /**
-     * Test - LEC1
+     * Test - L1
      */
     @RunWith(Parameterized.class)
-    public static class RemoveSubscription{
+    public static class League{
         //parameter
 
 
@@ -27,22 +26,21 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public RemoveSubscription() {
+        public League() {
             //parameter
         }
         @Test
-        public void RemoveSubscriptionTest() {
+        public void LeagueTest() {
 
         }
 
-
-    }//RemoveSubscription
+    }//League
 
     /**
-     * Test - LEC2
+     * Test - L2
      */
     @RunWith(Parameterized.class)
-    public static class Registration{
+    public static class getName{
         //parameter
 
 
@@ -53,23 +51,22 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public Registration() {
+        public getName() {
             //parameter
         }
         @Test
-        public void RegistrationTest() {
+        public void getNameTest() {
 
         }
 
-
-    }//Registration
+    }//getName
 
 
     /**
-     * Test - LEC3
+     * Test - L3
      */
     @RunWith(Parameterized.class)
-    public static class Exit{
+    public static class addSeason{
         //parameter
 
 
@@ -80,23 +77,22 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public Exit() {
+        public addSeason() {
             //parameter
         }
         @Test
-        public void ExitTest() {
+        public void addSeasonTest() {
 
         }
 
-
-    }//Exit
+    }//addSeason
 
 
     /**
-     * Test - LEC4
+     * Test - L4
      */
     @RunWith(Parameterized.class)
-    public static class Login{
+    public static class getSeason{
         //parameter
 
 
@@ -107,30 +103,15 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public Login() {
+        public getSeason() {
             //parameter
         }
         @Test
-        public void LoginTest() {
+        public void getSeasonTest() {
 
         }
 
-
-    }//Login
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }//getSeason
 
 
 

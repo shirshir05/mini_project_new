@@ -36,7 +36,7 @@ public class SettingsController{
         if (year!=null && league_name!=null && DataManagement.getCurrent() instanceof UnionRepresentative) {
             int intFormatYear= Integer.parseInt(year);
             if (intFormatYear>1900 && intFormatYear<2021){
-                DataManagement.findLeauge(league_name).addSeason(new Season(year));
+                DataManagement.findLeague(league_name).addSeason(new Season(year));
                 ans = true;
                 Spelling.updateDictionary("season: " + league_name);
             }
@@ -88,7 +88,7 @@ public class SettingsController{
      */
     public boolean defineRefereeInLeague(String leauge_name, String referee_user_name, String season_year) {
         boolean ans = false;
-        League league = DataManagement.findLeauge(leauge_name);
+        League league = DataManagement.findLeague(leauge_name);
         Subscription referee = DataManagement.findSubscription(referee_user_name);
         if (league != null && referee!=null && referee instanceof Referee) {
             Season season = league.getSeason(season_year);
