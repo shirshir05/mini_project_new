@@ -1,6 +1,6 @@
 package Busnies_Servic.Business_Layer.Game;
 
-import Busnies_Servic.Action;
+import Busnies_Servic.PermissionAction;
 import Busnies_Servic.ActionStatus;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Player;

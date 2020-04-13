@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Observable;
 
-import Busnies_Servic.Action;
+import Busnies_Servic.PermissionAction;
 import Busnies_Servic.ActionStatus;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Player;
