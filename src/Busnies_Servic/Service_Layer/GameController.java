@@ -50,7 +50,4 @@ public class GameController{
         }
         return "You are not a referee!";
     }
-
-
-
 }
