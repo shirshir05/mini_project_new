@@ -14,6 +14,7 @@ public class Coach extends Subscription implements Observer {
     public Coach(String arg_user_name, String arg_password,String email) {
         super(arg_user_name, arg_password,email);
         PersonalPage = new CoachPersonalPage(arg_user_name);
+        permissions.add_default_player_or_coach_permission();
     }
 
     public CoachPersonalPage getPersonalPage() {

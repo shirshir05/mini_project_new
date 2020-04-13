@@ -93,6 +93,10 @@ public abstract class Subscription {
         return userName;
     }
 
+    public String getPassword(){
+        return password;
+    }
+
     public void addAlert(String s){alerts.add(s);}
 
     public String sendEMail(String mailto, String mail){
