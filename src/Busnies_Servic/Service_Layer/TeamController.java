@@ -1,5 +1,5 @@
 package Busnies_Servic.Service_Layer;
-import Busnies_Servic.Action;
+import Busnies_Servic.PermissionAction;
 import Busnies_Servic.ActionStatus;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.*;
@@ -16,9 +16,6 @@ public class TeamController {
      * @return
      */
     public boolean RequestCreateTeam(String arg_name){
-        // בדיקה שה-current מורשה ליצור קבוצה
-        // שליחת התראה לניצג ההתאחדות איך????????????????
-        //
         return true;
     }
 
@@ -34,7 +31,7 @@ public class TeamController {
         ActionStatus AC = null;
         // צריך לבדוק שיש אישור ליצור קבוצה
 
-        if (!(DataManagement.getCurrent().getPermissions().check_permissions((Action.Edit_team))) && !(DataManagement.getCurrent() instanceof TeamOwner)) {
+        if (!(DataManagement.getCurrent().getPermissions().check_permissions((PermissionAction.Edit_team))) && !(DataManagement.getCurrent() instanceof TeamOwner)) {
             AC=  new ActionStatus(false,"You are not allowed to perform actions on the group.");
         }
         else if(DataManagement.findTeam(arg_name) != null){
@@ -124,8 +121,6 @@ public class TeamController {
      */
     public ActionStatus AddOrRemoveTeamOwner(String name_team, String TeamOwner, int add_or_remove) {
         ActionStatus AC = null;
-        // כאן צריך ליצור אובייקט חדש למנוי שאינו מוגדר כ-team owner
-        //חלק זמן יממוש בהמשך
         String ans = CheckInputEditTeam(name_team, TeamOwner);
         if (ans != null) {
             AC =  new ActionStatus(false, ans);
@@ -182,8 +177,6 @@ public class TeamController {
      */
     public ActionStatus AddOrRemoveTeamManager(String name_team, String TeamManager, int add_or_remove) {
         ActionStatus AC = null;
-        // כאן צריך ליצור אובייקט חדש למנוי שאינו מוגדר כ-team MANAGER
-        //חלק זמן יממוש בהמשך
         String ans = CheckInputEditTeam(name_team, TeamManager);
         if (ans != null) {
             AC =  new ActionStatus(false, ans);
@@ -240,7 +233,7 @@ public class TeamController {
      * @return
      */
     private String CheckInputEditTeam(String name_team, String user_name) {
-        if ((DataManagement.getCurrent().getPermissions().check_permissions((Action.Edit_team)) == false)) {
+        if ((DataManagement.getCurrent().getPermissions().check_permissions((PermissionAction.Edit_team)) == false)) {
             return "You are not allowed to perform actions on the group.";
         }
         Team team = DataManagement.findTeam(name_team);
@@ -283,7 +276,7 @@ public class TeamController {
         else if (DataManagement.findTeam(name_team).getStatus() == -1) {
             AC = new ActionStatus(false,  "The team is permanently closed.");
         }
-        else if (!(DataManagement.getCurrent().getPermissions().check_permissions(Action.Close_team))) {
+        else if (!(DataManagement.getCurrent().getPermissions().check_permissions(PermissionAction.Close_team))) {
             AC = new ActionStatus(false,  "You are not allowed to close a team.");
 
      
@@ -296,7 +289,7 @@ public class TeamController {
                 return new ActionStatus(false,  "You are not authorized to perform this action.");
             }
         } 
-        else if (!(DataManagement.getCurrent().getPermissions().check_permissions(Action.Close_team_perpetually) != false)) {
+        else if (!(DataManagement.getCurrent().getPermissions().check_permissions(PermissionAction.Close_team_perpetually) != false)) {
                 AC = new ActionStatus(false,  "You are not allowed to close a team.");
         }
         else{

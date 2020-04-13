@@ -1,21 +1,16 @@
 package test_busnies_users;
 
-import Busnies_Servic.Action;
+import Busnies_Servic.PermissionAction;
 import Busnies_Servic.Business_Layer.UserManagement.Permissions;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
-import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
 import Busnies_Servic.Business_Layer.UserManagement.SystemAdministrator;
-import Busnies_Servic.Role;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.concurrent.Semaphore;
 
 import static org.junit.Assert.*;
 
@@ -58,14 +53,14 @@ public class SystemAdministratorTest {
         Permissions perm = sysAdmin.getPermissions();
         Integer one = 1 ;
         Integer zero = 0;
-        assertEquals(one,perm.check_permissions(Action.Close_team_perpetually));
-        assertEquals(one,perm.check_permissions(Action.Respond_to_complaints));
-        assertEquals(one,perm.check_permissions(Action.Removing_Subscriptions));
-        assertEquals(one,perm.check_permissions(Action.watch_log));
-        assertEquals(one,perm.check_permissions(Action.Recommendation_system));
+        assertEquals(one,perm.check_permissions(PermissionAction.Close_team_perpetually));
+        assertEquals(one,perm.check_permissions(PermissionAction.Respond_to_complaints));
+        assertEquals(one,perm.check_permissions(PermissionAction.Removing_Subscriptions));
+        assertEquals(one,perm.check_permissions(PermissionAction.watch_log));
+        assertEquals(one,perm.check_permissions(PermissionAction.Recommendation_system));
 
-        assertEquals(zero,perm.check_permissions(Action.write_complaint));
-        assertEquals(zero,perm.check_permissions(Action.Search_History));
+        assertEquals(zero,perm.check_permissions(PermissionAction.write_complaint));
+        assertEquals(zero,perm.check_permissions(PermissionAction.Search_History));
     }
 
 

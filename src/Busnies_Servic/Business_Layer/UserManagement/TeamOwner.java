@@ -1,6 +1,5 @@
 package Busnies_Servic.Business_Layer.UserManagement;
 
-import Busnies_Servic.Action;
 import java.util.Observable;
 import java.util.Observer;
 

@@ -1,7 +1,7 @@
 package Busnies_Servic.Service_Layer;
 
 // all Subscription in system
-import Busnies_Servic.Action;
+import Busnies_Servic.PermissionAction;
 import Busnies_Servic.ActionStatus;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
@@ -121,7 +121,7 @@ public class LogAndExitController{
         else if(DataManagement.contain_subscription(userName) == null){
             AC =  new ActionStatus(false,  "There is no subscription with this username in the system.");
         }
-        else if(!(current.getPermissions().check_permissions((Action.Removing_Subscriptions)))){
+        else if(!(current.getPermissions().check_permissions((PermissionAction.Removing_Subscriptions)))){
             AC =  new ActionStatus(false,  "You are not authorized to perform this action.");
         }
         else {
