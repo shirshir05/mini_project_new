@@ -12,134 +12,67 @@ import static org.junit.Assert.*;
 public class UnionBudgetTest {
 
     /**
-     * Test - UB1
+     * Test - TB1
      */
     @RunWith(Parameterized.class)
-    public static class addExpense{
+    public static class UnionExpanseIncome {
         //parameter
-
+        double max;
+        double min;
+        double expanse;
+        boolean correct;
+        UnionBudget TB;
 
         @Parameterized.Parameters
         public static Collection<Object[]> data() {
             return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public addExpense() {
-            //parameter
-        }
-        @Test
-        public void addExpenseTest() {
-
-        }
-
-    }//addExpense
-
-    /**
-     * Test - UB2
-     */
-    @RunWith(Parameterized.class)
-    public static class addIncome{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
+                    {5000,2000,-100,false},{5000,2000,-1000,false},{5000,2000,3000,true}
+                    ,{5000,0,0,true},{5000,2000,5000,true}
 
             });
         }
-        public addIncome() {
+
+        public UnionExpanseIncome(double Max, double Min, double expanses, boolean cor) {
             //parameter
+            this.TB = new UnionBudget();
+            max = Max;
+            min = Min;
+            expanse = expanses;
+            correct = cor;
         }
+
         @Test
-        public void addIncomeTest() {
+        public void UnionExpenseTest1() {
+            BudgetRegulations.setMaxRefereeSalary(max);
+            BudgetRegulations.setMinRefereeSalary(min);
+            assertEquals(TB.addExpense(expanse,Expense.RefereeSalary).isActionSuccessful(),correct);
+
+            BudgetRegulations.setMaxUnionMemberSalary(max);
+            BudgetRegulations.setMinUnionMemberSalary(min);
+            assertEquals(TB.addExpense(expanse,Expense.UnionMemberSalary).isActionSuccessful(),correct);
 
         }
 
-    }//addIncome
-
-
-    /**
-     * Test - UB3
-     */
-    @RunWith(Parameterized.class)
-    public static class getCurrentAmount{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public getCurrentAmount() {
-            //parameter
-        }
         @Test
-        public void getCurrentAmountTest() {
-
+        public void UnionIncomeTest1() {
+            if(expanse>=0){
+                assertTrue(TB.addIncome(expanse,Income.Gambling).isActionSuccessful());
+                assertTrue(TB.addIncome(expanse,Income.Donation).isActionSuccessful());
+                assertTrue(TB.addIncome(expanse,Income.GameTickets).isActionSuccessful());
+                assertTrue(TB.addIncome(expanse,Income.Merchandise).isActionSuccessful());
+            }
+            else{
+                assertFalse(TB.addIncome(expanse,Income.Gambling).isActionSuccessful());
+                assertFalse(TB.addIncome(expanse,Income.Donation).isActionSuccessful());
+                assertFalse(TB.addIncome(expanse,Income.GameTickets).isActionSuccessful());
+                assertFalse(TB.addIncome(expanse,Income.Merchandise).isActionSuccessful());
+            }
         }
 
-    }//getCurrentAmount
-
-
-
-    /**
-     * Test - UB4
-     */
-    @RunWith(Parameterized.class)
-    public static class statusToReturn{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public statusToReturn() {
-            //parameter
-        }
         @Test
-        public void statusToReturnTest() {
-
+        public void CurrentAmountTest1() {
+            assertNotEquals(TB.getCurrentAmount(),0);
         }
 
-    }//statusToReturn
-
-
-    /**
-     * Test - UB5
-     */
-    @RunWith(Parameterized.class)
-    public static class updateAmount{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public updateAmount() {
-            //parameter
-        }
-        @Test
-        public void updateAmountTest() {
-
-        }
-
-    }//updateAmount
-
-
-
+    }
 }

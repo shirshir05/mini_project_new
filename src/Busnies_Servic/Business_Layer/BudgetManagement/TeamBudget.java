@@ -48,7 +48,7 @@ public class TeamBudget extends Observable implements IBudget {
 
     @Override
     public ActionStatus addExpense(double expense, Expense description) {
-        if(expense <= 0)
+        if(expense < 0)
             return new ActionStatus(false,"An expense should be a positive amount");
         ActionStatus tempAS;
         switch(description){
