@@ -23,7 +23,6 @@ public class Team extends Observable {
     TeamPersonalPage PersonalPage;
     int status; // 0 - off 1 - on -1 - always close
     HashMap<Integer, Pair<String,Integer>> financial;//Integer  = quarterly
-
     TeamBudget budget;
 
 
@@ -43,7 +42,7 @@ public class Team extends Observable {
         return budget;
     }
 
-    public String set_Player(Player Player) {
+    public String setPlayer(Player Player) {
         if(status == -1 || status == 0){
             return "The team is inactive so no activity can be performed on it";
         }
@@ -51,7 +50,7 @@ public class Team extends Observable {
         return null;
     }
 
-    public String set_Coach(Coach coach) {
+    public String setCoach(Coach coach) {
         if(status == -1 || status == 0){
             return "The team is inactive so no activity can be performed on it";
         }
@@ -59,7 +58,7 @@ public class Team extends Observable {
         return "success";
     }
 
-    public String set_TeamManagement(TeamManager TeamManagement) {
+    public String setTeamManagement(TeamManager TeamManagement) {
         if(status == -1 || status == 0){
             return "The team is inactive so no activity can be performed on it";
         }
@@ -68,7 +67,7 @@ public class Team extends Observable {
         return null;
     }
 
-    public String set_TeamOwner(TeamOwner TeamOwner) {
+    public String setTeamOwner(TeamOwner TeamOwner) {
         if(status == -1 || status == 0){
             return "The team is inactive so no activity can be performed on it";
         }
@@ -87,7 +86,6 @@ public class Team extends Observable {
         }
         list_assets.add(asset);
         return null;
-
     }
 
     public String setPersonalPage(TeamPersonalPage personalPage) {
@@ -97,6 +95,7 @@ public class Team extends Observable {
         PersonalPage = personalPage;
         return null;
     }
+    ///////////XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 
     public int getStatus() {

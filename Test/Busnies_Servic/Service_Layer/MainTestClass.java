@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(Enclosed.class)
-public class TestClass{
+public class MainTestClass {
 
     @RunWith(Parameterized.class)
     public static class LogAndExitControllerTest {
@@ -106,7 +106,7 @@ public class TestClass{
             //controller.Subscription.add(factory.Create(name,password, Role.Coach)); //Registare user manualy
 
             //check login when another subscription is connected
-            DataManagement.setCurrent(DataManagement.contain_subscription(name));
+            DataManagement.setCurrent(DataManagement.containSubscription(name));
             assertEquals("Another subscription is connected to the system.", controller.Login(name, password));
             DataManagement.setCurrent(null);
 

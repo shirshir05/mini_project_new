@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class GameController{
 
-    public boolean create_game(Date date, String arg_host, String arg_guest, String arg_head, String linesman1, String linesman2){
+    public boolean createGame(Date date, String arg_host, String arg_guest, String arg_head, String linesman1, String linesman2){
 
         return true;
     }
@@ -31,7 +31,7 @@ public class GameController{
             if (game.getHeadReferee().getUserName().equals(DataManagement.getCurrent().getUserName()) ||
                     game.getLinesman1Referee().getUserName().equals(DataManagement.getCurrent().getUserName()) ||
                     game.getLinesman2Referee().getUserName().equals(DataManagement.getCurrent().getUserName()) ){
-                game.update_new_event(team_name,player_name,event);
+                game.updateNewEvent(team_name,player_name,event);
                 ans = true;
             }
         }

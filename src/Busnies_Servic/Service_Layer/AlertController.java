@@ -26,7 +26,7 @@ public class AlertController {
      */
     public boolean fan_register_to_page(String arg_user_to_register){
         boolean ans = false;
-        Busnies_Servic.Business_Layer.UserManagement.Subscription current_user = DataManagement.contain_subscription(arg_user_to_register);
+        Busnies_Servic.Business_Layer.UserManagement.Subscription current_user = DataManagement.containSubscription(arg_user_to_register);
         //TODO -add spelling correction here?
         if (current_user instanceof Coach) {
             ((Coach) current_user).getPersonalPage().addObserver((Fan) DataManagement.getCurrent());

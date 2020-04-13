@@ -13,7 +13,6 @@ import DB_Layer.logger;
 
 
 import java.util.HashSet;
-import java.util.regex.Pattern;
 
 // to function that remove all Subscription
 
@@ -37,7 +36,7 @@ public class LogAndExitController{
     public ActionStatus Registration(String arg_user_name, String arg_password, String arg_role, String email){
         ActionStatus AC = null;
         String check_input = DataManagement.InputTest(arg_user_name,arg_password);
-        Role role_enum = DataManagement.return_enum(arg_role);
+        Role role_enum = DataManagement.returnEnum(arg_role);
         if(!DataManagement.checkEmail(email)){
             AC =  new ActionStatus(false,  "Invalid email, please enter a valid email.");
         }
@@ -66,7 +65,7 @@ public class LogAndExitController{
      */
     public ActionStatus Login(String arg_user_name, String arg_password){
         ActionStatus AC = null;
-        Subscription Current_check = DataManagement.contain_subscription(arg_user_name);
+        Subscription Current_check = DataManagement.containSubscription(arg_user_name);
         if(current != null){
             AC = new ActionStatus(false, "Another subscription is connected to the system.");
         }
@@ -118,7 +117,7 @@ public class LogAndExitController{
         if(ConstraintsCorrectness(userName) == false){
             AC =  new ActionStatus(false,  "The system constraints do not allow this subscription to be deleted.");
         }
-        else if(DataManagement.contain_subscription(userName) == null){
+        else if(DataManagement.containSubscription(userName) == null){
             AC =  new ActionStatus(false,  "There is no subscription with this username in the system.");
         }
         else if(!(current.getPermissions().check_permissions((PermissionAction.Removing_Subscriptions)))){
@@ -165,7 +164,7 @@ public class LogAndExitController{
      * @return
      */
     private boolean TeamOwnerForTeam(String userName){
-        Subscription teamOwner = DataManagement.contain_subscription(userName);
+        Subscription teamOwner = DataManagement.containSubscription(userName);
         if(teamOwner instanceof TeamOwner){
             HashSet<Team> list =  DataManagement.getListTeam();
             for (Team team: list) {

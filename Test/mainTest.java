@@ -1,21 +1,20 @@
-import Busnies_Servic.Service_Layer.TestClass;
-import Busnies_Servic.Service_Layer.registrationTest;
+import Busnies_Servic.Business_Layer.BudgetManagement.BudgetRegulationsTest;
+import Busnies_Servic.Service_Layer.MainTestClass;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
-import test_busnies_users.SubscriptionFactoryTest;
 import test_busnies_users.SystemAdministratorTest;
 
 public class mainTest {
 
     public static void main(String[] args){
         register();
-        SystemAdministratorTest();
+        //SystemAdministratorTest();
     }
 
     private static void register(){
         System.out.println("----------------------TEST FOR LOGANDEXITCONTROLER----------------------------");
-        Result result = JUnitCore.runClasses(TestClass.class);
+        Result result = JUnitCore.runClasses(BudgetRegulationsTest.class);
         for(Failure fail : result.getFailures()){
             System.out.println(fail.toString());
         }

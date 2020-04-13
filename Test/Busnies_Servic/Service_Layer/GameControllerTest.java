@@ -9,14 +9,15 @@ import java.util.Collection;
 
 import static org.junit.Assert.*;
 
-public class LogAndExitControllerTest {
+public class GameControllerTest {
+
 
 
     /**
-     * Test - LEC1
+     * Test - GC xxxxx
      */
     @RunWith(Parameterized.class)
-    public static class RemoveSubscription{
+    public static class createGame{
         //parameter
 
 
@@ -27,22 +28,23 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public RemoveSubscription() {
+        public createGame() {
             //parameter
         }
         @Test
-        public void RemoveSubscriptionTest() {
+        public void createGameTest() {
 
         }
 
 
-    }//RemoveSubscription
+    }//createGame
+
 
     /**
-     * Test - LEC2
+     * Test - GC1
      */
     @RunWith(Parameterized.class)
-    public static class Registration{
+    public static class refereeCreateNewEvent{
         //parameter
 
 
@@ -53,23 +55,22 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public Registration() {
+        public refereeCreateNewEvent() {
             //parameter
         }
         @Test
-        public void RegistrationTest() {
+        public void refereeCreateNewEventTest() {
 
         }
 
 
-    }//Registration
-
+    }//refereeCreateNewEvent
 
     /**
-     * Test - LEC3
+     * Test - GC2
      */
     @RunWith(Parameterized.class)
-    public static class Exit{
+    public static class refereeWatchGames{
         //parameter
 
 
@@ -80,58 +81,16 @@ public class LogAndExitControllerTest {
 
             });
         }
-        public Exit() {
+        public refereeWatchGames() {
             //parameter
         }
         @Test
-        public void ExitTest() {
+        public void refereeWatchGamesTest() {
 
         }
 
 
-    }//Exit
-
-
-    /**
-     * Test - LEC4
-     */
-    @RunWith(Parameterized.class)
-    public static class Login{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public Login() {
-            //parameter
-        }
-        @Test
-        public void LoginTest() {
-
-        }
-
-
-    }//Login
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }//refereeWatchGames
 
 
 }
