@@ -54,6 +54,14 @@ public final class DataManagement {
         logger.log("DataManagement :the system is initialized");
     }
 
+    /**
+     * add Game
+     * @param g
+     */
+    public static void addGame(Game g){
+        list_game.add(g);
+    }
+
 
 
     /**

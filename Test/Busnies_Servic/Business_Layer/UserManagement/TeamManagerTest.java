@@ -9,6 +9,7 @@ import org.junit.runners.Parameterized;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -161,9 +162,9 @@ public class TeamManagerTest {
         public void updateTest() {
             TeamManager teamManager = new TeamManager(userName,password,email);
             assertEquals(teamManager.alerts.size(),0);
-            teamManager.update(new Game("s",new Date(),new Team("1","r"),new Team("2","r")),"shir");
+            teamManager.update(new Game("s", LocalDate.of(1995,18,8),new Team("1","r"),new Team("2","r")),"shir");
             assertEquals(teamManager.alerts.size(),1);
-            teamManager.update(new Game("s",new Date(),new Team("1","r"),new Team("2","r")),"The ");
+            teamManager.update(new Game("s", LocalDate.of(1995,18,8),new Team("1","r"),new Team("2","r")),"shir");
             assertEquals(teamManager.alerts.size(),2);
         }
     }//update

@@ -10,6 +10,7 @@ import org.junit.runners.Parameterized;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -189,9 +190,9 @@ public class TeamOwnerTest {
         public void updateTest() {
             TeamOwner teamOwner = new TeamOwner(userName,password,email);
             assertEquals(teamOwner.alerts.size(),0);
-            teamOwner.update(new Game("s",new Date(),new Team("1","r"),new Team("2","r")),"shir");
+            teamOwner.update(new Game("s", LocalDate.of(1995,18,8),new Team("1","r"),new Team("2","r")),"shir");
             assertEquals(teamOwner.alerts.size(),1);
-            teamOwner.update(new Game("s",new Date(),new Team("1","r"),new Team("2","r")),"The ");
+            teamOwner.update(new Game("s",LocalDate.of(1995,18,8),new Team("1","r"),new Team("2","r")),"The ");
             assertEquals(teamOwner.alerts.size(),2);
         }
     }//update

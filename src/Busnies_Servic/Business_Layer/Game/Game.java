@@ -1,5 +1,6 @@
 package Busnies_Servic.Business_Layer.Game;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
@@ -20,7 +21,7 @@ public class Game extends Observable{
     static int game_id=0;
     int id;
     String field;
-    Date date;
+    LocalDate date;
     Team host;
     Team guest;
     Referee head;
@@ -31,7 +32,7 @@ public class Game extends Observable{
     Pair<Integer,Integer> score; // Integer[0] = host , Integer[1] = guest
     HashSet<Event> eventList;
 
-    public Game(String filed, Date date, Team host, Team guest){
+    public Game(String filed, LocalDate date, Team host, Team guest){
         game_id++;
          id = game_id;
         this.field=filed;
@@ -151,13 +152,13 @@ public class Game extends Observable{
         notifyObservers("The field has changed! The new field is: "+new_field);
     }
 
-    public void changeDate(Date new_date){
+    public void changeDate(LocalDate new_date){
         date=new_date;
         setChanged();
         notifyObservers("The date has changed! The new date is: "+new_date.toString());
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
