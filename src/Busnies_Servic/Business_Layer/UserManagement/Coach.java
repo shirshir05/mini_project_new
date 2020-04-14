@@ -18,6 +18,7 @@ public class Coach extends Subscription {
     }
 
 
+
     /**
      * Get of Coach Qualification
      * @return
@@ -56,15 +57,6 @@ public class Coach extends Subscription {
 
 
     /**
-     * Get of a role in the group
-     * @return
-     */
-    public String getRoleInTeam() {
-        return roleInTeam;
-    }
-
-
-    /**
      * @return
      */
     @Override
@@ -76,20 +68,4 @@ public class Coach extends Subscription {
                 "qualification: " + qualification + "\n" +
                 "roleInTeam: " + roleInTeam;
     }
-
-
-    /**
-     * @param personalPage
-     */
-    public void setPersonalPage(CoachPersonalPage personalPage) {
-        PersonalPage = personalPage;
-    }
-
-    /**
-     * @return
-     */
-    public PersonalPage getPersonalPage() {
-        return PersonalPage;
-    }
-
 }
