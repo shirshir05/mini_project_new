@@ -15,184 +15,78 @@ public class TeamBudgetTest {
      * Test - TB1
      */
     @RunWith(Parameterized.class)
-    public static class TeamBudget{
+    public static class TeamExpanseIncome {
         //parameter
-
+        double max;
+        double min;
+        double expanse;
+        boolean correct;
+        TeamBudget TB;
 
         @Parameterized.Parameters
         public static Collection<Object[]> data() {
             return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public TeamBudget() {
-            //parameter
-        }
-        @Test
-        public void TeamBudgetTest() {
-
-        }
-
-    }//TeamBudget
-
-
-
-    /**
-     * Test - TB2
-     */
-    @RunWith(Parameterized.class)
-    public static class addExpense{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
+                    {"teamName",5000,2000,-100,false},{"teamName",5000,2000,-1000,false},{"teamName",5000,2000,3000,true}
+                    ,{"teamName",5000,0,0,true},{"teamName",5000,2000,5000,true}
 
             });
         }
-        public addExpense() {
+        public TeamExpanseIncome(String name, double Max, double Min, double expanses, boolean cor) {
             //parameter
+            this.TB = new TeamBudget(name);
+            max = Max;
+            min = Min;
+            expanse = expanses;
+            correct = cor;
+        }
+
+        @Test
+        public void TeamExpenseTest1() {
+            BudgetRegulations.setMaxPlayerSalary(max);
+            BudgetRegulations.setMinPlayerSalary(min);
+            assertEquals(TB.addExpense(expanse,Expense.PlayerSalary).isActionSuccessful(),correct);
+
+            BudgetRegulations.setMaxCoachSalary(max);
+            BudgetRegulations.setMinCoachSalary(min);
+            assertEquals(TB.addExpense(expanse,Expense.CoachSalary).isActionSuccessful(),correct);
+
+            BudgetRegulations.setMaxUniformExpense(max);
+            assertEquals(TB.addExpense(expanse,Expense.Uniform).isActionSuccessful(),correct);
+
+            BudgetRegulations.setMaxAdvertisementExpense(max);
+            assertEquals(TB.addExpense(expanse,Expense.Advertisement).isActionSuccessful(),correct);
+
+            BudgetRegulations.setMaxMaintenanceExpense(max);
+            assertEquals(TB.addExpense(expanse,Expense.Maintenance).isActionSuccessful(),correct);
+
+            BudgetRegulations.setMaxOtherExpense(max);
+            assertEquals(TB.addExpense(expanse,Expense.Other).isActionSuccessful(),correct);
+        }
+
+        @Test
+        public void TeamIncomeTest1() {
+            if(expanse>0){
+                assertTrue(TB.addIncome(expanse,Income.Gambling).isActionSuccessful());
+                assertTrue(TB.addIncome(expanse,Income.Donation).isActionSuccessful());
+                assertTrue(TB.addIncome(expanse,Income.GameTickets).isActionSuccessful());
+                assertTrue(TB.addIncome(expanse,Income.Merchandise).isActionSuccessful());
+            }
+            else{
+                assertFalse(TB.addIncome(expanse,Income.Gambling).isActionSuccessful());
+                assertFalse(TB.addIncome(expanse,Income.Donation).isActionSuccessful());
+                assertFalse(TB.addIncome(expanse,Income.GameTickets).isActionSuccessful());
+                assertFalse(TB.addIncome(expanse,Income.Merchandise).isActionSuccessful());
+            }
         }
         @Test
-        public void addExpenseTest() {
-
+        public void CurrentAmountTest1() {
+            assertNotEquals(TB.getCurrentAmount(),0);
+            TB.startNewQuarter();
+            assertTrue(TB.getCurrentAmount() == 0);
+            TB.addExpense(-1000,Expense.Other);
+            TB.startNewQuarter();
         }
 
-    }//addExpense
-
-
-    /**
-     * Test - TB3
-     */
-    @RunWith(Parameterized.class)
-    public static class addIncome{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public addIncome() {
-            //parameter
-        }
-        @Test
-        public void addIncomeTest() {
-
-        }
-
-    }//addIncome
-
-
-    /**
-     * Test - TB4
-     */
-    @RunWith(Parameterized.class)
-    public static class getCurrentAmount{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public getCurrentAmount() {
-            //parameter
-        }
-        @Test
-        public void getCurrentAmountTest() {
-
-        }
-
-    }//getCurrentAmount
-
-
-    /**
-     * Test - TB5
-     */
-    @RunWith(Parameterized.class)
-    public static class startNewQuarter{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public startNewQuarter() {
-            //parameter
-        }
-        @Test
-        public void startNewQuarterTest() {
-
-        }
-
-    }//startNewQuarter
-
-
-
-    /**
-     * Test - TB6
-     */
-    @RunWith(Parameterized.class)
-    public static class statusToReturn{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public statusToReturn() {
-            //parameter
-        }
-        @Test
-        public void statusToReturnTest() {
-
-        }
-
-    }//statusToReturn
-
-
-    /**
-     * Test - TB7
-     */
-    @RunWith(Parameterized.class)
-    public static class updateAmount{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public updateAmount() {
-            //parameter
-        }
-        @Test
-        public void updateAmountTest() {
-
-        }
-
-    }//updateAmount
-
+    }
 
 }

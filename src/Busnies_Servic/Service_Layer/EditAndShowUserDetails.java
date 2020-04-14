@@ -1,10 +1,14 @@
 package Busnies_Servic.Service_Layer;
 
 import Busnies_Servic.ActionStatus;
+import Busnies_Servic.Business_Layer.Game.ScoreTable;
+import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Coach;
 import Busnies_Servic.Business_Layer.UserManagement.Player;
 import Busnies_Servic.Business_Layer.UserManagement.Referee;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class EditAndShowUserDetails {
@@ -151,7 +155,7 @@ public class EditAndShowUserDetails {
         return new ActionStatus(true, "The Position of player was successfully changed!");
     }
 
-    public ActionStatus editPlayerDate(String user_name, Date newValue) {
+    public ActionStatus editPlayerDate(String user_name, LocalDate newValue) {
         Subscription subscription = DataManagement.containSubscription(user_name);
         if(subscription == null){
             return new ActionStatus(false, "there is no subscription in the system by this username.");
@@ -180,13 +184,14 @@ public class EditAndShowUserDetails {
         if (!(subscription instanceof Player)) {
             return new ActionStatus(false, "The username is not defined as a player on the system.");
         }
-        if (subscription != DataManagement.getCurrent()) {
-            return new ActionStatus(false, "Another subscription is connected to the system.");
-        }
-        Player player = (Player) subscription;
-        if(!player.getPersonalPage().chackPerrmissionToEdit(user_name)){
 
-            return new ActionStatus(false, "Another subscription is connected to the system.");
+        Subscription theEditor = DataManagement.getCurrent();
+
+        Player player = (Player) subscription;
+
+        if(!player.getPersonalPage().chackPerrmissionToEdit(theEditor.getUserName())){
+
+            return new ActionStatus(false, "You don't have permissions to edit this player personal page");
         }
         player.getPersonalPage().setDateOfBirth((Date) values[0]);
         player.getPersonalPage().setConutryOfBirth((String) values[1]);
@@ -196,6 +201,72 @@ public class EditAndShowUserDetails {
         player.getPersonalPage().setPosition((String) values[5]);
         player.getPersonalPage().setJerseyNumber((String) values[6]);
         player.getPersonalPage().setSeasonYear((String) values[7]);
+        player.getPersonalPage().setName((String) values[8]);
         return new ActionStatus(true, "The personal page of player was successfully update!");
     }
+
+    public ActionStatus editCoachPersonalPage(String user_name ,Object[] values) {
+
+        Subscription subscription = DataManagement.containSubscription(user_name);
+
+        if (subscription == null) {
+            return new ActionStatus(false, "there is no subscription in the system by this username.");
+        }
+
+        if (!(subscription instanceof Coach)) {
+            return new ActionStatus(false, "The username is not defined as a coach on the system.");
+        }
+
+        Subscription theEditor = DataManagement.getCurrent();
+
+        Coach coach = (Coach) subscription;
+
+        if(!coach.getPersonalPage().chackPerrmissionToEdit(theEditor.getUserName())){
+
+            return new ActionStatus(false, "You don't have permissions to edit this coach personal page");
+        }
+
+        coach.getPersonalPage().setDateOfBirth((Date) values[0]);
+        coach.getPersonalPage().setCountryOfBirth((String)values[1]);
+        coach.getPersonalPage().setYearOfExperience((String)values[2]);
+        coach.getPersonalPage().setNumOfTitles((String)values[3]);
+        coach.getPersonalPage().setName((String) values[4]);
+
+        return new ActionStatus(true, "The personal page of coach was successfully update!");
+    }
+
+    public ActionStatus editTeamPersonalPage(String team, Object[] values) {
+
+        /*
+        protected Date yearOfFoundation;
+        protected String presidentName;
+        protected String stadiumName;
+        protected FootballTeamStatistic teamStatistic;
+        protected ScoreTable scoreTable;
+         */
+
+        Team teamObject = DataManagement.findTeam(team);
+
+        if(teamObject == null){
+
+            return new ActionStatus(false, "there is no such a team in the system");
+        }
+
+        Subscription theEditor = DataManagement.getCurrent();
+
+        if(!teamObject.getPersonalPage().chackPerrmissionToEdit(theEditor.getUserName())){
+
+            return new ActionStatus(false, "You don't have permissions to edit this team personal page");
+        }
+
+        teamObject.getPersonalPage().setYearOfFoundation((Date) values[0]);
+        teamObject.getPersonalPage().setPresidentName((String) values[1]);
+        teamObject.getPersonalPage().setStadiumName((String) values[2]);
+        teamObject.getPersonalPage().setScoreTable((ScoreTable) values[3]);
+        teamObject.getPersonalPage().setName((String) values[4]);
+
+        return new ActionStatus(true, "The Team personal page was successfully update!");
+    }
+
+
 }

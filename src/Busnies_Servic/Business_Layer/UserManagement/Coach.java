@@ -5,7 +5,7 @@ import Busnies_Servic.Business_Layer.Trace.*;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Coach extends Subscription implements Observer {
+public class Coach extends Subscription {
 
     protected CoachPersonalPage PersonalPage;
     protected String qualification;
@@ -16,36 +16,46 @@ public class Coach extends Subscription implements Observer {
         PersonalPage = new CoachPersonalPage(arg_user_name);
         permissions.add_default_player_or_coach_permission();
     }
-
-    public PersonalPage getPersonalPage() {
-        return PersonalPage;
-    }
-
+    /**
+     * Get of Coach Qualification
+     * @return
+     */
     public String getQualification() {
         return qualification;
     }
+
 
     public String getRoleInTeam() {
         return roleInTeam;
     }
 
-
     public void setPersonalPage(CoachPersonalPage personalPage) {
         PersonalPage = personalPage;
     }
+   public CoachPersonalPage getPersonalPage() {
+        return PersonalPage;
+    }
 
+      /**
+     * Placement of Coach Qualification
+     * @param qualification
+     */
     public void setQualification(String qualification) {
         this.qualification = qualification;
     }
 
+    /**
+     * Placement of a role in the group
+     * @param roleInTeam
+     */
     public void setRoleInTeam(String roleInTeam) {
         this.roleInTeam = roleInTeam;
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-    }
 
+    /**
+     * @return
+     */
     @Override
     public String toString() {
 

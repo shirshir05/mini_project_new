@@ -8,8 +8,24 @@ public class Fan extends Subscription implements Observer{
 
     protected HashSet<Complaint> list_complaint;
 
-    public boolean addComplaint(Complaint complaint){
+    /**
+     * @param arg_user_name
+     * @param arg_password
+     * @param email
+     */
+    public Fan(String arg_user_name, String arg_password,String email) {
+        super(arg_user_name, arg_password, email);
+        permissions.add_default_fan_permission();
+        list_complaint = new HashSet<>();
+    }
 
+
+    /**
+     * Add complaint to fan
+     * @param complaint
+     * @return
+     */
+    public boolean addComplaint(Complaint complaint){
         if(!list_complaint.contains(complaint)) {
             complaint.addObserver(this);
             list_complaint.add(complaint);
@@ -20,12 +36,12 @@ public class Fan extends Subscription implements Observer{
         }
     }
 
-    public Fan(String arg_user_name, String arg_password,String email) {
-        super(arg_user_name, arg_password, email);
-        permissions.add_default_fan_permission();
-        list_complaint = new HashSet<>();
-    }
 
+    /**
+     *
+     * @param o
+     * @param arg
+     */
     @Override
     public void update(Observable o, Object arg) {
         String alert = (String)arg;
@@ -37,7 +53,7 @@ public class Fan extends Subscription implements Observer{
     @Override
     public String toString() {
 
-        return "Fam: " + "\n" +
+        return "Fan: " + "\n" +
                 "name: " + name + "\n" +
                 "email: " + email;
     }

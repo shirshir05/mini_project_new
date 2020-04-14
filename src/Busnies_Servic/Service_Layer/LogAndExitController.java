@@ -34,6 +34,7 @@ public class LogAndExitController{
      * @return comment print to user
      */
     public ActionStatus Registration(String arg_user_name, String arg_password, String arg_role, String email){
+        //TODO need remove from file ? check?
         ActionStatus AC = null;
         String check_input = DataManagement.InputTest(arg_user_name,arg_password);
         Role role_enum = DataManagement.returnEnum(arg_role);

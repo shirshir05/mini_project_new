@@ -71,40 +71,76 @@ public class PlayerPersonalPage extends PersonalPage{
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+
+        if(dateOfBirth != null){
+
+            this.dateOfBirth = dateOfBirth;
+        }
     }
 
     public void setConutryOfBirth(String conutryOfBirth) {
-        this.countryOfBirth = conutryOfBirth;
+
+        if(conutryOfBirth != null && conutryOfBirth.length() != 0){
+
+            this.countryOfBirth = conutryOfBirth;
+        }
     }
 
     public void setCityOfBirth(String cityOfBirth) {
-        this.cityOfBirth = cityOfBirth;
+
+        if(cityOfBirth != null && cityOfBirth.length() != 0){
+
+            this.cityOfBirth = cityOfBirth;
+        }
     }
 
     public void setHeight(String height) {
-        this.height = height;
+
+        if(height != null && height.length() != 0){
+
+            this.height = height;
+        }
     }
 
     public void setWeight(String weight) {
-        this.weight = weight;
+
+        if(weight != null && weight.length() != 0){
+
+            this.weight = weight;
+        }
+
     }
 
     public void setPosition(String position) {
-        this.position = position;
+
+        if(position != null && position.length() != 0){
+
+            this.position = position;
+        }
     }
 
     public void setJerseyNumber(String jerseyNumber) {
-        this.jerseyNumber = jerseyNumber;
+
+        if(jerseyNumber != null && jerseyNumber.length() != 0){
+
+            this.jerseyNumber = jerseyNumber;
+        }
     }
 
     public void setStatistic(FootballPlayerStatistic statistic) {
 
-        this.statistic = statistic;
+        if(statistic != null){
+
+            this.statistic = statistic;
+        }
     }
 
     public void setSeasonYear(String seasonYear) {
-        this.seasonYear = seasonYear;
+
+        if(seasonYear != null && seasonYear.length() != 0){
+
+            this.seasonYear = seasonYear;
+        }
     }
 
     @Override
