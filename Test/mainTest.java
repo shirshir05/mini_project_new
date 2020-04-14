@@ -4,10 +4,6 @@ import Busnies_Servic.Service_Layer.MainTestClass;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
-import test_busnies_users.FanTest;
-import test_busnies_users.SubscriptionFactoryTest;
-import test_busnies_users.SystemAdministratorTest;
-
 public class mainTest {
 
     public static void main(String[] args){

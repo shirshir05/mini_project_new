@@ -12,6 +12,7 @@ import java.util.HashSet;
 public class BudgetController {
 
     //TODO check permissions!
+    //TODO - check negative numbers and max<min
 
     private static UnionBudget unionBudget = new UnionBudget();
 

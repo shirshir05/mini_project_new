@@ -32,13 +32,25 @@ public class Game extends Observable{
     Pair<Integer,Integer> score; // Integer[0] = host , Integer[1] = guest
     HashSet<Event> eventList;
 
-    public Game(String filed, LocalDate date, Team host, Team guest){
+    public Game(String f, LocalDate d, Team h, Team g){
+
+        //checking null or empty input
+        if(f == null ||  f == "" || d == null || h == null || g == null){
+            System.out.println("non valid input! all fields must be not null and not empty");
+            return;
+        }
+
+        //checking valid teams input
+        if(h.equals(g)){
+            System.out.println("non valid teams input! team host can't ne equals to team guest");
+            return;
+        }
+
         game_id++;
          id = game_id;
-        this.field=filed;
-        this.date=date;
-        this.host=host;
-        this.guest=guest;
+        this.date=d;
+        this.host=h;
+        this.guest=g;
         eventList = new HashSet<>();
     }
 
@@ -77,11 +89,19 @@ public class Game extends Observable{
         Event new_event=null;
         if (host.getName().equals(team_name)){
             Player p = host.getPlayer(player_name);
+            if(p == null){
+                System.out.println("This player is not part of the team!");
+                return false;
+            }
             new_event=new Event(host,event,p);
             eventList.add(new_event);
         }
         else if (guest.getName().equals(team_name)){
             Player p = guest.getPlayer(player_name);
+            if(p == null){
+                System.out.println("This player is not part of the team!");
+                return false;
+            }
             new_event=new Event(guest,event,p);
             eventList.add(new_event);
         }
@@ -153,9 +173,11 @@ public class Game extends Observable{
     }
 
     public void changeDate(LocalDate new_date){
-        date=new_date;
-        setChanged();
-        notifyObservers("The date has changed! The new date is: "+new_date.toString());
+        if(date != null){
+            date=new_date;
+            setChanged();
+            notifyObservers("The date has changed! The new date is: "+new_date.toString());
+        }
     }
 
     public LocalDate getDate() {
@@ -178,15 +200,18 @@ public class Game extends Observable{
         return eventList;
     }
 
-    public static void setGameId(int game_id) {
-        Game.game_id = game_id;
-    }
-
     public void setHost(Team host) {
-        this.host = host;
+
+        if(host != null && !this.guest.equals(host)){
+            this.host = host;
+        }
     }
 
     public void setGuest(Team guest) {
-        this.guest = guest;
+
+        if(guest != null && !this.host.equals(guest)){
+
+            this.guest = guest;
+        }
     }
 }

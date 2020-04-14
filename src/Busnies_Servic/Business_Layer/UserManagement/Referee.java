@@ -39,7 +39,7 @@ public class Referee extends Subscription implements Observer {
     public String gamesListToString(){
         String return_value = "You are participates in the next games: ";
         for (Game g:referee_games){
-            return_value+=g.getGameId()+", ";
+            return_value+=g.getId()+", ";
         }
         return return_value.substring(0,return_value.length()-2);
     }

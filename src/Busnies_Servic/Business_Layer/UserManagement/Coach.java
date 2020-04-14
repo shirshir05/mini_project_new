@@ -27,6 +27,17 @@ public class Coach extends Subscription {
     }
 
 
+    public String getRoleInTeam() {
+        return roleInTeam;
+    }
+
+    public void setPersonalPage(CoachPersonalPage personalPage) {
+        PersonalPage = personalPage;
+    }
+   public CoachPersonalPage getPersonalPage() {
+        return PersonalPage;
+    }
+
       /**
      * Placement of Coach Qualification
      * @param qualification
