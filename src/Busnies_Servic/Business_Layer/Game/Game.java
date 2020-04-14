@@ -1,5 +1,6 @@
 package Busnies_Servic.Business_Layer.Game;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Observable;
 
@@ -13,8 +14,9 @@ import java.util.Date;
 
 public class Game extends Observable{
     static int game_id=0;
+    int id;
     String field;
-    Date date;
+    LocalDate date;
     Team host;
     Team guest;
     Referee head;
@@ -23,14 +25,27 @@ public class Game extends Observable{
     Pair<Integer,Integer> score; // Integer[0] = host , Integer[1] = guest
     HashSet<Event> eventList;
 
-    public Game(String f, Date d, Team h, Team g){
+    public Game(String f, LocalDate d, Team h, Team g){
+
+        //checking null or empty input
+        if(f == null ||  f == "" || d == null || h == null || g == null){
+            System.out.println("non valid input! all fields must be not null and not empty");
+            return;
+        }
+
+        //checking valid teams input
+        if(h.equals(g)){
+            System.out.println("non valid teams input! team host can't ne equals to team guest");
+            return;
+        }
+
         game_id++;
+        id = game_id;
         field=f;
         date=d;
         host=h;
         guest=g;
         eventList = new HashSet<>();
-
     }
 
     public boolean update_score(){
@@ -46,8 +61,8 @@ public class Game extends Observable{
         return true;
     }
 
-    public int getGameId(){
-        return game_id;
+    public int getId(){
+        return id;
     }
 
     /**
@@ -59,11 +74,19 @@ public class Game extends Observable{
         Event new_event=null;
         if (host.getName().equals(team_name)){
             Player p = host.getPlayer(player_name);
+            if(p == null){
+                System.out.println("This player is not part of the team!");
+                return false;
+            }
             new_event=new Event(host,event,p);
             eventList.add(new_event);
         }
         else if (guest.getName().equals(team_name)){
             Player p = guest.getPlayer(player_name);
+            if(p == null){
+                System.out.println("This player is not part of the team!");
+                return false;
+            }
             new_event=new Event(guest,event,p);
             eventList.add(new_event);
         }
@@ -132,13 +155,15 @@ public class Game extends Observable{
         notifyObservers("The field has changed! The new field is: "+new_field);
     }
 
-    public void changeDate(Date new_date){
-        date=new_date;
+    public void changeDate(LocalDate new_date){
+        if(date != null){
+            date=new_date;
+        }
         setChanged();
         notifyObservers("The date has changed! The new date is: "+new_date.toString());
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -158,15 +183,18 @@ public class Game extends Observable{
         return eventList;
     }
 
-    public static void setGameId(int game_id) {
-        Game.game_id = game_id;
-    }
-
     public void setHost(Team host) {
-        this.host = host;
+        if(host != null && !this.guest.equals(host)){
+
+            this.host = host;
+        }
     }
 
     public void setGuest(Team guest) {
-        this.guest = guest;
+
+        if(guest != null && !this.host.equals(guest)){
+
+            this.guest = guest;
+        }
     }
 }

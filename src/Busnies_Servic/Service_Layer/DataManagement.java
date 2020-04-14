@@ -145,7 +145,7 @@ public final class DataManagement {
      */
     protected static Game getGame(int game_id){
         for ( Game g: list_game ){
-            if (g.getGameId()==game_id)
+            if (g.getId()==game_id)
                 return g;
         }
         return null;

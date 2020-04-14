@@ -36,6 +36,7 @@ public class Team extends Observable {
         list_assets = new HashSet<>();
         PersonalPage = new TeamPersonalPage(Name);
         list_assets.add(arg_main_field);
+        status = 1;
     }
 
     public TeamBudget getBudget() {
@@ -310,4 +311,26 @@ public class Team extends Observable {
         return null;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+
+        if(obj == null){
+            return false;
+        }
+
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Team)) {
+            return false;
+        }
+
+        Team team = (Team) obj;
+
+        if (this.Name.equals(team.Name)){
+            return true;
+        }
+        return false;
+    }
 }
