@@ -1,27 +1,35 @@
-import Busnies_Servic.Business_Layer.Game.Game;
-import Busnies_Servic.Business_Layer.TeamManagement.Team;
-import Busnies_Servic.Business_Layer.UserManagement.Complaint;
-import Busnies_Servic.Business_Layer.UserManagement.Fan;
-import Busnies_Servic.Business_Layer.UserManagement.Player;
-import Busnies_Servic.Business_Layer.UserManagement.SystemAdministrator;
-import Busnies_Servic.Service_Layer.ComplaintController;
+import Busnies_Servic.Business_Layer.UserManagement.Referee;
+import Busnies_Servic.Business_Layer.UserManagement.Subscription;
+import Presentation_Layer.Spelling;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Main {
 
         public static void main(String[] args) {
-            /**
-            /// Check the complaints update
-            Complaint c = new Complaint("Hello");
-            SystemAdministrator s = new SystemAdministrator("Raz","Raz");
-            c.addObserver(s);
-            ComplaintController cont = new ComplaintController(c);
-            cont.add_complaint();
-            s.printAlerts();
-             **/
 
-            /// Check the game event update
+                /*
+                Date date = new GregorianCalendar(1992, 10, 14).getTime();
+
+                System.out.println(date.getYear());
+                System.out.println(date.getDay());
+
+                System.out.println(date);
+*/
+                /**
+                 /// Check the complaints update
+                 Complaint c = new Complaint("Hello");
+                 SystemAdministrator s = new SystemAdministrator("Raz","Raz");
+                 c.addObserver(s);
+                 ComplaintController cont = new ComplaintController(c);
+                 cont.add_complaint();
+                 s.printAlerts();
+                 **/
+
+                /// Check the game event update
+            /*
             Player p = new Player("raz","1234");
             Fan me = new Fan("Raz","1234");
             Team host = new Team("TLV", "Teddi");
@@ -29,9 +37,24 @@ public class Main {
             guest.add_or_remove_player(p,1);
             Game g = new Game("Teddi", null, host, guest);
             g.addObserver(me);
+            //g.update_new_event;
+            //me.printAlerts();
             g.update_new_event();
-            me.printAlerts();
+            me.getAlerts();
+            */
 
+                //initialize the system:
+                /**
+                 LogAndExitController lc = new LogAndExitController();
+                 //    String str = lc.Registration("mainAdmin", "p@$$w0rd", "SystemAdministrator","email");
+                 //    System.out.println(str + "\n" );
+                 String str = lc.Registration("mainAdmin", "p@$$w0rd", "SystemAdministrator","email");
+                 System.out.println(str + "\n" );
+                 **/
 
+            /* test for spelling class
+            Spelling.updateDictionary("this is my name");
+            System.out.println("the correct: "+Spelling.getCorrectWord("this si mi name") +"!");
+            */
         }
 }

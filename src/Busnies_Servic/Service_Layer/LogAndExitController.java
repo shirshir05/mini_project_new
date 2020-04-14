@@ -1,8 +1,17 @@
 package Busnies_Servic.Service_Layer;
 
 // all Subscription in system
-import Busnies_Servic.Action;
+import Busnies_Servic.PermissionAction;
+import Busnies_Servic.ActionStatus;
+import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Subscription;
+import Busnies_Servic.Business_Layer.UserManagement.SubscriptionFactory;
+import Busnies_Servic.Business_Layer.UserManagement.SystemAdministrator;
+import Busnies_Servic.Business_Layer.UserManagement.TeamOwner;
+import Busnies_Servic.Role;
+import DB_Layer.logger;
+
+
 import java.util.HashSet;
 
 // to function that remove all Subscription
@@ -11,8 +20,10 @@ import java.util.HashSet;
 /**
  * This Class is responsible for connecting to the system exit system
  */
-public class LogAndExitController extends LogicManagement{
+public class LogAndExitController{
 
+    protected static SubscriptionFactory factory = new SubscriptionFactory();
+    private Subscription current;
 
     /**
      * The purpose of this function is to register the user to the system.
@@ -22,48 +33,28 @@ public class LogAndExitController extends LogicManagement{
      * @param arg_role
      * @return comment print to user
      */
-    public String Registration(String arg_user_name, String arg_password, String arg_role){
-        String check_input = Input_test(arg_user_name,arg_password);
-        if( check_input!= null){
-            return check_input;
+    public ActionStatus Registration(String arg_user_name, String arg_password, String arg_role, String email){
+        //TODO need remove from file ? check?
+        ActionStatus AC = null;
+        String check_input = DataManagement.InputTest(arg_user_name,arg_password);
+        Role role_enum = DataManagement.returnEnum(arg_role);
+        if(!DataManagement.checkEmail(email)){
+            AC =  new ActionStatus(false,  "Invalid email, please enter a valid email.");
         }
-        Role role_enum = return_enum(arg_role);
-        if (role_enum == null){
-            return "The role does not exist in the system.";
+        else if( check_input!= null){
+            AC = new ActionStatus(false, check_input);
         }
-
-        Subscription.add(factory.Create(arg_user_name,arg_password, role_enum.ordinal()));
-        return "Subscription successfully added!";
-    }
-
-
-    /**
-     * The purpose of this function is to check the correctness of the input of the user who
-     * wishes to register.
-     * Laws:
-     * password - only number and length of 5 digits
-     * user_name -Unique not empty
-     * @param arg_user_name
-     * @param arg_password
-     * @return comment print to user
-     * if return nul the input correct
-     */
-    private String Input_test(String arg_user_name, String arg_password){
-        if(arg_user_name == null || arg_password == null || arg_user_name.equals("") || arg_password.equals("")){
-            return "The input is empty.";
+        else if(role_enum == null){
+            AC = new ActionStatus(false, "The role does not exist in the system.");
         }
-        if(arg_password.length() != 5){
-            return "The password must contain exactly 5 digits.";
+        else {
+            Subscription newSub = factory.Create(arg_user_name, arg_password, role_enum, email);
+            DataManagement.setSubscription(newSub);
+            DataManagement.setCurrent(newSub);
+            AC = new ActionStatus(true, "Subscription successfully added!");
         }
-        try {
-            int password = Integer.parseInt(arg_password);
-            if (contain_subscription(arg_user_name) != null){
-                return "Please select another username because this username exists in the system.";
-            }
-        }catch (Exception e){
-            return "The password must contain only digits.";
-        }
-        return null;
+        logger.log("new Registration attempt of user : "+ arg_user_name+" "+arg_role+" "+email + AC.getDescription());
+        return AC;
     }
 
 
@@ -73,19 +64,26 @@ public class LogAndExitController extends LogicManagement{
      * @param arg_password
      * @return comment print to user
      */
-    public String Login(String arg_user_name, String arg_password){
-        if(Current != null){
-            return "Another subscription is connected to the system.";
+    public ActionStatus Login(String arg_user_name, String arg_password){
+        ActionStatus AC = null;
+        Subscription Current_check = DataManagement.containSubscription(arg_user_name);
+        if(current != null){
+            AC = new ActionStatus(false, "Another subscription is connected to the system.");
         }
-        Subscription Current_check = contain_subscription(arg_user_name);
-        if (Current_check != null){
+        else if (Current_check != null){
             if (!Current_check.getPassword().equals(arg_password) ){
-                return "The password does not match the username.";
+                AC = new ActionStatus(false,  "The password does not match the username.");
             }
-            Current =Current_check;
-            return "Login successful.";
+            else {
+                current = Current_check;
+                AC = new ActionStatus(true, "Login successful.");
+            }
         }
-        return "There is no user with such a name.";
+        else if(AC ==null) {
+            AC = new ActionStatus(false, "There is no user with such a name.");
+        }
+        logger.log("Login attempt of user : "+ arg_user_name+" "+ AC.getDescription());
+        return AC;
     }
 
 
@@ -95,14 +93,19 @@ public class LogAndExitController extends LogicManagement{
      * @param arg_password
      * @return comment print to user
      */
-    public String Exit(String arg_user_name, String arg_password){
-        if(Current != null){
-            if(Current.equals(arg_user_name) && Current.getPassword().equals(arg_password)){
-                Current = null;
-                return "Successfully disconnected from the system.";
+    public ActionStatus Exit(String arg_user_name, String arg_password){
+        ActionStatus AC = null;
+        if(DataManagement.getCurrent() != null){
+            if(DataManagement.getCurrent().getUserName().equals(arg_user_name) && DataManagement.getCurrent().getPassword().equals(arg_password)){
+                DataManagement.setCurrent(null);
+                AC = new ActionStatus(true,  "Successfully disconnected from the system.");
             }
         }
-        return "One of the details you entered is incorrect.";
+        else if(AC ==null){
+            AC = new ActionStatus(false, "One of the details you entered is incorrect.");
+        }
+        logger.log("Exit attempt of user : "+ arg_user_name+" "+ AC.getDescription());
+        return AC;
     }
 
 
@@ -110,16 +113,74 @@ public class LogAndExitController extends LogicManagement{
      * Only the administrator can delete  users
      * @return
      */
-    public String remove_subscription(String user_name){
-        if((Current.getPermissions().check_permissions((Action.Removing_Subscriptions)) == 0)){
-            return "You are not authorized to perform this action.";
+    public ActionStatus RemoveSubscription(String userName){
+        ActionStatus AC = null;
+        if(ConstraintsCorrectness(userName) == false){
+            AC =  new ActionStatus(false,  "The system constraints do not allow this subscription to be deleted.");
         }
-        if(contain_subscription(user_name) == null){
-            return "The subscription does not exist in the system.";
+        else if(DataManagement.containSubscription(userName) == null){
+            AC =  new ActionStatus(false,  "There is no subscription with this username in the system.");
         }
-        Subscription.remove(contain_subscription(user_name));
-        return "the transaction completed successfully.";
+        else if(!(current.getPermissions().check_permissions((PermissionAction.Removing_Subscriptions)))){
+            AC =  new ActionStatus(false,  "You are not authorized to perform this action.");
+        }
+        else {
+            if(DataManagement.getCurrent().getPermissions().equals(userName)){
+                DataManagement.setCurrent(null);
+            }
+            DataManagement.removeSubscription(userName);
+            AC = new ActionStatus(false, "the transaction completed successfully.");
+        }
+        logger.log("Remove Subscription attempt of user : "+userName+" "+AC.getDescription());
+        return AC;
     }
+
+    private boolean ConstraintsCorrectness(String userName){
+        return ( numberSystemAdministrator(userName) && TeamOwnerForTeam(userName));
+
+    }
+
+    /**
+     * Check if there is more than one administrator
+     * @param userName
+     * @return false - error the action illegal
+     */
+    private boolean numberSystemAdministrator(String userName){
+        HashSet<SystemAdministrator> list =  DataManagement.getSystemAdministratorsList();
+        if(list.size() == 1){
+            for (SystemAdministrator user: list) {
+                if(user.getUserName().equals(userName)){
+                    // the action illegal
+                    return false;
+                }
+            }
+
+        }
+        return true;
+    }
+
+    /**
+     * Check that there is another team owner for a team
+     * @param userName
+     * @return
+     */
+    private boolean TeamOwnerForTeam(String userName){
+        Subscription teamOwner = DataManagement.containSubscription(userName);
+        if(teamOwner instanceof TeamOwner){
+            HashSet<Team> list =  DataManagement.getListTeam();
+            for (Team team: list) {
+                HashSet<TeamOwner> teamOwnerHash = team.getListTeamOwner();
+                if(teamOwnerHash.size() == 1){
+                    if(teamOwnerHash.contains(teamOwner)){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+
+    }
+
 
 
 }

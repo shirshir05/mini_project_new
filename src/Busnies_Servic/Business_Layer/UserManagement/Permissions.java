@@ -1,62 +1,89 @@
 package Busnies_Servic.Business_Layer.UserManagement;
 
-import Busnies_Servic.Action;
+import Busnies_Servic.PermissionAction;
 
-import java.util.HashMap;
+import java.util.HashSet;
 
 public class Permissions {
 
-    private HashMap<Action,Integer> list_Permissions;
+    private HashSet<PermissionAction> list_Permissions;
 
     /**
      * Constructor that initializes all object fields by 0 (no permission)
      */
     public Permissions(){
-        list_Permissions = new HashMap<>();
-        list_Permissions.put(Action.watch_personal_page,0);
-        list_Permissions.put(Action.Game_alerts,0);
-        list_Permissions.put(Action.write_complaint,0);
-        list_Permissions.put(Action.Search_History,0);
-        list_Permissions.put(Action.Upload_personal_page,0);
-        list_Permissions.put(Action.Edit_team,0);
-        list_Permissions.put(Action.Appointment_of_team_owner,0);
-        list_Permissions.put(Action.Remove_Appointment_of_team_owner,0);
-        list_Permissions.put(Action.Appointment_of_team_manager,0);
-        list_Permissions.put(Action.Remove_Appointment_of_team_manager,0);
-        list_Permissions.put(Action.Close_team,0);
-        list_Permissions.put(Action.Close_team_perpetually,0);
-        list_Permissions.put(Action.financial,0);
-        list_Permissions.put(Action.Removing_Subscriptions,0);
-        list_Permissions.put(Action.Respond_to_complaints,0);
-        list_Permissions.put(Action.watch_log,0);
-        list_Permissions.put(Action.Recommendation_system,0);
-        list_Permissions.put(Action.define_league,0);
-        list_Permissions.put(Action.define_season,0);
-        list_Permissions.put(Action.appointment_referee,0);
-        list_Permissions.put(Action.remove_referee,0);
-        list_Permissions.put(Action.setting_referee_in_league,0);
-        list_Permissions.put(Action.Calculation_Policy,0);
-        list_Permissions.put(Action.setting_games,0);
-        list_Permissions.put(Action.watch_game,0);
-        list_Permissions.put(Action.update_event,0);
+        list_Permissions = new HashSet<>();
+    }
+
+    public void add_default_fan_permission(){
+        list_Permissions.add(PermissionAction.write_complaint);
+        list_Permissions.add(PermissionAction.Search_History);
+    }
+
+    public void add_default_player_or_coach_permission(){
+        list_Permissions.add(PermissionAction.personal_page);
+    }
+
+    public void add_default_owner_permission(){
+        list_Permissions.add(PermissionAction.Edit_team);
+        list_Permissions.add(PermissionAction.Appointment_of_team_owner);
+        list_Permissions.add(PermissionAction.Remove_Appointment_of_team_owner);
+        list_Permissions.add(PermissionAction.Appointment_of_team_manager);
+        list_Permissions.add(PermissionAction.Remove_Appointment_of_team_manager);
+        list_Permissions.add(PermissionAction.Appointment_of_player);
+        list_Permissions.add(PermissionAction.Remove_Appointment_of_player);
+        list_Permissions.add(PermissionAction.Team_financial);
+        list_Permissions.add(PermissionAction.Close_team);
+    }
+
+
+    public void add_default_admin_permission(){
+        list_Permissions.add(PermissionAction.Close_team_perpetually);
+        list_Permissions.add(PermissionAction.Removing_Subscriptions);
+        list_Permissions.add(PermissionAction.Respond_to_complaints);
+        list_Permissions.add(PermissionAction.watch_log);
+        list_Permissions.add(PermissionAction.Recommendation_system);
+    }
+
+    public void add_default_union_permission(){
+        list_Permissions.add(PermissionAction.define_league);
+        list_Permissions.add(PermissionAction.define_season);
+        list_Permissions.add(PermissionAction.appointment_referee);
+        list_Permissions.add(PermissionAction.remove_referee);
+        list_Permissions.add(PermissionAction.setting_referee_in_league);
+        list_Permissions.add(PermissionAction.Calculation_Policy);
+        list_Permissions.add(PermissionAction.setting_games);
+        list_Permissions.add(PermissionAction.setting_games_Policy);
+        list_Permissions.add(PermissionAction.uniun_financial);
+    }
+
+    public void add_default_referee_permission(){
+        list_Permissions.add(PermissionAction.update_event);
+    }
+
+    /**
+     * @param action
+     */
+    public void add_permissions(PermissionAction action){
+        list_Permissions.add(action);
+    }
+
+    /*
+     * @param action
+     */
+    public void remove_permissions(PermissionAction action){
+        if(list_Permissions.contains(action)) {
+            list_Permissions.remove(action);
+        }
     }
 
 
     /**
      * @param action
-     * @param zero_or_one
+     * @return true if has permission
      */
-    public void edit_permissions(Action action, Integer zero_or_one){
-        list_Permissions.put(action,zero_or_one);
+    public boolean check_permissions(PermissionAction action){
+        return list_Permissions.contains(action);
     }
-
-    /**
-     * @param action
-     * @return 1 if has permission
-     */
-    public Integer check_permissions(Action action){
-        return list_Permissions.get(action);
-    }
-
 
 }

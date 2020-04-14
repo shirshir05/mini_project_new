@@ -1,85 +1,56 @@
 package Busnies_Servic.Business_Layer.Game;
 
+import Busnies_Servic.PermissionAction;
+import Busnies_Servic.ActionStatus;
 import Busnies_Servic.Business_Layer.TeamManagement.Team;
 import Busnies_Servic.Business_Layer.UserManagement.Player;
 import Busnies_Servic.EventType;
 
-import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 public class Event {
-    EventType event_type;
+    EventType eventType;
     Player player;
     Team team;
+    LocalDateTime eventTime;
 
     /**
-     * Enemt comstructor
-     * @param t is the team that is related to the event
+     * event constructor
      */
-    public Event(Team t){
-        team=t;
-        event_type=get_event_type_from_user();
-        player=get_player_name_from_user();
-        if (player==null){
-            System.out.println("This player don't play in this team");
+    public Event(Team arg_team, EventType arg_event_type, Player arg_player){
+        team=arg_team;
+        eventType =arg_event_type;
+        if (arg_team.returnPlayer(arg_player.getUserName())!=null){
+            player=arg_player;
         }
-    }
-
-    /**
-     * This function gets from the user the event-type he wants to report on
-     * @return the event-type he chose.
-     */
-    public Player get_player_name_from_user(){
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter player name");
-        String player_name = scan.nextLine();
-        return team.return_player(player_name);
-    }
-
-
-    /**
-     * This function gets from the user the event-type he wants to report on
-     * @return the event-type he chose.
-     */
-    public EventType get_event_type_from_user(){
-        Scanner scan = new Scanner(System.in);
-        EventType type_chosen = null;
-        System.out.println("Choose event type:");
-        System.out.println("1 - Goal");
-        System.out.println("2- Offside:");
-        System.out.println("3 - Foul:");
-        System.out.println("4 - Red Ticket");
-        System.out.println("5 - Yellow Ticket");
-        System.out.println("6 - Injury");
-        System.out.println("7 - player replacement:");
-        int choose = scan.nextInt();
-        switch (choose) {
-            case 1:
-                type_chosen=EventType.goal;
-                break;
-            case 2:
-                type_chosen=EventType.offside;
-                break;
-            case 3:
-                type_chosen=EventType.foul;
-                break;
-            case 4:
-                type_chosen=EventType.red_ticket;
-                break;
-            case 5:
-                type_chosen=EventType.yellow_ticket;
-                break;
-            case 6:
-                type_chosen=EventType.injury;
-                break;
-            case 7:
-                type_chosen=EventType.player_replacement;
-                break;
+        else{
+            player=null;
+            //todo - change to ActionStatus, cant print from business layer
+            System.out.println("The player is not a part of the team!");
         }
-        return type_chosen;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        eventTime = LocalDateTime.now();
     }
 
-    public String event_to_string(){
-        return event_type+" for player:"+player.getUser_name()+" from team:"+ team.getName();
+    public ActionStatus editEvent(LocalDateTime endOfGameTime){
+        //TODO - can we add pointer to the game in the event to check the time?
+        ActionStatus ac = null;
+        if(ChronoUnit.MINUTES.between(endOfGameTime,LocalDateTime.now())<=300){
+            //TODO - add edit options
+
+            ac = new ActionStatus(true,"the change was made");
+        }
+        else{
+            ac = new ActionStatus(false,"you can not edit the event 5 hours from the end of the game");
+        }
+        return ac;
+    }
+
+    public String eventToString(){
+        return eventType +" for player:"+player.getUserName()+" from team:"+ team.getName();
     }
 
 }

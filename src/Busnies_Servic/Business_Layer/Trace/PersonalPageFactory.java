@@ -1,18 +1,25 @@
 package Busnies_Servic.Business_Layer.Trace;
 
+import DB_Layer.logger;
+
 public class PersonalPageFactory{
 
-    public PersonalPage Create(String page_name, String type){
+    public PersonalPage Create(String subject_name, String type, String page_owner_name){
+        PersonalPage p = null;
         if (type.equals("PlayerPersonalPage")) {
-            return new PlayerPersonalPage(page_name);
+            p = new PlayerPersonalPage(subject_name);
+            p.addPageOwner(page_owner_name);
         }
         else if(type.equals("TeamPersonalPage")) {
-            return new TeamPersonalPage(page_name);
+            p = new TeamPersonalPage(subject_name);
+            p.addPageOwner(page_owner_name);
         }
         else if(type.equals("CoachPersonalPage")) {
-            return new CoachPersonalPage(page_name);
+            p = new CoachPersonalPage(subject_name);
+            p.addPageOwner(page_owner_name);
         }
-        return null;
+        logger.log("PersonalPageFactory: new personal page was created: " +(p!=null) + " ,page name: "+ subject_name + " ,type: " + type + " ,owner: "+ page_owner_name);
+        return p;
     }
 }
 

@@ -1,39 +1,56 @@
 package Busnies_Servic.Business_Layer.UserManagement;
+import Busnies_Servic.Role;
+import Presentation_Layer.Spelling;
+
 
 public class SubscriptionFactory {
 
 
-    public Subscription Create(String arg_user_name, String arg_password, int role){
-        if(role == 0 ){
-            return new Coach(arg_user_name,arg_password);
+    /**
+     * This function create Subscription by Role
+     * @param userName
+     * @param password
+     * @param role
+     * @return
+     */
+    public Subscription Create(String userName, String password, Role role,String email){
+        if(userName==null || password==null || role==null || userName.equals("") || password.equals("")) {
+            return null;
         }
-        else if (role ==1){
-            return new Fan(arg_user_name,arg_password);
+        if(role == Role.Coach ){
+            Spelling.updateDictionary("coach: " + userName);
+            return new Coach(userName,password, email);
         }
-        else if (role == 2){
-            return new Guest(arg_user_name,arg_password);
+        else if (role ==Role.Fan){
+            Spelling.updateDictionary("fan: " + userName);
+            return new Fan(userName,password, email);
         }
-        else if (role == 3){
-            return new Player(arg_user_name,arg_password);
+        else if (role == Role.Guest){
+            return new Guest(userName,password, email);
         }
-        else if (role == 4){
-            return new Referee(arg_user_name,arg_password);
+        else if (role == Role.Players){
+            Spelling.updateDictionary("player: " + userName);
+            return new Player(userName,password, email);
         }
-        else if (role == 5){
-            return new SystemAdministrator(arg_user_name,arg_password);
+        else if (role == Role.Referee){
+            Spelling.updateDictionary("referee: " + userName);
+            return new Referee(userName,password, email);
         }
-        else if (role == 6){
-            return new TeamManager(arg_user_name,arg_password);
+        else if (role == Role.SystemAdministrator){
+            Spelling.updateDictionary("systemAdministrator: " + userName);
+            return new SystemAdministrator(userName,password, email);
         }
-        else if (role == 7){
-            return new TeamOwner(arg_user_name,arg_password);
+        else if (role == Role.TeamManager){
+            Spelling.updateDictionary("teamManager: " + userName);
+            return new TeamManager(userName,password, email);
         }
-        else if (role == 8){
-            return new UnionRepresentative(arg_user_name,arg_password);
+        else if (role == Role.TeamOwner){
+            Spelling.updateDictionary("teamOwner: " + userName);
+            return new TeamOwner(userName,password, email);
         }
-        return null;
+        //else if (role == Role.UnionRepresentative){
+       // }
+        Spelling.updateDictionary("unionRepresentative: " + userName);
+        return new UnionRepresentative(userName,password, email);
     }
-
-
-
 }

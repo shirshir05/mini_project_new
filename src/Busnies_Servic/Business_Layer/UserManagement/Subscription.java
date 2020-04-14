@@ -1,66 +1,132 @@
 package Busnies_Servic.Business_Layer.UserManagement;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Observable;
-import java.util.Observer;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.util.*;
+
 
 public abstract class Subscription {
-    protected String user_name;
-    public String password;
-    protected String name;
+    protected String userName;
+    private String password;
     public Permissions permissions;
+    public String email;
+    protected String name;
+    protected HashSet<String> searchHistory;
+
+
     protected HashSet<String> alerts = new HashSet<>();
 
-    public Subscription(String arg_user_name, String arg_password){
-        user_name=arg_user_name;
-        password=arg_password;
+    public Subscription(String argUserName, String argPassword,String email){
+        userName=argUserName;
+        password = getHash(argPassword);
         permissions = new Permissions();
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUser_name() {
-        return user_name;
-    }
-    public String get_name() {
-        return name;
+        this.email = email;
+        searchHistory =new HashSet<>();
     }
 
     /**
-     * This function prints the subscription alerts
+     * This function returns the hash of the password
      */
-    public void printAlerts(){
-        for (String alert : alerts){
-            System.out.println(alert);
+    private String getHash(String password){
+        String sha1 = "";
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
+            digest.reset();
+            digest.update(password.getBytes("utf8"));
+            sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
+        } catch (Exception e){
+            e.printStackTrace();
         }
+        return sha1;
     }
 
+    /**
+     * This function returns the subscription alerts
+     */
+    public String getAlerts(){
+        String ans = "";
+        for (String alert : alerts){
+            ans = ans + alert +"\n";
+        }
+        return ans;
+    }
+
+    /**
+     * Thif function equal Subscription by user_name
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Subscription that = (Subscription) o;
-        return Objects.equals(user_name, that.user_name);
+        return Objects.equals(userName, that.userName);
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Permissions getPermissions() {
         return permissions;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(user_name);
+    public void setPassword(String password) {
+        this.password = getHash(password);
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String name) {
+        this.userName = name;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword(){
+        return password;
+    }
+
+    public void addAlert(String s){alerts.add(s);}
+
+    public String sendEMail(String mailto, String mail){
+        return "Send to: "+mailto+" From: "+this.email+" Mail: "+mail;
+    }
+
+    /**
+     * Add word to history
+     * @param word
+     */
+    public void addSearch(String word){
+        searchHistory.add(word);
+    }
+
+    /**
+     * return hash search
+     * @param
+     */
+    public HashSet<String> getSearch(){
+        return searchHistory;
+    }
+
+
+
+
 }
+
+
+
+

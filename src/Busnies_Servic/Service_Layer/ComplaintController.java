@@ -1,30 +1,52 @@
 package Busnies_Servic.Service_Layer;
 
+import Busnies_Servic.ActionStatus;
 import Busnies_Servic.Business_Layer.UserManagement.Complaint;
+import Busnies_Servic.Business_Layer.UserManagement.Fan;
+import Busnies_Servic.Business_Layer.UserManagement.Subscription;
+import DB_Layer.logger;
 
-import java.util.Scanner;
 
-public class ComplaintController extends LogicManagement{
-    Complaint complaints;
+
+import java.util.ArrayList;
+
+public class ComplaintController{
+
+    // TODO permissions?
+
+    private static ArrayList<Complaint> complaints;
 
     /**
-     * The controller constructor
-     * @param c is a complaint
+     * This method adds a complaint by a user.
+     * @param fan the fan who created the complaint
      */
-    public ComplaintController(Complaint c){
-        complaints=c;
-    };
+    public static ActionStatus addComplaint(String complaintDescription, Fan fan){
+        ActionStatus AC = null;
+        if(complaintDescription == null || complaintDescription.isEmpty()) {
+            AC = new ActionStatus(false, "Complaint cannot be empty");
+        }
+        else {
+            if (complaints == null)
+                complaints = new ArrayList<>();
+            Complaint c = new Complaint(complaintDescription);
+            fan.addComplaint(c);
+            complaints.add(c);
+            AC = new ActionStatus(true, "Complaint added successfully");
+        }
+        logger.log("Add Complaint of user : "+ fan.getName() +" "+AC.getDescription());
+        return AC;
+    }
 
     /**
-     * This function adds a complaint to the complaints list
-     *
+     * for the use of the system manager, to read all the complaints in the system
+     * @return a list of all the complaints
      */
-    public void add_complaint(){
-        Scanner complaint_scan = new Scanner (System.in);
-        System.out.println("Enter tour complaint:");
-        String complaint_description="";
-        complaint_description+=complaint_scan.nextLine();
-        complaints.updateComplaint(complaint_description);
+    public static ArrayList<Complaint> getComplaints() {
+        return complaints;
+    }
+
+    public void add_complaint(String complaint_description){
+        DataManagement.setComplaint(complaint_description);
     }
 
 
