@@ -1,6 +1,7 @@
 package Busnies_Servic.Business_Layer.BudgetManagement;
 
 import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -9,539 +10,115 @@ import java.util.Collection;
 
 import static org.junit.Assert.*;
 
+@RunWith(Enclosed.class)
 public class BudgetRegulationsTest {
 
     /**
      * Test - BR1
      */
     @RunWith(Parameterized.class)
-    public static class checkPlayerSalary{
-        //parameter
+    public static class SalaryBudgetTest {
 
+        double max;
+        double min;
+        double salary;
+        boolean correct;
 
         @Parameterized.Parameters
         public static Collection<Object[]> data() {
             return Arrays.asList(new Object[][]{
-
-
+                    {100, 0, 50, true}, {100, 0, 100, true}, {100, 0, 0, true}, {0, 0, 0, true}, {10.5, 10.0, 10.2, true},
+                    {100, 50, 200, false}, {100, 50, 10, false}, {100, 0, 100.1, false}
             });
         }
-        public checkPlayerSalary() {
-            //parameter
+
+        public SalaryBudgetTest(double max, double min, double salary, boolean correct){
+            this.max = max;
+            this.min = min;
+            this.salary = salary;
+            this.correct = correct;
         }
+
         @Test
-        public void checkPlayerSalaryTest1() {
+        public void SalaryBudgetTest1() {
+            BudgetRegulations.setMaxPlayerSalary(max);
+            BudgetRegulations.setMinPlayerSalary(min);
+            assertEquals(BudgetRegulations.checkPlayerSalary(salary), correct);
 
         }
 
-    }//checkPlayerSalary
+        @Test
+        public void SalaryBudgetTest2() {
+            BudgetRegulations.setMaxCoachSalary(max);
+            BudgetRegulations.setMinCoachSalary(min);
+            assertEquals(BudgetRegulations.checkCoachSalary(salary), correct);
+        }
 
+        @Test
+        public void SalaryBudgetTest3() {
+            BudgetRegulations.setMaxRefereeSalary(max);
+            BudgetRegulations.setMinRefereeSalary(min);
+            assertEquals(BudgetRegulations.checkRefereeSalary(salary), correct);
+        }
 
+        @Test
+        public void SalaryBudgetTest4() {
+            BudgetRegulations.setMaxUnionMemberSalary(max);
+            BudgetRegulations.setMinUnionMemberSalary(min);
+            assertEquals(BudgetRegulations.checkUnionMemberSalary(salary), correct);
+        }
 
+    }
 
     /**
      * Test - BR2
      */
     @RunWith(Parameterized.class)
-    public static class checkCoachSalary{
-        //parameter
+    public static class MaxBudgetTest {
 
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public checkCoachSalary() {
-            //parameter
-        }
-        @Test
-        public void checkCoachSalaryTest() {
-
-        }
-
-    }//checkCoachSalary
-
-
-    /**
-     * Test - BR3
-     */
-    @RunWith(Parameterized.class)
-    public static class checkMaintenanceExpense{
-        //parameter
-
+        double thisExpanse;
+        double prevExpanses;
+        double maxBudget;
+        boolean correct;
 
         @Parameterized.Parameters
         public static Collection<Object[]> data() {
             return Arrays.asList(new Object[][]{
-
-
+                    {10, 0, 50, true}, {100, 0, 100, true}, {0, 100, 100, true}, {0, 0, 0, true},
+                    {200, 50, 200, false}, {100, 50, 10, false}, {100, 0.2, 100.1, false}
             });
         }
-        public checkMaintenanceExpense() {
-            //parameter
+
+        public MaxBudgetTest(double thisExpanse, double prevExpanses, double maxBudget, boolean correct){
+            this.thisExpanse = thisExpanse;
+            this.prevExpanses = prevExpanses;
+            this.maxBudget = maxBudget;
+            this.correct = correct;
+        }
+
+        @Test
+        public void MaxBudgetTest1() {
+            BudgetRegulations.setMaxAdvertisementExpense(maxBudget);
+            assertEquals(BudgetRegulations.checkAdvertisementExpense(thisExpanse,prevExpanses), correct);
+
         }
         @Test
-        public void checkMaintenanceExpenseTest() {
+        public void MaxBudgetTest2() {
+            BudgetRegulations.setMaxMaintenanceExpense(maxBudget);
+            assertEquals(BudgetRegulations.checkMaintenanceExpense(thisExpanse,prevExpanses), correct);
 
-        }
-
-    }//checkMaintenanceExpense
-
-
-    /**
-     * Test - BR4
-     */
-    @RunWith(Parameterized.class)
-    public static class checkAdvertisementExpense{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public checkAdvertisementExpense() {
-            //parameter
         }
         @Test
-        public void checkAdvertisementExpenseTest() {
+        public void MaxBudgetTest3() {
+            BudgetRegulations.setMaxUniformExpense(maxBudget);
+            assertEquals(BudgetRegulations.checkUniformExpense(thisExpanse,prevExpanses), correct);
 
-        }
-
-    }//checkAdvertisementExpense
-
-
-    /**
-     * Test - BR5
-     */
-    @RunWith(Parameterized.class)
-    public static class checkUniformExpense{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public checkUniformExpense() {
-            //parameter
         }
         @Test
-        public void checkUniformExpenseExpenseTest() {
+        public void MaxBudgetTest4() {
+            BudgetRegulations.setMaxOtherExpense(maxBudget);
+            assertEquals(BudgetRegulations.checkOtherExpense(thisExpanse,prevExpanses), correct);
 
         }
-
-    }//checkUniformExpense
-
-
-    /**
-     * Test - BR6
-     */
-    @RunWith(Parameterized.class)
-    public static class checkOtherExpense{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public checkOtherExpense() {
-            //parameter
-        }
-        @Test
-        public void checkOtherExpenseTest() {
-
-        }
-
-    }//checkOtherExpense
-
-
-
-    /**
-     * Test - BR7
-     */
-    @RunWith(Parameterized.class)
-    public static class checkRefereeSalary{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public checkRefereeSalary() {
-            //parameter
-        }
-        @Test
-        public void checkRefereeSalaryTest() {
-
-        }
-
-    }//checkRefereeSalary
-
-
-
-    /**
-     * Test - BR8
-     */
-    @RunWith(Parameterized.class)
-    public static class checkUnionMemberSalary{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public checkUnionMemberSalary() {
-            //parameter
-        }
-        @Test
-        public void checkUnionMemberSalaryTest() {
-
-        }
-
-    }//checkUnionMemberSalary
-
-
-
-
-    /**
-     * Test - BR9
-     */
-    @RunWith(Parameterized.class)
-    public static class setMaxPlayerSalary{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public setMaxPlayerSalary() {
-            //parameter
-        }
-        @Test
-        public void setMaxPlayerSalaryTest() {
-
-        }
-
-    }//setMaxPlayerSalary
-
-    /**
-     * Test - BR10
-     */
-    @RunWith(Parameterized.class)
-    public static class setMinPlayerSalary{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public setMinPlayerSalary() {
-            //parameter
-        }
-        @Test
-        public void setMinPlayerSalaryTest() {
-
-        }
-
-    }//setMinPlayerSalary
-
-
-    /**
-     * Test - BR11
-     */
-    @RunWith(Parameterized.class)
-    public static class setMaxCoachSalary{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public setMaxCoachSalary() {
-            //parameter
-        }
-        @Test
-        public void setMaxCoachSalaryTest() {
-
-        }
-
-    }//setMaxCoachSalary
-
-
-
-    /**
-     * Test - BR12
-     */
-    @RunWith(Parameterized.class)
-    public static class setMinCoachSalary{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public setMinCoachSalary() {
-            //parameter
-        }
-        @Test
-        public void setMinCoachSalaryTest() {
-
-        }
-
-    }//setMinCoachSalary
-
-    /**
-     * Test - BR13
-     */
-    @RunWith(Parameterized.class)
-    public static class setMaxMaintenanceExpense{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public setMaxMaintenanceExpense() {
-            //parameter
-        }
-        @Test
-        public void setMaxMaintenanceExpenseTest() {
-
-        }
-
-    }//setMaxMaintenanceExpense
-
-    /**
-     * Test - BR14
-     */
-    @RunWith(Parameterized.class)
-    public static class setMaxAdvertisementExpense{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public setMaxAdvertisementExpense() {
-            //parameter
-        }
-        @Test
-        public void setMaxAdvertisementExpenseTest() {
-
-        }
-
-    }//setMaxAdvertisementExpense
-
-
-    /**
-     * Test - BR15
-     */
-    @RunWith(Parameterized.class)
-    public static class setMaxUniformExpense{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public setMaxUniformExpense() {
-            //parameter
-        }
-        @Test
-        public void setMaxUniformExpenseTest() {
-
-        }
-
-    }//setMaxUniformExpense
-
-
-    /**
-     * Test - BR16
-     */
-    @RunWith(Parameterized.class)
-    public static class setMaxOtherExpense{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public setMaxOtherExpense() {
-            //parameter
-        }
-        @Test
-        public void setMaxOtherExpenseTest() {
-
-        }
-
-    }//setMaxOtherExpense
-
-
-
-    /**
-     * Test - BR17
-     */
-    @RunWith(Parameterized.class)
-    public static class setMaxRefereeSalary{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public setMaxRefereeSalary() {
-            //parameter
-        }
-        @Test
-        public void setMaxRefereeSalaryTest() {
-
-        }
-
-    }//setMaxRefereeSalary
-
-
-
-
-    /**
-     * Test - BR18
-     */
-    @RunWith(Parameterized.class)
-    public static class setMinRefereeSalary{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public setMinRefereeSalary() {
-            //parameter
-        }
-        @Test
-        public void setMinRefereeSalaryTest() {
-
-        }
-
-    }//setMinRefereeSalary
-
-
-
-    /**
-     * Test - BR19
-     */
-    @RunWith(Parameterized.class)
-    public static class setMaxUnionMemberSalary{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public setMaxUnionMemberSalary() {
-            //parameter
-        }
-        @Test
-        public void setMaxUnionMemberSalaryTest() {
-
-        }
-
-    }//setMaxUnionMemberSalary
-
-
-    /**
-     * Test - BR20
-     */
-    @RunWith(Parameterized.class)
-    public static class setMinUnionMemberSalary{
-        //parameter
-
-
-        @Parameterized.Parameters
-        public static Collection<Object[]> data() {
-            return Arrays.asList(new Object[][]{
-
-
-            });
-        }
-        public setMinUnionMemberSalary() {
-            //parameter
-        }
-        @Test
-        public void setMinUnionMemberSalaryTest() {
-
-        }
-
-    }//setMinUnionMemberSalary
-
-
-
-
-
-
-
+    }
 }

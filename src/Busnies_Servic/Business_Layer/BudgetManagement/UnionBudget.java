@@ -21,9 +21,8 @@ public class UnionBudget implements IBudget {
 
     @Override
     public ActionStatus addExpense(double expense, Expense description) {
-        if(expense <= 0)
+        if(expense < 0)
             return new ActionStatus(false,"An expense should be a positive amount");
-        ActionStatus tempAS;
         switch(description){
             case RefereeSalary:
                 return statusToReturn(BudgetRegulations.checkRefereeSalary(expense),expense,"Salary is not within limits");
@@ -35,7 +34,7 @@ public class UnionBudget implements IBudget {
 
     @Override
     public ActionStatus addIncome(double income, Income description) {
-        if(income <= 0)
+        if(income < 0)
             return new ActionStatus(false,"An income should be a positive amount");
         updateAmount(income);
         return new ActionStatus(true,"Income updated");
