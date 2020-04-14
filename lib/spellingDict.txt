@@ -1,16 +1,21 @@
-coach: person
-fan: person
-player: person
-referee: person
-systemAdministrator: person
-teamManager: person
-teamOwner: person
-unionRepresentative: person
-coach: person
-fan: person
-player: person
-referee: person
-systemAdministrator: person
-teamManager: person
-teamOwner: person
-unionRepresentative: person
+hello
+michal
+shir
+ortal
+raz
+matan
+people
+coach
+player
+team
+manager
+teams
+game
+referee
+fan
+owner
+union
+
+this is my name
+this is my name
+this is my name
